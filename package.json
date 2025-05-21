@@ -1,0 +1,21 @@
+{
+  "name": "publicode-schema",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "fluent-json-schema": "^6.0.0",
+    "yaml": "^2.8.0"
+  },
+  "scripts": {
+    "validate": "bun run ./scripts/validate-file.ts",
+    "gen": "bun run ./src/index.ts"
+  }
+}

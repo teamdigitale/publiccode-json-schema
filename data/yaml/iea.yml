@@ -1,0 +1,29 @@
+publiccodeYmlVersion: "0.4"
+name: aaaaaa
+url: https://www.iea.org/reports/global-energy-review-2020/oil#abstract
+platforms:
+  - web
+categories:
+  - accounting
+developmentStatus: concept
+softwareType: standalone/mobile
+description:
+  it-IT:
+    shortDescription: La breve descrizione del software. Dovrebbe essere una singola
+      linea contenente una singola frase.
+    longDescription: >-
+      La breve descrizione del software. Dovrebbe essere una singola linea
+      contenente una singola frase.
+
+      La breve descrizione del software. Dovrebbe essere una singola linea
+      contenente una singola frase.
+    features:
+      - aaa
+legal:
+  license: MIT
+maintenance:
+  type: internal
+localisation:
+  localisationReady: false
+  availableLanguages:
+    - aa-DJ

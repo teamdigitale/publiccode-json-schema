@@ -1,0 +1,38 @@
+publiccodeYmlVersion: "0.4"
+name: iea.org/reports/global-energy-review
+url: https://www.iea.org/reports/global-energy-review-2020/oil#abstract
+platforms:
+  - web
+categories:
+  - agile-project-management
+developmentStatus: obsolete
+softwareType: standalone/iot
+description:
+  it-IT:
+    shortDescription: https://www.iea.org/reports/global-energy-review-2020/oil#abstract
+    longDescription: |-
+      https://www.iea.org/reports/global-energy-review-2020/oil#abstract
+      https://www.iea.org/reports/global-energy-review-2020/oil#abstract
+      https://www.iea.org/reports/global-energy-review-2020/oil#abstract
+    features:
+      - iea
+legal:
+  license: MIT
+maintenance:
+  type: contract
+localisation:
+  localisationReady: false
+  availableLanguages:
+    - aa
+it:
+  countryExtensionVersion: "1.0"
+  conforme:
+    lineeGuidaDesign: false
+    modelloInteroperabilita: false
+    misureMinimeSicurezza: false
+    gdpr: false
+  piattaforme:
+    spid: false
+    cie: false
+    anpr: false
+    pagopa: false

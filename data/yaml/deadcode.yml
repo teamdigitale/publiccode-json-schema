@@ -1,0 +1,35 @@
+publiccodeYmlVersion: "0.3"
+name: deadcode
+url: ""
+releaseDate: 2024-06-18
+platforms:
+  - web
+categories:
+  - application-development
+developmentStatus: concept
+softwareType: standalone/web
+description:
+  it-IT:
+    genericName: deadcode
+    localisedName: deadcode
+    shortDescription: trova codice unused
+    longDescription: trova codice unused trova codice unusedtrova codice unusedtrova
+      codice unusedtrova codice unusedtrova codice unusedtrova codice
+      unusedtrova codice unusedtrova codice unused
+    features:
+      - trova codice unused
+legal:
+  license: AML
+maintenance:
+  type: community
+localisation:
+  localisationReady: true
+  availableLanguages:
+    - it
+it:
+  countryExtensionVersion: "1.0"
+  conforme:
+    lineeGuidaDesign: false
+    modelloInteroperabilita: true
+    misureMinimeSicurezza: true
+    gdpr: true
