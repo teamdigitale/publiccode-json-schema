@@ -1,0 +1,187 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "contact": {
+      "type": "object",
+      "$id": "#contact",
+      "additionalProperties": false,
+      "title": "Contact Information",
+      "description": "Schema for technical contact information",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "This key contains the full name of one of the technical contacts. It must be a real person; do NOT populate this key with generic contact information, company departments, associations, etc."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "This key contains the e-mail address of the technical contact. It must be an email address of where the technical contact can be directly reached; do NOT populate this key with mailing-lists or generic contact points like \"info@acme.inc\". The e-mail address must not be obfuscated. To improve resistance against e-mail collection, use \\x64 to replace @, as allowed by the YAML specification."
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number (with international prefix). This has to be a string."
+        },
+        "affiliation": {
+          "type": "string",
+          "description": "This key contains an explicit affiliation information for the technical contact. In case of multiple maintainers, this can be used to create a relation between each technical contact and each maintainer entity. It can contain for instance a company name, an association name, etc."
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "dependency": {
+      "type": "object",
+      "$id": "#dependency",
+      "additionalProperties": false,
+      "title": "Dependency",
+      "description": "Schema for Dependencies information",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the dependency (e.g. MySQL, NFC Reader)"
+        },
+        "version": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "description": "The only major version for which the software is compatible. It assumes compatibility with all patches and bugfixes later applied to this version."
+        },
+        "versionMax": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "description": "The latest compatible version"
+        },
+        "versionMin": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "description": "The first compatible version"
+        },
+        "optional": {
+          "type": "boolean",
+          "description": "Whether the dependency is optional or mandatory"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "organisation": {
+      "type": "object",
+      "$id": "#organisation",
+      "title": "Organisation",
+      "description": "Schema for organisations information",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The canonical name of the organisation publishing the software."
+        },
+        "uri": {
+          "type": "string",
+          "format": "uri",
+          "description": "This key points to the maintainer website. It can either point to the main institutional website, or to a more project-specific page or website."
+        }
+      }
+    },
+    "contractor": {
+      "type": "object",
+      "$id": "#contractor",
+      "additionalProperties": false,
+      "title": "Contractor",
+      "description": "Schema for contractor information",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "This key contains the name of the contractor entity."
+        },
+        "until": {
+          "type": "string",
+          "format": "date",
+          "description": "End date of the contract"
+        },
+        "email": {
+          "type": "string",
+          "format": "date",
+          "description": "This key contains the e-mail address of the technical contact. It must be an email address of where the technical contact can be directly reached; do NOT populate this key with mailing-lists or generic contact points like 'info@acme.inc'. The e-mail address must not be obfuscated. To improve resistance against e-mail collection, use \\x64 to replace @, as allowed by the YAML specification."
+        },
+        "website": {
+          "type": "string",
+          "format": "uri",
+          "description": "This key points to the maintainer website. It can either point to the main institutional website, or to a more project-specific page or website."
+        }
+      },
+      "required": [
+        "name",
+        "until"
+      ]
+    }
+  },
+  "type": "object",
+  "$id": "publicode/root/v0.5.0",
+  "title": "PublicCode JSON Schema",
+  "description": "publiccode.yml is a metadata standard for repositories containing software developed or acquired by the Public Administration, aimed at making them easily discoverabile and thus reusable by other entities.\n\nBy including a publiccode.yml file in the root of a repository, and populating it with information about the software, technicians and civil servants can evaluate it. Automatic indexing tools can also be built, since the format is easily readable by both humans and machines.\n\npubliccode.yml is mandatory for all public software developed in Italy, according to the national guidelines: this enables the Developers Italia crawler to build the national software catalog. The standard is designed to be interoperable internationally, thus the country-specific keys are separated by the core part and are defined in specific sections that each government can rule.",
+  "properties": {
+    "publiccodeYmlVersion": {
+      "type": "string",
+      "enum": [
+        "0",
+        "0.2",
+        "0.2.0",
+        "0.2.1",
+        "0.2.2",
+        "0.3",
+        "0.3.0",
+        "0.4",
+        "0.4.0",
+        "0.5",
+        "0.5.0"
+      ]
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the software"
+    },
+    "applicationSuite": {
+      "type": "string",
+      "description": "The name of the application suite this software belongs to"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URL of the software"
+    },
+    "contacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#contact"
+      }
+    },
+    "organisation": {
+      "$ref": "organisation",
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "publiccodeYmlVersion",
+    "name",
+    "url"
+  ]
+}
