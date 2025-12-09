@@ -16,6 +16,7 @@
   },
   "scripts": {
     "validate": "bun run ./scripts/validate-file.ts",
-    "gen": "bun run ./src/index.ts"
+    "gen": "bun run ./src/index.ts",
+    "form": "bun run ./scripts/toFile.ts"
   }
 }

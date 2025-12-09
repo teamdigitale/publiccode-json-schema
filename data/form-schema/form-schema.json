@@ -1,0 +1,1153 @@
+{
+  "title": "PublicCode.yml Generator",
+  "description": "Generate a valid publiccode.yml file for your open source software project",
+  "groups": [
+    {
+      "title": "Basic Information",
+      "description": "Essential information about your software",
+      "id": "basic",
+      "order": 1
+    },
+    {
+      "title": "Classification",
+      "description": "Categorize your software",
+      "id": "classification",
+      "order": 2
+    },
+    {
+      "title": "Description",
+      "description": "Detailed description of your software",
+      "id": "description",
+      "order": 3
+    },
+    {
+      "id": "legal",
+      "title": "Legal Information",
+      "description": "License and copyright information",
+      "order": 4
+    },
+    {
+      "title": "Maintenance",
+      "description": "Maintenance and contact information",
+      "id": "maintenance",
+      "order": 5
+    },
+    {
+      "title": "Localisation",
+      "description": "Language and localisation settings",
+      "id": "localisation",
+      "order": 6
+    },
+    {
+      "title": "Intended Audience",
+      "description": "Target audience and scope",
+      "id": "intended",
+      "order": 7
+    }
+  ],
+  "fields": [
+    {
+      "id": "publiccodeYmlVersion",
+      "type": "select",
+      "label": "PublicCode.yml Version",
+      "group": "basic",
+      "options": [
+        {
+          "value": "0",
+          "label": "0",
+          "selected": true
+        },
+        {
+          "value": "0.2",
+          "label": "0.2",
+          "selected": false
+        },
+        {
+          "value": "0.2.0",
+          "label": "0.2.0",
+          "selected": false
+        },
+        {
+          "value": "0.2.1",
+          "label": "0.2.1",
+          "selected": false
+        },
+        {
+          "value": "0.2.2",
+          "label": "0.2.2",
+          "selected": false
+        },
+        {
+          "value": "0.3",
+          "label": "0.3",
+          "selected": false
+        },
+        {
+          "value": "0.3.0",
+          "label": "0.3.0",
+          "selected": false
+        },
+        {
+          "value": "0.4",
+          "label": "0.4",
+          "selected": false
+        },
+        {
+          "value": "0.4.0",
+          "label": "0.4.0",
+          "selected": false
+        },
+        {
+          "value": "0.5",
+          "label": "0.5",
+          "selected": false
+        },
+        {
+          "value": "0.5.0",
+          "label": "0.5.0",
+          "selected": false
+        }
+      ],
+      "validation": {
+        "required": true
+      },
+      "helpText": "Version of the publiccode.yml standard"
+    },
+    {
+      "id": "name",
+      "type": "text",
+      "label": "Software Name",
+      "group": "basic",
+      "placeholder": "Enter the public name of your software",
+      "validation": {
+        "required": true,
+        "minLength": 2,
+        "maxLength": 100,
+        "customMessage": "Software name is required and must be between 2-100 characters"
+      },
+      "helpText": "The public name most people refer to your software"
+    },
+    {
+      "id": "applicationSuite",
+      "type": "text",
+      "label": "Application Suite",
+      "group": "basic",
+      "placeholder": "e.g., Office Suite, Developer Tools",
+      "validation": {
+        "maxLength": 100
+      },
+      "helpText": "Optional: The suite to which this software belongs"
+    },
+    {
+      "id": "url",
+      "type": "text",
+      "label": "Repository URL",
+      "group": "basic",
+      "placeholder": "https://github.com/organization/repository",
+      "validation": {
+        "required": true,
+        "url": true,
+        "customMessage": "Please enter a valid repository URL"
+      },
+      "helpText": "URL to the source code repository (git, svn, etc.)"
+    },
+    {
+      "id": "landingURL",
+      "type": "text",
+      "label": "Landing Page URL",
+      "group": "basic",
+      "placeholder": "https://example.com/software",
+      "validation": {
+        "url": true
+      },
+      "helpText": "Optional: User-friendly landing page for your software"
+    },
+    {
+      "id": "softwareVersion",
+      "type": "text",
+      "label": "Software Version",
+      "group": "basic",
+      "placeholder": "1.0.0",
+      "validation": {
+        "maxLength": 50
+      },
+      "helpText": "Latest stable version number"
+    },
+    {
+      "id": "releaseDate",
+      "type": "date",
+      "label": "Release Date",
+      "group": "basic",
+      "validation": {
+        "maxDate": "2025-12-09",
+        "customMessage": "Release date cannot be in the future"
+      },
+      "helpText": "Date of the latest release"
+    },
+    {
+      "id": "platforms",
+      "type": "multiselect",
+      "label": "Platforms",
+      "group": "classification",
+      "options": [
+        {
+          "value": "web",
+          "label": "web"
+        },
+        {
+          "value": "windows",
+          "label": "windows"
+        },
+        {
+          "value": "mac",
+          "label": "mac"
+        },
+        {
+          "value": "linux",
+          "label": "linux"
+        },
+        {
+          "value": "ios",
+          "label": "ios"
+        },
+        {
+          "value": "android",
+          "label": "android"
+        }
+      ],
+      "validation": {
+        "minSelection": 1,
+        "customMessage": "Select at least one platform"
+      },
+      "helpText": "Platforms where users can access your software"
+    },
+    {
+      "id": "categories",
+      "type": "multiselect",
+      "label": "Categories",
+      "group": "classification",
+      "options": [
+        {
+          "value": "accounting",
+          "label": "accounting"
+        },
+        {
+          "value": "agile-project-management",
+          "label": "agile-project-management"
+        },
+        {
+          "value": "applicant-tracking",
+          "label": "applicant-tracking"
+        },
+        {
+          "value": "application-development",
+          "label": "application-development"
+        },
+        {
+          "value": "appointment-scheduling",
+          "label": "appointment-scheduling"
+        },
+        {
+          "value": "backup",
+          "label": "backup"
+        },
+        {
+          "value": "billing-and-invoicing",
+          "label": "billing-and-invoicing"
+        },
+        {
+          "value": "blog",
+          "label": "blog"
+        },
+        {
+          "value": "budgeting",
+          "label": "budgeting"
+        },
+        {
+          "value": "business-intelligence",
+          "label": "business-intelligence"
+        },
+        {
+          "value": "business-process-management",
+          "label": "business-process-management"
+        },
+        {
+          "value": "cad",
+          "label": "cad"
+        },
+        {
+          "value": "call-center-management",
+          "label": "call-center-management"
+        },
+        {
+          "value": "cloud-management",
+          "label": "cloud-management"
+        },
+        {
+          "value": "collaboration",
+          "label": "collaboration"
+        },
+        {
+          "value": "communications",
+          "label": "communications"
+        },
+        {
+          "value": "compliance-management",
+          "label": "compliance-management"
+        },
+        {
+          "value": "contact-management",
+          "label": "contact-management"
+        },
+        {
+          "value": "content-management",
+          "label": "content-management"
+        },
+        {
+          "value": "crm",
+          "label": "crm"
+        },
+        {
+          "value": "customer-service-and-support",
+          "label": "customer-service-and-support"
+        },
+        {
+          "value": "data-analytics",
+          "label": "data-analytics"
+        },
+        {
+          "value": "data-collection",
+          "label": "data-collection"
+        },
+        {
+          "value": "data-visualization",
+          "label": "data-visualization"
+        },
+        {
+          "value": "design",
+          "label": "design"
+        },
+        {
+          "value": "design-system",
+          "label": "design-system"
+        },
+        {
+          "value": "digital-asset-management",
+          "label": "digital-asset-management"
+        },
+        {
+          "value": "digital-citizenship",
+          "label": "digital-citizenship"
+        },
+        {
+          "value": "document-management",
+          "label": "document-management"
+        },
+        {
+          "value": "donor-management",
+          "label": "donor-management"
+        },
+        {
+          "value": "e-commerce",
+          "label": "e-commerce"
+        },
+        {
+          "value": "e-signature",
+          "label": "e-signature"
+        },
+        {
+          "value": "educational-content",
+          "label": "educational-content"
+        },
+        {
+          "value": "email-management",
+          "label": "email-management"
+        },
+        {
+          "value": "email-marketing",
+          "label": "email-marketing"
+        },
+        {
+          "value": "employee-management",
+          "label": "employee-management"
+        },
+        {
+          "value": "enterprise-project-management",
+          "label": "enterprise-project-management"
+        },
+        {
+          "value": "enterprise-social-networking",
+          "label": "enterprise-social-networking"
+        },
+        {
+          "value": "erp",
+          "label": "erp"
+        },
+        {
+          "value": "event-management",
+          "label": "event-management"
+        },
+        {
+          "value": "facility-management",
+          "label": "facility-management"
+        },
+        {
+          "value": "feedback-and-reviews-management",
+          "label": "feedback-and-reviews-management"
+        },
+        {
+          "value": "financial-reporting",
+          "label": "financial-reporting"
+        },
+        {
+          "value": "fleet-management",
+          "label": "fleet-management"
+        },
+        {
+          "value": "fundraising",
+          "label": "fundraising"
+        },
+        {
+          "value": "gamification",
+          "label": "gamification"
+        },
+        {
+          "value": "geographic-information-systems",
+          "label": "geographic-information-systems"
+        },
+        {
+          "value": "grant-management",
+          "label": "grant-management"
+        },
+        {
+          "value": "graphic-design",
+          "label": "graphic-design"
+        },
+        {
+          "value": "help-desk",
+          "label": "help-desk"
+        },
+        {
+          "value": "hr",
+          "label": "hr"
+        },
+        {
+          "value": "ide",
+          "label": "ide"
+        },
+        {
+          "value": "identity-management",
+          "label": "identity-management"
+        },
+        {
+          "value": "instant-messaging",
+          "label": "instant-messaging"
+        },
+        {
+          "value": "integrated-library-system",
+          "label": "integrated-library-system"
+        },
+        {
+          "value": "inventory-management",
+          "label": "inventory-management"
+        },
+        {
+          "value": "it-asset-management",
+          "label": "it-asset-management"
+        },
+        {
+          "value": "it-development",
+          "label": "it-development"
+        },
+        {
+          "value": "it-management",
+          "label": "it-management"
+        },
+        {
+          "value": "it-security",
+          "label": "it-security"
+        },
+        {
+          "value": "it-service-management",
+          "label": "it-service-management"
+        },
+        {
+          "value": "knowledge-management",
+          "label": "knowledge-management"
+        },
+        {
+          "value": "learning-management-system",
+          "label": "learning-management-system"
+        },
+        {
+          "value": "marketing",
+          "label": "marketing"
+        },
+        {
+          "value": "mind-mapping",
+          "label": "mind-mapping"
+        },
+        {
+          "value": "mobile-marketing",
+          "label": "mobile-marketing"
+        },
+        {
+          "value": "mobile-payment",
+          "label": "mobile-payment"
+        },
+        {
+          "value": "network-management",
+          "label": "network-management"
+        },
+        {
+          "value": "office",
+          "label": "office"
+        },
+        {
+          "value": "online-booking",
+          "label": "online-booking"
+        },
+        {
+          "value": "online-community",
+          "label": "online-community"
+        },
+        {
+          "value": "payment-gateway",
+          "label": "payment-gateway"
+        },
+        {
+          "value": "payroll",
+          "label": "payroll"
+        },
+        {
+          "value": "predictive-analysis",
+          "label": "predictive-analysis"
+        },
+        {
+          "value": "procurement",
+          "label": "procurement"
+        },
+        {
+          "value": "productivity-suite",
+          "label": "productivity-suite"
+        },
+        {
+          "value": "project-collaboration",
+          "label": "project-collaboration"
+        },
+        {
+          "value": "project-management",
+          "label": "project-management"
+        },
+        {
+          "value": "property-management",
+          "label": "property-management"
+        },
+        {
+          "value": "real-estate-management",
+          "label": "real-estate-management"
+        },
+        {
+          "value": "regulations-and-directives",
+          "label": "regulations-and-directives"
+        },
+        {
+          "value": "remote-support",
+          "label": "remote-support"
+        },
+        {
+          "value": "resource-management",
+          "label": "resource-management"
+        },
+        {
+          "value": "sales-management",
+          "label": "sales-management"
+        },
+        {
+          "value": "seo",
+          "label": "seo"
+        },
+        {
+          "value": "service-desk",
+          "label": "service-desk"
+        },
+        {
+          "value": "social-media-management",
+          "label": "social-media-management"
+        },
+        {
+          "value": "survey",
+          "label": "survey"
+        },
+        {
+          "value": "talent-management",
+          "label": "talent-management"
+        },
+        {
+          "value": "task-management",
+          "label": "task-management"
+        },
+        {
+          "value": "taxes-management",
+          "label": "taxes-management"
+        },
+        {
+          "value": "test-management",
+          "label": "test-management"
+        },
+        {
+          "value": "time-management",
+          "label": "time-management"
+        },
+        {
+          "value": "time-tracking",
+          "label": "time-tracking"
+        },
+        {
+          "value": "translation",
+          "label": "translation"
+        },
+        {
+          "value": "video-conferencing",
+          "label": "video-conferencing"
+        },
+        {
+          "value": "video-editing",
+          "label": "video-editing"
+        },
+        {
+          "value": "visitor-management",
+          "label": "visitor-management"
+        },
+        {
+          "value": "voip",
+          "label": "voip"
+        },
+        {
+          "value": "warehouse-management",
+          "label": "warehouse-management"
+        },
+        {
+          "value": "web-collaboration",
+          "label": "web-collaboration"
+        },
+        {
+          "value": "web-conferencing",
+          "label": "web-conferencing"
+        },
+        {
+          "value": "website-builder",
+          "label": "website-builder"
+        },
+        {
+          "value": "whistleblowing",
+          "label": "whistleblowing"
+        },
+        {
+          "value": "workflow-management",
+          "label": "workflow-management"
+        },
+        {
+          "value": "other",
+          "label": "other"
+        }
+      ],
+      "validation": {
+        "minSelection": 1,
+        "customMessage": "Select at least one category"
+      },
+      "helpText": "Categories that describe your software"
+    },
+    {
+      "id": "developmentStatus",
+      "type": "select",
+      "label": "Development Status",
+      "group": "classification",
+      "options": [
+        {
+          "value": "concept",
+          "label": "concept"
+        },
+        {
+          "value": "development",
+          "label": "development"
+        },
+        {
+          "value": "beta",
+          "label": "beta"
+        },
+        {
+          "value": "stable",
+          "label": "stable"
+        },
+        {
+          "value": "obsolete",
+          "label": "obsolete"
+        }
+      ],
+      "validation": {
+        "required": true
+      },
+      "helpText": "Current development status of the software"
+    },
+    {
+      "id": "softwareType",
+      "type": "select",
+      "label": "Software Type",
+      "group": "classification",
+      "options": [
+        {
+          "value": "standalone/mobile",
+          "label": "standalone/mobile"
+        },
+        {
+          "value": "standalone/iot",
+          "label": "standalone/iot"
+        },
+        {
+          "value": "standalone/desktop",
+          "label": "standalone/desktop"
+        },
+        {
+          "value": "standalone/web",
+          "label": "standalone/web"
+        },
+        {
+          "value": "standalone/backend",
+          "label": "standalone/backend"
+        },
+        {
+          "value": "standalone/other",
+          "label": "standalone/other"
+        },
+        {
+          "value": "addon",
+          "label": "addon"
+        },
+        {
+          "value": "library",
+          "label": "library"
+        },
+        {
+          "value": "configurationFiles",
+          "label": "configurationFiles"
+        }
+      ],
+      "validation": {
+        "required": true
+      },
+      "helpText": "Type of software"
+    },
+    {
+      "id": "description_locale",
+      "type": "select",
+      "label": "Description Language",
+      "group": "description",
+      "options": [
+        {
+          "value": "en",
+          "label": "English"
+        },
+        {
+          "value": "it",
+          "label": "Italian"
+        },
+        {
+          "value": "de",
+          "label": "German"
+        },
+        {
+          "value": "fr",
+          "label": "French"
+        },
+        {
+          "value": "es",
+          "label": "Spanish"
+        },
+        {
+          "value": "pt",
+          "label": "Portuguese"
+        },
+        {
+          "value": "nl",
+          "label": "Dutch"
+        },
+        {
+          "value": "pl",
+          "label": "Polish"
+        }
+      ],
+      "validation": {
+        "required": true
+      },
+      "helpText": "Primary language for the description"
+    },
+    {
+      "id": "description_shortDescription",
+      "type": "text",
+      "label": "Short Description",
+      "group": "description",
+      "placeholder": "A concise one-line description",
+      "validation": {
+        "required": true,
+        "maxLength": 150,
+        "customMessage": "Short description is required (max 150 characters)"
+      },
+      "helpText": "Single sentence describing your software (max 150 chars)"
+    },
+    {
+      "id": "description_longDescription",
+      "type": "textarea",
+      "label": "Long Description",
+      "group": "description",
+      "placeholder": "Detailed description of your software, its capabilities and features...",
+      "validation": {
+        "required": true,
+        "minLength": 150,
+        "maxLength": 10000,
+        "customMessage": "Long description must be between 150-10000 characters"
+      },
+      "helpText": "Detailed overview of software capabilities (150-10000 chars)",
+      "attributes": {
+        "rows": 10
+      }
+    },
+    {
+      "id": "description_features",
+      "type": "textarea",
+      "label": "Features",
+      "group": "description",
+      "placeholder": "Enter features, one per line\nFeature 1\nFeature 2\nFeature 3",
+      "validation": {
+        "maxLength": 2000
+      },
+      "helpText": "List key features (one per line, max 100 chars each)",
+      "attributes": {
+        "rows": 6
+      }
+    },
+    {
+      "id": "description_documentation",
+      "type": "text",
+      "label": "Documentation URL",
+      "group": "description",
+      "placeholder": "https://docs.example.com",
+      "validation": {
+        "url": true
+      },
+      "helpText": "URL to user-level documentation"
+    },
+    {
+      "id": "legal_license",
+      "type": "text",
+      "label": "License",
+      "group": "legal",
+      "placeholder": "MIT, GPL-3.0-or-later, Apache-2.0",
+      "validation": {
+        "required": true,
+        "minLength": 2,
+        "maxLength": 100,
+        "customMessage": "License is required (use SPDX expression)"
+      },
+      "helpText": "SPDX license expression (required)"
+    },
+    {
+      "id": "legal_mainCopyrightOwner",
+      "type": "text",
+      "label": "Main Copyright Owner",
+      "group": "legal",
+      "placeholder": "Organization Name or Individual",
+      "validation": {
+        "maxLength": 200
+      },
+      "helpText": "Entity that owns copyright on most of the code"
+    },
+    {
+      "id": "legal_repoOwner",
+      "type": "text",
+      "label": "Repository Owner",
+      "group": "legal",
+      "placeholder": "Organization or Individual",
+      "validation": {
+        "maxLength": 200
+      },
+      "helpText": "Entity that owns this repository"
+    },
+    {
+      "id": "maintenance_type",
+      "type": "select",
+      "label": "Maintenance Type",
+      "group": "maintenance",
+      "options": [
+        {
+          "value": "internal",
+          "label": "Internal"
+        },
+        {
+          "value": "contract",
+          "label": "Contract"
+        },
+        {
+          "value": "community",
+          "label": "Community",
+          "selected": true
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "validation": {
+        "required": true
+      },
+      "helpText": "How the software is currently maintained"
+    },
+    {
+      "id": "maintenance_contacts",
+      "type": "array",
+      "label": "Maintenance Contacts",
+      "group": "maintenance",
+      "arrayConfig": {
+        "itemFields": [
+          {
+            "id": "name",
+            "type": "text",
+            "label": "Contact Name",
+            "placeholder": "Full name of technical contact",
+            "validation": {
+              "required": true,
+              "minLength": 2,
+              "maxLength": 100,
+              "customMessage": "Contact name is required"
+            }
+          },
+          {
+            "id": "email",
+            "type": "text",
+            "label": "Email",
+            "placeholder": "contact@example.com",
+            "validation": {
+              "email": true
+            }
+          },
+          {
+            "id": "phone",
+            "type": "text",
+            "label": "Phone",
+            "placeholder": "+1 555-123-4567",
+            "attributes": {
+              "type": "tel"
+            }
+          },
+          {
+            "id": "affiliation",
+            "type": "text",
+            "label": "Affiliation",
+            "placeholder": "Company or Organization",
+            "validation": {
+              "maxLength": 100
+            }
+          }
+        ],
+        "minItems": 1,
+        "maxItems": 10,
+        "initialItems": 1,
+        "addButtonText": "Add Contact",
+        "removeButtonText": "Remove",
+        "itemTitle": "Contact {index}"
+      },
+      "helpText": "Technical contacts responsible for maintaining the software"
+    },
+    {
+      "id": "localisation_localisationReady",
+      "type": "checkbox",
+      "label": "Localisation Ready",
+      "group": "localisation",
+      "defaultValue": true,
+      "helpText": "Software has infrastructure for multilingual support"
+    },
+    {
+      "id": "localisation_availableLanguages",
+      "type": "multiselect",
+      "label": "Available Languages",
+      "group": "localisation",
+      "options": [
+        {
+          "value": "en",
+          "label": "English"
+        },
+        {
+          "value": "it",
+          "label": "Italian"
+        },
+        {
+          "value": "de",
+          "label": "German"
+        },
+        {
+          "value": "fr",
+          "label": "French"
+        },
+        {
+          "value": "es",
+          "label": "Spanish"
+        },
+        {
+          "value": "pt",
+          "label": "Portuguese"
+        },
+        {
+          "value": "nl",
+          "label": "Dutch"
+        },
+        {
+          "value": "pl",
+          "label": "Polish"
+        }
+      ],
+      "validation": {
+        "minSelection": 1,
+        "customMessage": "Select at least one available language"
+      },
+      "helpText": "Languages in which the software is available"
+    },
+    {
+      "id": "intendedAudience_countries",
+      "type": "array",
+      "label": "Target Countries",
+      "group": "audience",
+      "arrayConfig": {
+        "itemFields": [
+          {
+            "id": "country",
+            "type": "text",
+            "label": "Country Code",
+            "placeholder": "US, IT, DE, FR, etc.",
+            "validation": {
+              "required": true,
+              "pattern": "^[A-Z]{2}$",
+              "minLength": 2,
+              "maxLength": 2,
+              "customMessage": "Enter a valid ISO 3166-1 alpha-2 country code (e.g., US, IT)"
+            }
+          }
+        ],
+        "minItems": 0,
+        "maxItems": 50,
+        "initialItems": 0,
+        "addButtonText": "Add Country",
+        "removeButtonText": "Remove",
+        "itemTitle": "Country {index}"
+      },
+      "helpText": "Countries for which the software claims specific compliance (ISO 3166-1 alpha-2)"
+    },
+    {
+      "id": "intendedAudience_scope",
+      "type": "multiselect",
+      "label": "Application Scope",
+      "group": "audience",
+      "options": [
+        {
+          "value": "agriculture",
+          "label": "agriculture"
+        },
+        {
+          "value": "culture",
+          "label": "culture"
+        },
+        {
+          "value": "defence",
+          "label": "defence"
+        },
+        {
+          "value": "education",
+          "label": "education"
+        },
+        {
+          "value": "emergency-services",
+          "label": "emergency-services"
+        },
+        {
+          "value": "employment",
+          "label": "employment"
+        },
+        {
+          "value": "energy",
+          "label": "energy"
+        },
+        {
+          "value": "environment",
+          "label": "environment"
+        },
+        {
+          "value": "finance-and-economic-development",
+          "label": "finance-and-economic-development"
+        },
+        {
+          "value": "foreign-affairs",
+          "label": "foreign-affairs"
+        },
+        {
+          "value": "government",
+          "label": "government"
+        },
+        {
+          "value": "healthcare",
+          "label": "healthcare"
+        },
+        {
+          "value": "infrastructures",
+          "label": "infrastructures"
+        },
+        {
+          "value": "justice",
+          "label": "justice"
+        },
+        {
+          "value": "local-authorities",
+          "label": "local-authorities"
+        },
+        {
+          "value": "manufacturing",
+          "label": "manufacturing"
+        },
+        {
+          "value": "research",
+          "label": "research"
+        },
+        {
+          "value": "science-and-technology",
+          "label": "science-and-technology"
+        },
+        {
+          "value": "security",
+          "label": "security"
+        },
+        {
+          "value": "society",
+          "label": "society"
+        },
+        {
+          "value": "sport",
+          "label": "sport"
+        },
+        {
+          "value": "tourism",
+          "label": "tourism"
+        },
+        {
+          "value": "transportation",
+          "label": "transportation"
+        },
+        {
+          "value": "welfare",
+          "label": "welfare"
+        }
+      ],
+      "validation": {
+        "minSelection": 0
+      },
+      "helpText": "Fields of application for the software"
+    }
+  ]
+}
