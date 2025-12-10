@@ -114,11 +114,11 @@ export const fields = [
 			minItems: 1,
 			maxItems: 10,
 			initialItems: 1,
-			addButtonText: "Add Contact",
-			removeButtonText: "Remove",
-			itemTitle: "Contact {index}",
+			addButtonText: "Add Item",
+			removeButtonText: "X",
+			itemTitle: "Integration {index}",
 		},
-		helpText: "Technical contacts responsible for maintaining the software",
+		helpText: "Name of the integrations",
 	},
 
 	{
