@@ -7,6 +7,7 @@ import {
 	statuses,
 	versions,
 } from "../constants";
+import { fields as automatedChecksFields } from "../definitions/_automatedChecksSchema";
 
 const groups = [
 	{
@@ -22,7 +23,6 @@ const groups = [
 		description: "Detailed description of your software",
 	},
 	{
-		id: "legal",
 		title: "Legal Information",
 		description: "License and copyright information",
 	},
@@ -35,8 +35,12 @@ const groups = [
 		description: "Language and localisation settings",
 	},
 	{
-		title: "Intended Audience",
+		title: "Audience",
 		description: "Target audience and scope",
+	},
+	{
+		title: "Optional",
+		description: "Sample group for optional and custom props",
 	},
 ].map((group, index) => ({
 	...group,
@@ -441,6 +445,7 @@ const fields = [
 		},
 		helpText: "Fields of application for the software",
 	},
+	...automatedChecksFields,
 ];
 const data = {
 	title: "PublicCode.yml Generator",

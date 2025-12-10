@@ -12,11 +12,12 @@ import {
 	localisationSchema,
 	maintenanceSchema,
 	organisationSchema,
-} from "./definitions/index.js";
+	automatedChecksSchema,
+} from "./definitions";
 
-import * as CONSTS from "./constants.js";
+import * as CONSTS from "./constants";
 
-const currentVersion = "0.5.1";
+const currentVersion = "0.5.7";
 
 const schema = S.object()
 	.id(`publicode/root/v${currentVersion}`)
@@ -36,6 +37,7 @@ const schema = S.object()
 	.definition("localisation", localisationSchema)
 	.definition("maintenance", maintenanceSchema)
 	.definition("IT", ITSchema)
+	.definition("automatedChecks", automatedChecksSchema)
 	// .prop("version", S.string())
 
 	.prop("publiccodeYmlVersion", S.string().enum(CONSTS.versions))
@@ -131,7 +133,7 @@ const schema = S.object()
 	)
 	.prop("developmentStatus", S.string().enum(CONSTS.statuses))
 	.prop("softwareType", S.string().enum(CONSTS.kinds))
-	.prop("intendedAudience", S.array().items(S.string().pattern("^[A-Z]{2}$")))
+	.prop("intendedAudience", S.ref("#intendedAudience"))
 	.prop("description", S.ref("#description"))
 	.prop("legal", S.ref("#legal"))
 	.prop("maintenance", S.ref("#maintenance"))
@@ -147,6 +149,7 @@ const schema = S.object()
 			),
 	)
 	.prop("IT", S.ref("#IT"))
+	.prop("automatedChecks", S.ref("#automatedChecks"))
 	.required([
 		"publiccodeYmlVersion",
 		"name",
@@ -162,6 +165,9 @@ const schema = S.object()
 
 const str = JSON.stringify(schema.valueOf(), undefined, 2);
 
-fs.writeFile(`data/publicode_schema_v${currentVersion}.json`, str).then(() => {
+fs.writeFile(
+	`data/publiccode-schema/publiccode_schema_v${currentVersion}.json`,
+	str,
+).then(() => {
 	console.log("schema generated");
 });

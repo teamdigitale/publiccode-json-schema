@@ -1,5 +1,5 @@
 import S from "fluent-json-schema";
-import { scopes } from "../constants.js";
+import { scopes } from "../constants";
 
 export default S.object()
 	.id("#intendedAudience")

@@ -21,9 +21,9 @@
       "order": 3
     },
     {
-      "id": "legal",
       "title": "Legal Information",
       "description": "License and copyright information",
+      "id": "legal",
       "order": 4
     },
     {
@@ -39,10 +39,16 @@
       "order": 6
     },
     {
-      "title": "Intended Audience",
+      "title": "Audience",
       "description": "Target audience and scope",
-      "id": "intended",
+      "id": "audience",
       "order": 7
+    },
+    {
+      "title": "Optional",
+      "description": "Sample group for optional and custom props",
+      "id": "optional",
+      "order": 8
     }
   ],
   "fields": [
@@ -179,7 +185,7 @@
       "label": "Release Date",
       "group": "basic",
       "validation": {
-        "maxDate": "2025-12-09",
+        "maxDate": "2025-12-10",
         "customMessage": "Release date cannot be in the future"
       },
       "helpText": "Date of the latest release"
@@ -1148,6 +1154,143 @@
         "minSelection": 0
       },
       "helpText": "Fields of application for the software"
+    },
+    {
+      "id": "automatedChecks_is-open",
+      "type": "checkbox",
+      "label": "Is Open Source?",
+      "group": "optional",
+      "defaultValue": true,
+      "helpText": "Software is open source"
+    },
+    {
+      "id": "automatedChecks_active-maintenance",
+      "type": "select",
+      "label": "Active Maintenance level",
+      "group": "optional",
+      "options": [
+        {
+          "value": "Level 1: Active maintenance",
+          "label": "Level 1: Active maintenance"
+        },
+        {
+          "value": "Level 2: Reliable maintenance",
+          "label": "Level 2: Reliable maintenance"
+        },
+        {
+          "value": "Level 3: Crisis-proof maintenance",
+          "label": "Level 3: Crisis-proof maintenance"
+        }
+      ],
+      "helpText": "Active Maintenance level"
+    },
+    {
+      "id": "automatedChecks_reuse",
+      "type": "select",
+      "label": "Reuse level",
+      "group": "optional",
+      "options": [
+        {
+          "value": "Level 1: Ready for use",
+          "label": "Level 1: Ready for use"
+        },
+        {
+          "value": "Level 2: Actively Reused",
+          "label": "Level 2: Actively Reused"
+        },
+        {
+          "value": "Level 3: Frequently Actively Reused",
+          "label": "Level 3: Frequently Actively Reused"
+        }
+      ],
+      "helpText": "Reuse level"
+    },
+    {
+      "id": "automatedChecks_security",
+      "type": "select",
+      "label": "Security level",
+      "group": "optional",
+      "options": [
+        {
+          "value": "Level 1: Basic Security Practices",
+          "label": "Level 1: Basic Security Practices"
+        },
+        {
+          "value": "Level 2: Advanced Security Practices",
+          "label": "Level 2: Advanced Security Practices"
+        },
+        {
+          "value": "Level 3: Comprehensive Security Practices",
+          "label": "Level 3: Comprehensive Security Practices"
+        }
+      ],
+      "helpText": "Security level"
+    },
+    {
+      "id": "automatedChecks_itegrations",
+      "type": "array",
+      "label": "Detected Itegrations",
+      "group": "optional",
+      "arrayConfig": {
+        "itemFields": [
+          {
+            "id": "name",
+            "type": "text",
+            "label": "Integration Name",
+            "placeholder": "Name of the detected integration",
+            "validation": {
+              "required": true,
+              "minLength": 2,
+              "maxLength": 100,
+              "customMessage": "Name is required"
+            }
+          }
+        ],
+        "minItems": 1,
+        "maxItems": 10,
+        "initialItems": 1,
+        "addButtonText": "Add Contact",
+        "removeButtonText": "Remove",
+        "itemTitle": "Contact {index}"
+      },
+      "helpText": "Technical contacts responsible for maintaining the software"
+    },
+    {
+      "id": "automatedChecks_compliance_accessibility-level",
+      "type": "multiselect",
+      "label": "Accessibility levels",
+      "group": "optional",
+      "options": [
+        {
+          "value": "WCAG 2.1 AA",
+          "label": "WCAG 2.1 AA"
+        },
+        {
+          "value": "WCAG 2.2 AA",
+          "label": "WCAG 2.2 AA"
+        }
+      ],
+      "validation": {
+        "minSelection": 1,
+        "customMessage": "Select at least one"
+      },
+      "helpText": "Accessibility levels"
+    },
+    {
+      "id": "automatedChecks_compliance_gdpr",
+      "type": "checkbox",
+      "label": "Has gdpr compliance?",
+      "group": "optional",
+      "defaultValue": true,
+      "helpText": ""
+    },
+    {
+      "id": "automatedChecks_compliance_cookie-policy",
+      "type": "checkbox",
+      "label": "Has cookie-policy compliance?",
+      "group": "optional",
+      "defaultValue": true,
+      "helpText": ""
     }
   ]
 }

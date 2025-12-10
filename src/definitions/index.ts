@@ -1,14 +1,15 @@
-import contactSchema from "./contactSchema.js";
-import contractorSchema from "./contractorSchema.js";
-import dependencySchema from "./dependencySchema.js";
-import dependsOnSchema from "./dependsOnSchema.ts";
-import descriptionSchema from "./descriptionSchema.ts";
-import intendedAudienceSchema from "./intendedAudienceSchema.ts";
-import ITSchema from "./itSchema.ts";
-import legalSchema from "./legalSchema.ts";
-import localisationSchema from "./localisationSchema.ts";
-import maintenanceSchema from "./maintenanceSchema.ts";
-import organisationSchema from "./organisationSchema.js";
+import automatedChecksSchema from "./_automatedChecksSchema";
+import contactSchema from "./contactSchema";
+import contractorSchema from "./contractorSchema";
+import dependencySchema from "./dependencySchema";
+import dependsOnSchema from "./dependsOnSchema";
+import descriptionSchema from "./descriptionSchema";
+import intendedAudienceSchema from "./intendedAudienceSchema";
+import ITSchema from "./itSchema";
+import legalSchema from "./legalSchema";
+import localisationSchema from "./localisationSchema";
+import maintenanceSchema from "./maintenanceSchema";
+import organisationSchema from "./organisationSchema";
 
 export {
 	contactSchema,
@@ -22,4 +23,5 @@ export {
 	localisationSchema,
 	maintenanceSchema,
 	organisationSchema,
+	automatedChecksSchema,
 };
