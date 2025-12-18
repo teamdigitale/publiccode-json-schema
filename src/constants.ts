@@ -34,6 +34,7 @@ export const versions = [
 	"0.4.0",
 	"0.5",
 	"0.5.0",
+	"0.5.1",
 ];
 
 export const platforms = ["web", "windows", "mac", "linux", "ios", "android"];

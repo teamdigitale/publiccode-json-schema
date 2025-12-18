@@ -12,12 +12,12 @@ import {
 	localisationSchema,
 	maintenanceSchema,
 	organisationSchema,
-	automatedChecksSchema,
+	// automatedChecksSchema,
 } from "./definitions";
 
 import * as CONSTS from "./constants";
 
-const currentVersion = "0.5.7";
+const currentVersion = "0.5.1";
 
 const schema = S.object()
 	.id(`publicode/root/v${currentVersion}`)
@@ -37,7 +37,7 @@ const schema = S.object()
 	.definition("localisation", localisationSchema)
 	.definition("maintenance", maintenanceSchema)
 	.definition("IT", ITSchema)
-	.definition("automatedChecks", automatedChecksSchema)
+	// .definition("automatedChecks", automatedChecksSchema)
 	// .prop("version", S.string())
 
 	.prop("publiccodeYmlVersion", S.string().enum(CONSTS.versions))
@@ -102,8 +102,7 @@ const schema = S.object()
 	.prop(
 		"platforms",
 		S.array()
-			.items(S.string())
-			.enum(CONSTS.platforms)
+			.items(S.string().enum(CONSTS.platforms))
 			.description(
 				"This key specifies which platform the software runs on. It is meant to describe the platforms that users will use to access and operate the software, rather than the platform the software itself runs on.\n\nUse the predefined values if possible. If the software runs on a platform for which a predefined value is not available, a different value can be used.",
 			),
@@ -111,8 +110,7 @@ const schema = S.object()
 	.prop(
 		"categories",
 		S.array()
-			.items(S.string())
-			.enum(CONSTS.categories)
+			.items(S.string().enum(CONSTS.categories))
 			.description(
 				"A list of words that can be used to describe the software and can help building catalogs of open software.",
 			),
@@ -149,7 +147,7 @@ const schema = S.object()
 			),
 	)
 	.prop("IT", S.ref("#IT"))
-	.prop("automatedChecks", S.ref("#automatedChecks"))
+	// .prop("automatedChecks", S.ref("#automatedChecks"))
 	.required([
 		"publiccodeYmlVersion",
 		"name",
