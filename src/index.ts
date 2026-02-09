@@ -17,7 +17,7 @@ import {
 
 import * as CONSTS from "./constants";
 
-const currentVersion = "0.5.1";
+const currentVersion = "0.5.0";
 
 const schema = S.object()
 	.id(`publicode/root/v${currentVersion}`)
