@@ -454,71 +454,6 @@
           }
         }
       }
-    },
-    "automatedChecks": {
-      "type": "object",
-      "$id": "#automatedChecks",
-      "title": "Automated checks on the repo",
-      "additionalProperties": false,
-      "properties": {
-        "is-open": {
-          "type": "boolean",
-          "description": "Whether the software is open or not"
-        },
-        "active-maintenance": {
-          "type": "string",
-          "enum": [
-            "Level 1: Active maintenance",
-            "Level 2: Reliable maintenance",
-            "Level 3: Crisis-proof maintenance"
-          ],
-          "description": "What is the maintenance level of this sw"
-        },
-        "reuse": {
-          "type": "string",
-          "enum": [
-            "Level 1: Ready for use",
-            "Level 2: Actively Reused",
-            "Level 3: Frequently Actively Reused"
-          ],
-          "description": "What is the reuse level of this sw"
-        },
-        "security": {
-          "type": "string",
-          "enum": [
-            "Level 1: Basic Security Practices",
-            "Level 2: Advanced Security Practices",
-            "Level 3: Comprehensive Security Practices"
-          ],
-          "description": "What is the security level of this sw"
-        },
-        "itegrations": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "compliance": {
-          "type": "object",
-          "additionalProperties": false,
-          "description": "This section contains the keys for auto-declaring the compliance with the current legislation",
-          "properties": {
-            "accessibility-level": {
-              "type": "string",
-              "enum": [
-                "WCAG 2.1 AA",
-                "WCAG 2.2 AA"
-              ]
-            },
-            "cookie-policy": {
-              "type": "boolean"
-            },
-            "gdpr": {
-              "type": "boolean"
-            }
-          }
-        }
-      }
     }
   },
   "type": "object",
@@ -806,9 +741,6 @@
     },
     "IT": {
       "$ref": "#IT"
-    },
-    "automatedChecks": {
-      "$ref": "#automatedChecks"
     }
   },
   "required": [

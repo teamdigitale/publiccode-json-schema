@@ -37,8 +37,6 @@ const schema = S.object()
 	.definition("localisation", localisationSchema)
 	.definition("maintenance", maintenanceSchema)
 	.definition("IT", ITSchema)
-	// .definition("automatedChecks", automatedChecksSchema)
-	// .prop("version", S.string())
 
 	.prop("publiccodeYmlVersion", S.string().enum(CONSTS.versions))
 	.prop("name", S.string().description("The name of the software"))
@@ -147,7 +145,6 @@ const schema = S.object()
 			),
 	)
 	.prop("IT", S.ref("#IT"))
-	// .prop("automatedChecks", S.ref("#automatedChecks"))
 	.required([
 		"publiccodeYmlVersion",
 		"name",

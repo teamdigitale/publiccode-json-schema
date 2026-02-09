@@ -44,7 +44,7 @@ export default S.object()
 			.enum(security_levels)
 			.description("What is the security level of this sw"),
 	)
-	.prop("itegrations", S.array().items(S.string()))
+	.prop("integrations", S.array().items(S.string()))
 	.prop(
 		"compliance",
 		S.object()
@@ -92,9 +92,9 @@ export const fields = [
 	},
 
 	{
-		id: "automatedChecks_itegrations",
+		id: "automatedChecks_integrations",
 		type: "array",
-		label: "Detected Itegrations",
+		label: "Detected Integrations",
 		group: "optional",
 		arrayConfig: {
 			itemFields: [
