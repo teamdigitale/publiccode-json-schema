@@ -34,7 +34,7 @@ import softwareVersion from "./definitions/softwareVersion";
 import url from "./definitions/url";
 import usedBy from "./definitions/usedBy";
 
-const currentVersion = "0.5.0";
+export const currentVersion = "0.5.0";
 
 const schema = S.object()
 	.id(`publicode/root/v${currentVersion}`)
@@ -95,10 +95,5 @@ const schema = S.object()
 	]);
 
 const str = JSON.stringify(schema.valueOf(), undefined, 2);
+export default str;
 
-fs.writeFile(
-	`data/publiccode-schema/publiccode_schema_v${currentVersion}.json`,
-	str,
-).then(() => {
-	console.log("schema generated");
-});

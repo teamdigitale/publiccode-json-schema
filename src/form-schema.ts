@@ -1,20 +1,20 @@
-import { fields as automatedChecksFields } from "../definitions/_automatedChecksSchema";
-import { formFields as applicationSuiteFields } from "../definitions/applicationSuite";
-import { formFields as categoriesFields } from "../definitions/categories";
-import { formFields as descriptionFields } from "../definitions/descriptionSchema";
-import { formFields as developmentStatusFields } from "../definitions/developmentStatus";
-import { formFields as intendedAudienceFields } from "../definitions/intendedAudienceSchema";
-import { formFields as landingURLFields } from "../definitions/landingURL";
-import { formFields as legalFields } from "../definitions/legalSchema";
-import { formFields as localisationFields } from "../definitions/localisationSchema";
-import { formFields as maintenanceFields } from "../definitions/maintenanceSchema";
-import { formFields as nameFields } from "../definitions/name";
-import { formFields as platformsFields } from "../definitions/platforms";
-import { formFields as publiccodeYmlVersionFields } from "../definitions/publiccodeYmlVersion";
-import { formFields as releaseDateFields } from "../definitions/releaseDate";
-import { formFields as softwareTypeFields } from "../definitions/softwareType";
-import { formFields as softwareVersionFields } from "../definitions/softwareVersion";
-import { formFields as urlFields } from "../definitions/url";
+import { fields as automatedChecksFields } from "./definitions/_automatedChecksSchema";
+import { formFields as applicationSuiteFields } from "./definitions/applicationSuite";
+import { formFields as categoriesFields } from "./definitions/categories";
+import { formFields as descriptionFields } from "./definitions/descriptionSchema";
+import { formFields as developmentStatusFields } from "./definitions/developmentStatus";
+import { formFields as intendedAudienceFields } from "./definitions/intendedAudienceSchema";
+import { formFields as landingURLFields } from "./definitions/landingURL";
+import { formFields as legalFields } from "./definitions/legalSchema";
+import { formFields as localisationFields } from "./definitions/localisationSchema";
+import { formFields as maintenanceFields } from "./definitions/maintenanceSchema";
+import { formFields as nameFields } from "./definitions/name";
+import { formFields as platformsFields } from "./definitions/platforms";
+import { formFields as publiccodeYmlVersionFields } from "./definitions/publiccodeYmlVersion";
+import { formFields as releaseDateFields } from "./definitions/releaseDate";
+import { formFields as softwareTypeFields } from "./definitions/softwareType";
+import { formFields as softwareVersionFields } from "./definitions/softwareVersion";
+import { formFields as urlFields } from "./definitions/url";
 
 const groups = [
 	{
@@ -97,4 +97,5 @@ const data = {
 	fields,
 };
 
-export default data;
+const str = JSON.stringify(data, null, 2);
+export default str;

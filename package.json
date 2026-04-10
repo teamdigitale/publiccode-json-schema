@@ -15,9 +15,7 @@
     "yaml": "^2.8.0"
   },
   "scripts": {
-    "validate-publicode": "bun run ./scripts/validate-file.ts",
-    "gen-publiccode-schema": "bun run ./src/index.ts",
-    "gen-form-schema": "bun run ./scripts/toFile.ts",
-    "gen": "bun run gen-publiccode-schema  && bun run gen-form-schema"
+    "validate": "bun run ./scripts/validate-file.ts",
+    "gen": "bun run ./scripts/generateSchemaFiles.ts"
   }
 }
