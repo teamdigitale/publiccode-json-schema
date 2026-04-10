@@ -185,7 +185,7 @@
       "label": "Release Date",
       "group": "basic",
       "validation": {
-        "maxDate": "2025-12-10",
+        "maxDate": "2026-04-10",
         "customMessage": "Release date cannot be in the future"
       },
       "helpText": "Date of the latest release"
@@ -1227,9 +1227,9 @@
       "helpText": "Security level"
     },
     {
-      "id": "automatedChecks_itegrations",
+      "id": "automatedChecks_integrations",
       "type": "array",
-      "label": "Detected Itegrations",
+      "label": "Detected Integrations",
       "group": "optional",
       "arrayConfig": {
         "itemFields": [
@@ -1249,11 +1249,11 @@
         "minItems": 1,
         "maxItems": 10,
         "initialItems": 1,
-        "addButtonText": "Add Contact",
-        "removeButtonText": "Remove",
-        "itemTitle": "Contact {index}"
+        "addButtonText": "Add Item",
+        "removeButtonText": "X",
+        "itemTitle": "Integration {index}"
       },
-      "helpText": "Technical contacts responsible for maintaining the software"
+      "helpText": "Name of the integrations"
     },
     {
       "id": "automatedChecks_compliance_accessibility-level",

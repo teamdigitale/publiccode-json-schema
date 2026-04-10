@@ -31,6 +31,52 @@ export default S.object()
 			),
 	);
 
+export const formFields = [
+	{
+		id: "intendedAudience_countries",
+		type: "array",
+		label: "Target Countries",
+		group: "audience",
+		arrayConfig: {
+			itemFields: [
+				{
+					id: "country",
+					type: "text",
+					label: "Country Code",
+					placeholder: "US, IT, DE, FR, etc.",
+					validation: {
+						required: true,
+						pattern: "^[A-Z]{2}$",
+						minLength: 2,
+						maxLength: 2,
+						customMessage:
+							"Enter a valid ISO 3166-1 alpha-2 country code (e.g., US, IT)",
+					},
+				},
+			],
+			minItems: 0,
+			maxItems: 50,
+			initialItems: 0,
+			addButtonText: "Add Country",
+			removeButtonText: "Remove",
+			itemTitle: "Country {index}",
+		},
+		helpText:
+			"Countries for which the software claims specific compliance (ISO 3166-1 alpha-2)",
+	},
+	{
+		id: "intendedAudience_scope",
+		type: "multiselect",
+		label: "Application Scope",
+		group: "audience",
+		options: scopes.map((v) => ({ value: v, label: v })),
+		validation: {
+			minSelection: 0,
+		},
+		helpText: "Fields of application for the software",
+	},
+];
+
 // const intendedAudienceSchema = {
 // 	type: "object",
 // 	additionalProperties: false,

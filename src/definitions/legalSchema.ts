@@ -58,3 +58,42 @@ export default S.object()
 		),
 	)
 	.required(["license"]);
+
+export const formFields = [
+	{
+		id: "legal_license",
+		type: "text",
+		label: "License",
+		group: "legal",
+		placeholder: "MIT, GPL-3.0-or-later, Apache-2.0",
+		validation: {
+			required: true,
+			minLength: 2,
+			maxLength: 100,
+			customMessage: "License is required (use SPDX expression)",
+		},
+		helpText: "SPDX license expression (required)",
+	},
+	{
+		id: "legal_mainCopyrightOwner",
+		type: "text",
+		label: "Main Copyright Owner",
+		group: "legal",
+		placeholder: "Organization Name or Individual",
+		validation: {
+			maxLength: 200,
+		},
+		helpText: "Entity that owns copyright on most of the code",
+	},
+	{
+		id: "legal_repoOwner",
+		type: "text",
+		label: "Repository Owner",
+		group: "legal",
+		placeholder: "Organization or Individual",
+		validation: {
+			maxLength: 200,
+		},
+		helpText: "Entity that owns this repository",
+	},
+];

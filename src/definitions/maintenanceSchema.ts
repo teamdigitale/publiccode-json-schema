@@ -63,3 +63,76 @@ export default S.object()
 			),
 	)
 	.required(["type"]);
+
+export const formFields = [
+	{
+		id: "maintenance_type",
+		type: "select",
+		label: "Maintenance Type",
+		group: "maintenance",
+		options: [
+			{ value: "internal", label: "Internal" },
+			{ value: "contract", label: "Contract" },
+			{ value: "community", label: "Community", selected: true },
+			{ value: "none", label: "None" },
+		],
+		validation: {
+			required: true,
+		},
+		helpText: "How the software is currently maintained",
+	},
+	{
+		id: "maintenance_contacts",
+		type: "array",
+		label: "Maintenance Contacts",
+		group: "maintenance",
+		arrayConfig: {
+			itemFields: [
+				{
+					id: "name",
+					type: "text",
+					label: "Contact Name",
+					placeholder: "Full name of technical contact",
+					validation: {
+						required: true,
+						minLength: 2,
+						maxLength: 100,
+						customMessage: "Contact name is required",
+					},
+				},
+				{
+					id: "email",
+					type: "text",
+					label: "Email",
+					placeholder: "contact@example.com",
+					validation: {
+						email: true,
+					},
+				},
+				{
+					id: "phone",
+					type: "text",
+					label: "Phone",
+					placeholder: "+1 555-123-4567",
+					attributes: { type: "tel" },
+				},
+				{
+					id: "affiliation",
+					type: "text",
+					label: "Affiliation",
+					placeholder: "Company or Organization",
+					validation: {
+						maxLength: 100,
+					},
+				},
+			],
+			minItems: 1,
+			maxItems: 10,
+			initialItems: 1,
+			addButtonText: "Add Contact",
+			removeButtonText: "Remove",
+			itemTitle: "Contact {index}",
+		},
+		helpText: "Technical contacts responsible for maintaining the software",
+	},
+];

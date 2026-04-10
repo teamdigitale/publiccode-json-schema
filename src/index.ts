@@ -14,8 +14,25 @@ import {
 	organisationSchema,
 	// automatedChecksSchema,
 } from "./definitions";
-
-import * as CONSTS from "./constants";
+import applicationSuite from "./definitions/applicationSuite";
+import categories from "./definitions/categories";
+import developmentStatus from "./definitions/developmentStatus";
+import fundedBy from "./definitions/fundedBy";
+import inputTypes from "./definitions/inputTypes";
+import isBasedOn from "./definitions/isBasedOn";
+import landingURL from "./definitions/landingURL";
+import logo from "./definitions/logo";
+import monochromeLogo from "./definitions/monochromeLogo";
+import name from "./definitions/name";
+import outputTypes from "./definitions/outputTypes";
+import platforms from "./definitions/platforms";
+import publiccodeYmlVersion from "./definitions/publiccodeYmlVersion";
+import releaseDate from "./definitions/releaseDate";
+import roadmap from "./definitions/roadmap";
+import softwareType from "./definitions/softwareType";
+import softwareVersion from "./definitions/softwareVersion";
+import url from "./definitions/url";
+import usedBy from "./definitions/usedBy";
 
 const currentVersion = "0.5.0";
 
@@ -37,113 +54,32 @@ const schema = S.object()
 	.definition("localisation", localisationSchema)
 	.definition("maintenance", maintenanceSchema)
 	.definition("IT", ITSchema)
-
-	.prop("publiccodeYmlVersion", S.string().enum(CONSTS.versions))
-	.prop("name", S.string().description("The name of the software"))
-	.prop(
-		"applicationSuite",
-		S.string().description(
-			"The name of the application suite this software belongs to",
-		),
-	)
-	.prop("url", S.string().format("uri").description("The URL of the software"))
-	.prop(
-		"landingURL",
-		S.string().format("uri").description("The landing page URL"),
-	)
-	.prop(
-		"isBasedOn",
-		S.oneOf([S.string(), S.array().items(S.string())]).description(
-			"In case this software is a variant or a fork of another software, which might or might not contain a publiccode.yml file, this key will contain the url of the original project(s).The existence of this key identifies the fork as a software variant, descending from the specified repositories.",
-		),
-	)
-	.prop(
-		"softwareVersion",
-		S.string().description(
-			"This key contains the latest stable version number of the software. The version number is a string that is not meant to be interpreted and parsed but just displayed; parsers should not assume semantic versioning or any other specific version format.The key can be omitted if the software is currently in initial development and has never been released yet.",
-		),
-	)
-	.prop(
-		"releaseDate",
-		S.string()
-			.format("date")
-			.description("The release date of the current version"),
-	)
-	.prop(
-		"logo",
-		S.string().description(
-			"This key contains the path to the logo of the software. Logos should be in vector format; raster formats are only allowed as a fallback. In this case, they should be transparent PNGs, minimum 1000px of width. The key value can be the relative path to the file starting from the root of the repository, or it can be an absolute URL pointing to the logo in raw version. In both cases, the file must reside inside the same repository where the publiccode.yml file is stored.",
-		),
-	)
-	.prop(
-		"monochromeLogo",
-		S.string().description(
-			"A monochromatic (black) logo. The logo should be in vector format; raster formats are only allowed as a fallback. In this case, they should be transparent PNGs, minimum 1000px of width. The key value can be the relative path to the file starting from the root of the repository, or it can be an absolute URL pointing to the logo in raw version. In both cases, the file must reside inside the same repository where the publiccode.yml file is stored.",
-		),
-	)
-	.prop(
-		"inputTypes",
-		S.array()
-			.items(S.string())
-			.description(
-				"A list of Media Types (MIME Types) as mandated in RFC 6838 which the application can handle as input. In case the software does not support any input, you can skip this field or use application/x.empty.",
-			),
-	)
-	.prop(
-		"outputTypes",
-		S.array()
-			.items(S.string())
-			.description(
-				"A list of Media Types (MIME Types) as mandated in RFC 6838 which the application can handle as output. In case the software does not support any output, you can skip this field or use application/x.empty.",
-			),
-	)
-	.prop(
-		"platforms",
-		S.array()
-			.items(S.string().enum(CONSTS.platforms))
-			.description(
-				"This key specifies which platform the software runs on. It is meant to describe the platforms that users will use to access and operate the software, rather than the platform the software itself runs on.\n\nUse the predefined values if possible. If the software runs on a platform for which a predefined value is not available, a different value can be used.",
-			),
-	)
-	.prop(
-		"categories",
-		S.array()
-			.items(S.string().enum(CONSTS.categories))
-			.description(
-				"A list of words that can be used to describe the software and can help building catalogs of open software.",
-			),
-	)
-	.prop(
-		"usedBy",
-		S.array()
-			.items(S.string())
-			.description(
-				'A list of the names of prominent public administrations (that will serve as "testimonials") that are currently known to the software maintainer to be using this software.\n\nParsers are encouraged to enhance this list also with other information that can obtain independently; for instance, a fork of a software, owned by an administration, could be used as a signal of usage of the software.',
-			),
-	)
-	.prop(
-		"roadmap",
-		S.string()
-			.format("uri")
-			.description("A link to a public roadmap of the software."),
-	)
-	.prop("developmentStatus", S.string().enum(CONSTS.statuses))
-	.prop("softwareType", S.string().enum(CONSTS.kinds))
+	.prop("publiccodeYmlVersion", publiccodeYmlVersion)
+	.prop("name", name)
+	.prop("applicationSuite", applicationSuite)
+	.prop("url", url)
+	.prop("landingURL", landingURL)
+	.prop("isBasedOn", isBasedOn)
+	.prop("softwareVersion", softwareVersion)
+	.prop("releaseDate", releaseDate)
+	.prop("logo", logo)
+	.prop("monochromeLogo", monochromeLogo)
+	.prop("inputTypes", inputTypes)
+	.prop("outputTypes", outputTypes)
+	.prop("platforms", platforms)
+	.prop("categories", categories)
+	.prop("usedBy", usedBy)
+	.prop("roadmap", roadmap)
+	.prop("developmentStatus", developmentStatus)
+	.prop("softwareType", softwareType)
 	.prop("intendedAudience", S.ref("#intendedAudience"))
 	.prop("description", S.ref("#description"))
 	.prop("legal", S.ref("#legal"))
 	.prop("maintenance", S.ref("#maintenance"))
 	.prop("localisation", S.ref("#localisation"))
-	.prop("dependsOn", S.array().items(S.ref("#dependsOn")))
+	.prop("dependsOn", S.ref("#dependsOn"))
 	.prop("organisation", S.ref("#organisation"))
-	.prop(
-		"fundedBy",
-		S.array()
-			.items(S.ref("#organisation"))
-			.description(
-				"A list of organisations that are currently known to be funding the development of this software.",
-			),
-	)
+	.prop("fundedBy", fundedBy)
 	.prop("IT", S.ref("#IT"))
 	.required([
 		"publiccodeYmlVersion",

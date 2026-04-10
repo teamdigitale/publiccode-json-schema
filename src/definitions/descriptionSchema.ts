@@ -1,4 +1,5 @@
 import S from "fluent-json-schema";
+import { languages } from "../constants";
 
 export default S.object()
 	.id("#description")
@@ -88,6 +89,77 @@ export default S.object()
 					.description("A list of awards won by the software."),
 			),
 	);
+
+export const formFields = [
+	{
+		id: "description_locale",
+		type: "select",
+		label: "Description Language",
+		group: "description",
+		options: languages,
+		validation: {
+			required: true,
+		},
+		helpText: "Primary language for the description",
+	},
+	{
+		id: "description_shortDescription",
+		type: "text",
+		label: "Short Description",
+		group: "description",
+		placeholder: "A concise one-line description",
+		validation: {
+			required: true,
+			maxLength: 150,
+			customMessage: "Short description is required (max 150 characters)",
+		},
+		helpText: "Single sentence describing your software (max 150 chars)",
+	},
+	{
+		id: "description_longDescription",
+		type: "textarea",
+		label: "Long Description",
+		group: "description",
+		placeholder:
+			"Detailed description of your software, its capabilities and features...",
+		validation: {
+			required: true,
+			minLength: 150,
+			maxLength: 10000,
+			customMessage: "Long description must be between 150-10000 characters",
+		},
+		helpText: "Detailed overview of software capabilities (150-10000 chars)",
+		attributes: {
+			rows: 10,
+		},
+	},
+	{
+		id: "description_features",
+		type: "textarea",
+		label: "Features",
+		group: "description",
+		placeholder:
+			"Enter features, one per line\nFeature 1\nFeature 2\nFeature 3",
+		validation: {
+			maxLength: 2000,
+		},
+		helpText: "List key features (one per line, max 100 chars each)",
+		attributes: {
+			rows: 6,
+		},
+	},
+	{
+		id: "description_documentation",
+		type: "text",
+		label: "Documentation URL",
+		group: "description",
+		placeholder: "https://docs.example.com",
+		validation: {
+			url: true,
+		},
+		helpText: "URL to user-level documentation",
+	},
+];
 
 // const descriptionSchema = {
 // 	description:
