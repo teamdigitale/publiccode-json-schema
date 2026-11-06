@@ -74,7 +74,7 @@ const upperCountries = (path: string) => (data: Data) => {
 	if (!Array.isArray(list)) return true;
 
 	const parent = get(data, path.split(".").slice(0, -1).join(".")) as Data;
-	const prop = path.split(".").at(-1) as string;
+	const prop = path.slice(path.lastIndexOf(".") + 1);
 	parent[prop] = list.map((c) =>
 		typeof c === "string" && /^[a-z]{2}$/.test(c) ? c.toUpperCase() : c,
 	);

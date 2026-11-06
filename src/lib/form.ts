@@ -131,7 +131,7 @@ function widgetFor(node: JSONSchema, items?: JSONSchema): Widget {
 // "IT.riuso.codiceIPA" -> "publiccodeyml.it.riuso.codiceIPA": the editor's
 // keys use the lowercase section code.
 const defaultI18n = (path: string, countries: Set<string>) => {
-	const [first, ...rest] = path.replaceAll(".*", "").split(".");
+	const [first, ...rest] = path.replace(/\.\*/g, "").split(".");
 	const head = countries.has(first) ? first.toLowerCase() : first;
 
 	return ["publiccodeyml", head, ...rest].join(".");
