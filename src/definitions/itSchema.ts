@@ -7,7 +7,7 @@ export default S.object()
 	.additionalProperties(false)
 	.prop(
 		"countryExtensionVersion",
-		S.string().description(
+		S.string().enum(["0.2", "1.0"]).description(
 			"This key specifies the version to which the current extension schema adheres to, for forward compatibility.\n\nPlease note how the value of this key is independent from the top-level publiccodeYmlVersion one (see The Standard (core)). In such a way, the extensions schema versioning is independent both from the core version of the schema and from every other Country.",
 		),
 	)
@@ -84,7 +84,7 @@ export default S.object()
 			.additionalProperties(false)
 			.prop(
 				"codiceIPA",
-				S.string().description(
+				S.string().raw({ format: "italian_ipa_code" }).description(
 					"This key represents the administration code inside the Public Administration index (codice IPA).",
 				),
 			),

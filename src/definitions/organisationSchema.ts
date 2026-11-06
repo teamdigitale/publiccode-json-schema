@@ -14,8 +14,10 @@ export default S.object()
 	.prop(
 		"uri",
 		S.string()
-			.format("uri")
+			.minLength(1)
+			.raw({ format: "organisation_uri" })
 			.description(
 				"This key points to the maintainer website. It can either point to the main institutional website, or to a more project-specific page or website.",
 			),
-	);
+	)
+	.required(["uri"]);

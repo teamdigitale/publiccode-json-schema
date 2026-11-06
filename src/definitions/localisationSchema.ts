@@ -40,7 +40,8 @@ export default S.object()
 	.prop(
 		"availableLanguages",
 		S.array()
-			.items(S.string())
+			.minItems(1)
+			.items(S.string().raw({ format: "bcp47_strict_language_tag" }))
 			.description(
 				"If present, this is the list of languages in which the software is available. Of course, this list will contain at least one language. The primary language subtag cannot be omitted, as mandated by the BCP 47.",
 			),

@@ -12,6 +12,7 @@ import {
 	localisationSchema,
 	maintenanceSchema,
 	organisationSchema,
+	supportsSchema,
 	// automatedChecksSchema,
 } from "./definitions";
 import applicationSuite from "./definitions/applicationSuite";
@@ -34,7 +35,9 @@ import softwareVersion from "./definitions/softwareVersion";
 import url from "./definitions/url";
 import usedBy from "./definitions/usedBy";
 
-export const currentVersion = "0.5.0";
+// The parser validates every 0.x version with the same rules, so this schema
+// covers all of them; it's named after the latest one.
+export const currentVersion = "0.7.0";
 
 const schema = S.object()
 	.id(`publicode/root/v${currentVersion}`)
@@ -54,6 +57,7 @@ const schema = S.object()
 	.definition("localisation", localisationSchema)
 	.definition("maintenance", maintenanceSchema)
 	.definition("IT", ITSchema)
+	.definition("support", supportsSchema)
 	.prop("publiccodeYmlVersion", publiccodeYmlVersion)
 	.prop("name", name)
 	.prop("applicationSuite", applicationSuite)
@@ -72,6 +76,7 @@ const schema = S.object()
 	.prop("roadmap", roadmap)
 	.prop("developmentStatus", developmentStatus)
 	.prop("softwareType", softwareType)
+	.prop("supports", S.array().items(S.ref("#support")))
 	.prop("intendedAudience", S.ref("#intendedAudience"))
 	.prop("description", S.ref("#description"))
 	.prop("legal", S.ref("#legal"))
@@ -81,6 +86,9 @@ const schema = S.object()
 	.prop("organisation", S.ref("#organisation"))
 	.prop("fundedBy", fundedBy)
 	.prop("IT", S.ref("#IT"))
+	// Lowercase country section: deprecated, but still accepted by the parser
+	// (with a warning) and used by v0.5 files.
+	.prop("it", S.raw({ $ref: "#IT", deprecated: true }))
 	.required([
 		"publiccodeYmlVersion",
 		"name",

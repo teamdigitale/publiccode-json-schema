@@ -35,7 +35,7 @@ export default S.object()
 	.additionalProperties(false)
 	.prop(
 		"license",
-		S.string().description(
+		S.string().raw({ format: "spdx_expression" }).description(
 			"This string describes the license under which the software is distributed. The string must contain a valid SPDX expression, referring to one (or multiple) open-source license. Please refer to the SPDX documentation for further information.",
 		),
 	)

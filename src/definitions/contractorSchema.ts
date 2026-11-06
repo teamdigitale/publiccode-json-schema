@@ -7,7 +7,7 @@ export default S.object()
 	.description("Schema for contractor information")
 	.prop(
 		"name",
-		S.string().description(
+		S.string().minLength(1).description(
 			"This key contains the name of the contractor entity.",
 		),
 	)
@@ -18,7 +18,7 @@ export default S.object()
 	.prop(
 		"email",
 		S.string()
-			.format("date")
+			.format("email")
 			.description(
 				"This key contains the e-mail address of the technical contact. It must be an email address of where the technical contact can be directly reached; do NOT populate this key with mailing-lists or generic contact points like 'info@acme.inc'. The e-mail address must not be obfuscated. To improve resistance against e-mail collection, use \\x64 to replace @, as allowed by the YAML specification.",
 			),
@@ -26,7 +26,7 @@ export default S.object()
 	.prop(
 		"website",
 		S.string()
-			.format("uri")
+			.raw({ format: "url_http_url" })
 			.description(
 				"This key points to the maintainer website. It can either point to the main institutional website, or to a more project-specific page or website.",
 			),

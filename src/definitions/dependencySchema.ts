@@ -7,7 +7,7 @@ export default S.object()
 	.description("Schema for Dependencies information")
 	.prop(
 		"name",
-		S.string().description(
+		S.string().minLength(1).description(
 			"The name of the dependency (e.g. MySQL, NFC Reader)",
 		),
 	)

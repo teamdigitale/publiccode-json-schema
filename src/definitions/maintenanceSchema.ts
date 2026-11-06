@@ -33,6 +33,29 @@ import S from "fluent-json-schema";
 
 export default S.object()
 	.id("#maintenance")
+	// Must come before .prop(): fluent attaches .raw() to the last property.
+	// A single nested if/then/else, because fluent strips `type` from nested
+	// schemas that use allOf/anyOf/oneOf/not.
+	// Parser: contractors `required_if=Type contract,excluded_unless=Type contract`,
+	// contacts `required_if=Type community,required_if=Type internal`.
+	.raw({
+		if: {
+			type: "object",
+			properties: { type: { const: "contract" } },
+			required: ["type"],
+		},
+		then: { type: "object", required: ["contractors"] },
+		else: {
+			type: "object",
+			properties: { contractors: false },
+			if: {
+				type: "object",
+				properties: { type: { enum: ["community", "internal"] } },
+				required: ["type"],
+			},
+			then: { type: "object", required: ["contacts"] },
+		},
+	})
 	.title("Maintenance Information")
 	.description(
 		"This section provides information on the maintenance status of the software, useful to evaluate whether the software is actively developed or not.",

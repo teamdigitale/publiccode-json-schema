@@ -7,7 +7,7 @@ export default S.object()
 	.description("Schema for technical contact information")
 	.prop(
 		"name",
-		S.string().description(
+		S.string().minLength(1).description(
 			"This key contains the full name of one of the technical contacts. It must be a real person; do NOT populate this key with generic contact information, company departments, associations, etc.",
 		),
 	)
