@@ -56,6 +56,7 @@ func main() {
 	})
 
 	write(out, "countries.json", countries())
+	write(out, "countries-alpha3.json", countriesAlpha3())
 
 	write(out, "spdx.json", map[string]any{
 		"licenses":   sorted(spdxlicenses.GetLicenses()),
@@ -165,6 +166,33 @@ func countries() []string {
 	}
 
 	return c
+}
+
+// countriesAlpha3 maps the ISO 3166-1 alpha-3 codes (lowercase: they
+// identify country packages) to their alpha-2 code.
+func countriesAlpha3() map[string]string {
+	m := map[string]string{}
+
+	for _, a := range strings.ToUpper(letters) {
+		for _, b := range strings.ToUpper(letters) {
+			for _, c := range strings.ToUpper(letters) {
+				code := string([]rune{a, b, c})
+				if validate.Var(code, "iso3166_1_alpha3") != nil {
+					continue
+				}
+
+				// The validator also knows a few codes outside ISO 3166-1
+				// (UNK, used by the UN for Kosovo): no alpha-2 to map them to.
+				region, err := language.ParseRegion(code)
+				if err != nil {
+					continue
+				}
+				m[strings.ToLower(code)] = region.String()
+			}
+		}
+	}
+
+	return m
 }
 
 func ipaCodes() []string {

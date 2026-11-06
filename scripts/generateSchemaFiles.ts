@@ -6,7 +6,6 @@ import {
 	countries,
 	rules,
 	SCHEMA_VERSIONS,
-	standardCountries,
 } from "../src/index";
 import { baseSchema } from "../src/publiccode-schema";
 
@@ -14,7 +13,8 @@ const write = (path: string, data: unknown) =>
 	fs.writeFile(path, `${JSON.stringify(data, null, 2)}\n`, "utf8");
 
 async function main() {
-	const included = standardCountries();
+	// Standard sections only: experimental ones are enabled by consumers.
+	const included = countries;
 	await fs.mkdir("data/countries", { recursive: true });
 
 	// What the validators use: every 0.x version, like the parser.
@@ -34,10 +34,10 @@ async function main() {
 	// Country packages as data, for consumers that don't run TypeScript.
 	for (const c of countries) {
 		const { deprecations: _, ...rest } = c;
-		await write(`data/countries/${c.code}.json`, {
+		await write(`data/countries/${c.id}.json`, {
 			...rest,
 			deprecations: rules([c])
-				.filter((r) => r.country === c.code)
+				.filter((r) => r.country === c.id)
 				.map(({ id, since, message, parser, lossy }) => ({ id, since, message, parser, lossy })),
 		});
 	}

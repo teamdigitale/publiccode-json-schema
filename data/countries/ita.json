@@ -1,88 +1,91 @@
 {
-  "code": "IT",
-  "status": "standard",
-  "section": {
-    "schema": {
-      "title": "Italy Extension",
-      "description": "Schema for the Italy country extension",
-      "additionalProperties": false,
-      "properties": {
-        "countryExtensionVersion": {
-          "type": "string",
-          "enum": [
-            "0.2",
-            "1.0"
-          ],
-          "description": "This key specifies the version to which the current extension schema adheres to, for forward compatibility.\n\nPlease note how the value of this key is independent from the top-level publiccodeYmlVersion one (see The Standard (core)). In such a way, the extensions schema versioning is independent both from the core version of the schema and from every other Country."
-        },
-        "conforme": {
-          "type": "object",
-          "additionalProperties": false,
-          "description": "This section contains the keys for auto-declaring the compliance with the current legislation, with respect to the following sections. Not including these keys implies that the compliance is not known or not declared.",
-          "properties": {
-            "lineeGuidaDesign": {
-              "type": "boolean",
-              "description": "If present and set to true, the software is compliant with the Italian accessibility laws (L. 4/2004), as further explained in the linee guida di design (Italian language)."
-            },
-            "modelloInteroperabilita": {
-              "type": "boolean",
-              "description": "If present and set to true, the software is compliant with the linee guida sull'interoperabilità.\n\nRegulatory reference: Art. 73 del CAD (Italian language)."
-            },
-            "misureMinimeSicurezza": {
-              "type": "boolean",
-              "description": "If present and set to true, the software is compliant with the Misure minime di sicurezza ICT per le Pubbliche amministrazioni (Italian language)."
-            },
-            "gdpr": {
-              "type": "boolean",
-              "description": "If present and set to true, the software respects the GDPR."
+  "id": "ita",
+  "sections": [
+    {
+      "key": "IT",
+      "standard": true,
+      "schema": {
+        "title": "Italy Extension",
+        "description": "Schema for the Italy country extension",
+        "additionalProperties": false,
+        "properties": {
+          "countryExtensionVersion": {
+            "type": "string",
+            "enum": [
+              "0.2",
+              "1.0"
+            ],
+            "description": "This key specifies the version to which the current extension schema adheres to, for forward compatibility.\n\nPlease note how the value of this key is independent from the top-level publiccodeYmlVersion one (see The Standard (core)). In such a way, the extensions schema versioning is independent both from the core version of the schema and from every other Country."
+          },
+          "conforme": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "This section contains the keys for auto-declaring the compliance with the current legislation, with respect to the following sections. Not including these keys implies that the compliance is not known or not declared.",
+            "properties": {
+              "lineeGuidaDesign": {
+                "type": "boolean",
+                "description": "If present and set to true, the software is compliant with the Italian accessibility laws (L. 4/2004), as further explained in the linee guida di design (Italian language)."
+              },
+              "modelloInteroperabilita": {
+                "type": "boolean",
+                "description": "If present and set to true, the software is compliant with the linee guida sull'interoperabilità.\n\nRegulatory reference: Art. 73 del CAD (Italian language)."
+              },
+              "misureMinimeSicurezza": {
+                "type": "boolean",
+                "description": "If present and set to true, the software is compliant with the Misure minime di sicurezza ICT per le Pubbliche amministrazioni (Italian language)."
+              },
+              "gdpr": {
+                "type": "boolean",
+                "description": "If present and set to true, the software respects the GDPR."
+              }
             }
-          }
-        },
-        "piattaforme": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "spid": {
-              "type": "boolean",
-              "description": "If present and set to true, the software interfaces with SPID - il Sistema Pubblico di Identità Digitale."
-            },
-            "cie": {
-              "type": "boolean",
-              "description": "If present and set to true, the software interfaces with the Italian electronic ID card (Carta d'Identità Elettronica)."
-            },
-            "anpr": {
-              "type": "boolean",
-              "description": "If present and set to true, the software interfaces with ANPR."
-            },
-            "pagopa": {
-              "type": "boolean",
-              "description": "If present and set to true, the software interfaces with pagoPA."
-            },
-            "io": {
-              "type": "boolean",
-              "description": "If present and set to true, the software interfaces with IO app (https://io.italia.it) "
+          },
+          "piattaforme": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "spid": {
+                "type": "boolean",
+                "description": "If present and set to true, the software interfaces with SPID - il Sistema Pubblico di Identità Digitale."
+              },
+              "cie": {
+                "type": "boolean",
+                "description": "If present and set to true, the software interfaces with the Italian electronic ID card (Carta d'Identità Elettronica)."
+              },
+              "anpr": {
+                "type": "boolean",
+                "description": "If present and set to true, the software interfaces with ANPR."
+              },
+              "pagopa": {
+                "type": "boolean",
+                "description": "If present and set to true, the software interfaces with pagoPA."
+              },
+              "io": {
+                "type": "boolean",
+                "description": "If present and set to true, the software interfaces with IO app (https://io.italia.it) "
+              }
             }
-          }
-        },
-        "riuso": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "codiceIPA": {
-              "type": "string",
-              "format": "italian_ipa_code",
-              "description": "This key represents the administration code inside the Public Administration index (codice IPA)."
+          },
+          "riuso": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "codiceIPA": {
+                "type": "string",
+                "format": "italian_ipa_code",
+                "description": "This key represents the administration code inside the Public Administration index (codice IPA)."
+              }
             }
           }
         }
+      },
+      "lowercaseKey": true,
+      "deprecated": {
+        "since": "0.7.0",
+        "hint": "Use 'supports' for compliance with national regulations and integration with national platforms, and 'organisation' to reference the publishing administration."
       }
-    },
-    "lowercaseKey": true,
-    "deprecated": {
-      "since": "0.7.0",
-      "hint": "Use 'supports' for compliance with national regulations and integration with national platforms, and 'organisation' to reference the publishing administration."
     }
-  },
+  ],
   "fieldHistory": [
     {
       "path": "IT.piattaforme.io",
@@ -277,7 +280,7 @@
         }
       },
       "countries": {
-        "IT": {
+        "ita": {
           "name": "Italy",
           "deprecated": "The country-specific section is deprecated since publiccode.yml v0.7 and will be removed in v1. Where possible, declare compliance in the “Supported Standards” section above (e.g. SPID, CIE, pagoPA, GDPR)."
         }
@@ -342,7 +345,7 @@
         }
       },
       "countries": {
-        "IT": {
+        "ita": {
           "name": "Italia",
           "deprecated": "La sezione country-specific è deprecata a partire da publiccode.yml v0.7 e sarà rimossa in v1. Dove possibile, dichiara la conformità nella sezione “Standard supportati” qui sopra (es. SPID, CIE, pagoPA, GDPR)."
         }
@@ -407,7 +410,7 @@
         }
       },
       "countries": {
-        "IT": {
+        "ita": {
           "name": "Italien",
           "deprecated": "Der länderspezifische Abschnitt ist seit publiccode.yml v0.7 veraltet und wird in v1 entfernt. Deklarieren Sie die Konformität nach Möglichkeit im Abschnitt „Unterstützte Standards“ oben (z. B. SPID, CIE, pagoPA, GDPR)."
         }
@@ -472,7 +475,7 @@
         }
       },
       "countries": {
-        "IT": {
+        "ita": {
           "name": "Italie",
           "deprecated": "La section spécifique au pays est dépréciée depuis publiccode.yml v0.7 et sera supprimée en v1. Lorsque c'est possible, déclarez la conformité dans la section « Standards pris en charge » ci-dessus (par ex. SPID, CIE, pagoPA, GDPR)."
         }
@@ -537,7 +540,7 @@
         }
       },
       "countries": {
-        "IT": {
+        "ita": {
           "name": "Italië",
           "deprecated": "De landspecifieke sectie is verouderd sinds publiccode.yml v0.7 en wordt verwijderd in v1. Verklaar waar mogelijk de naleving in de sectie “Ondersteunde standaarden” hierboven (bijv. SPID, CIE, pagoPA, GDPR)."
         }

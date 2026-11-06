@@ -7,7 +7,7 @@
 | `data/publiccode-schema/publiccode-schema-v0.json` | Validation. Every 0.x version with the same rules, like publiccode-parser-go; deprecated keys are annotated (`deprecated: true`) but accepted. This is the one the editor's Ajv validator uses. |
 | `data/publiccode-schema/publiccode-schema-v<X.Y.Z>.json` | Reference for one version (0.2.0, 0.3.0, 0.4.0, 0.5.0, 0.7.0, 0.8.0): only the keys and values that exist in it, its mandatory keys, its deprecations. **Stricter than the parser**: e.g. 0.4.0 rejects `organisation` and requires `categories`. Useful for editors and IDEs, not for deciding if a file is valid. |
 | `data/form-schema/form-schema-v<X.Y.Z>.json` | The fields to show for a version, derived from that schema plus `src/form/ui.ts`. |
-| `data/countries/<CODE>.json` | Country packages as data. |
+| `data/countries/<id>.json` | Country packages as data (`ita.json`). |
 
 0.6.0 changed nothing in the standard, so it has no schema; a declared version
 maps to the schema of the closest older version (`schemaVersionFor()`:
@@ -28,8 +28,8 @@ validating with v0, and the 0.8.0 changes are reported as deprecations.
   `government` scope);
 - lowercase country codes and sections before 0.5.0.
 
-Country packages add their own (`IT.piattaforme.io` in 0.3.0, the whole `IT`
-section deprecated in 0.7.0).
+Country packages add their own for their sections (`IT.piattaforme.io` in
+0.3.0, the whole `IT` section deprecated in 0.7.0).
 
 ## Form schemas
 
@@ -52,9 +52,8 @@ warning); country packages ship their own translations (`countryLocales()`).
 ## Deprecations and upgrades
 
 ```ts
-import { deprecations, upgrade, standardCountries } from "publicode-schema";
+import { countries, deprecations, upgrade } from "publicode-schema";
 
-const countries = standardCountries();
 deprecations(data, { countries });
 // [{ id: "codiceIPA", key: "IT.riuso.codiceIPA", since: "0.5.0", parser: true,
 //    fixable: true, lossy: false, message: "This key is DEPRECATED ..." }, ...]
@@ -81,5 +80,12 @@ no logo; the single string `isBasedOn` → a one element list (0.8.0). The `IT`
 section goes away once nothing but `countryExtensionVersion` is left in it.
 
 ## Country packages
+
+Identified by their lowercase ISO 3166-1 alpha-3 code (`ita`); they can bring
+`supports` presets, translations and sections. The generated schemas and form
+schemas only have the standard section (`IT`, from `ita`); experimental
+sections (`nld:`) are enabled by the consumer, since the parser rejects them.
+In a form schema a section's group is `section:<key>`, with the package id in
+`country` and the key the section has in that version in `key`.
 
 See [src/countries/README.md](../src/countries/README.md).

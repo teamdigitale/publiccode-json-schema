@@ -16,7 +16,8 @@ import {
 	normalizeVersion,
 	SCHEMA_VERSIONS,
 	schemaVersionFor,
-	standardCountries,
+	countries,
+	sectionsFormSchema,
 	upgrade,
 	withCountries,
 } from "../src/index";
@@ -68,7 +69,6 @@ const minimal = (version = "0.7.0") => ({
 	localisation: { localisationReady: true, availableLanguages: ["en"] },
 });
 
-const countries = standardCountries();
 const strict = (version: (typeof SCHEMA_VERSIONS)[number]) =>
 	validator(buildSchema(baseSchema, { version, countries }));
 
@@ -209,63 +209,111 @@ describe("deprecations", () => {
 	});
 });
 
-const NL: CountryExtension = {
-	code: "NL",
-	status: "experimental",
-	section: {
-		schema: {
-			additionalProperties: false,
-			properties: {
-				countryExtensionVersion: { type: "string", enum: ["0.1"] },
-				example: { type: "boolean" },
+// A package with a section of its own: experimental, since the parser
+// rejects any section but IT.
+const nld: CountryExtension = {
+	id: "nld",
+	sections: [
+		{
+			key: "nld",
+			standard: false,
+			schema: {
+				additionalProperties: false,
+				properties: {
+					countryExtensionVersion: { type: "string", enum: ["0.1"] },
+					example: { type: "boolean" },
+				},
 			},
 		},
-	},
+	],
 	supports: [{ id: "https://www.digid.nl/", label: "DigiD" }],
-	ui: { "NL.example": { order: 1 } },
-	locales: { en: { publiccodeyml: { nl: { example: { label: "Example" } } }, countries: { NL: { name: "Netherlands" } } } },
+	ui: { "nld.example": { order: 1 } },
+	locales: {
+		en: {
+			publiccodeyml: { nld: { example: { label: "Example" } } },
+			countries: { nld: { name: "Netherlands" } },
+		},
+	},
 };
 
 describe("country packages", () => {
 	it("checks a package", () => {
-		expect(defineCountry(NL)).toBe(NL);
-		expect(() => defineCountry({ ...NL, code: "XX" })).toThrow(/ISO 3166/);
+		expect(defineCountry(nld)).toBe(nld);
+		expect(() => defineCountry({ ...nld, id: "nl" })).toThrow(/alpha-3/);
+		expect(() => defineCountry({ ...nld, id: "xxx" })).toThrow(/alpha-3/);
 		expect(() =>
-			defineCountry({ ...NL, supports: [{ id: "alias:digid", label: "DigiD" }] }),
+			defineCountry({ ...nld, supports: [{ id: "alias:digid", label: "DigiD" }] }),
 		).toThrow(/list of aliases/);
+		// An experimental section uses the package id, never an alpha-2 code.
+		const section = nld.sections?.[0];
+		expect(() =>
+			defineCountry({ ...nld, sections: [{ ...section!, key: "NL" }] }),
+		).toThrow(/must use the key "nld"/);
+		expect(() =>
+			defineCountry({ ...nld, sections: [{ ...section!, key: "NL", standard: true }] }),
+		).toThrow(/isn't a section of the standard/);
 	});
 
 	it("adds an experimental section only on request", () => {
-		const file = { ...minimal(), NL: { countryExtensionVersion: "0.1", example: true } };
+		const file = { ...minimal(), nld: { countryExtensionVersion: "0.1", example: true } };
 		expect(validator(v0)(file)).toEqual(["additionalProperties"]);
-		expect(validator(withCountries(v0, [NL]))(file)).toEqual([]);
+		expect(validator(buildSchema(baseSchema, { countries: [...countries, nld] }))(file)).toEqual([
+			"additionalProperties",
+		]);
+		expect(validator(withCountries(v0, [nld]))(file)).toEqual([]);
+		expect(
+			validator(buildSchema(baseSchema, { countries: [...countries, nld], experimental: ["nld"] }))(
+				file,
+			),
+		).toEqual([]);
 	});
 
 	it("puts its fields and presets in the form schema", () => {
-		const schema = buildSchema(baseSchema, { version: "0.7.0", countries: [...countries, NL] });
+		const all = [...countries, nld];
+		const schema = buildSchema(baseSchema, { version: "0.7.0", countries: all, experimental: ["nld"] });
 		const form = buildFormSchema(schema, {
 			version: "0.7.0",
 			ui,
 			groups,
 			supports,
-			countries: [...countries, NL],
+			countries: all,
+			experimental: ["nld"],
 		});
 
-		expect(form.groups.at(-1)).toMatchObject({ id: "country:NL", i18n: "countries.NL.name" });
-		expect(form.fields.find((f) => f.path === "NL.example")).toMatchObject({
-			i18n: "publiccodeyml.nl.example",
+		expect(form.groups.at(-1)).toMatchObject({
+			id: "section:nld",
+			i18n: "countries.nld.name",
+			country: "nld",
+			key: "nld",
+			experimental: true,
+		});
+		expect(form.fields.find((f) => f.path === "nld.example")).toMatchObject({
+			i18n: "publiccodeyml.nld.example",
 			widget: "boolean",
-			group: "country:NL",
+			group: "section:nld",
+			country: "nld",
 			experimental: true,
 		});
 		const presets = form.fields.find((f) => f.path === "supports.id")?.suggestions;
-		expect(presets?.at(-1)).toEqual({ value: "https://www.digid.nl/", label: "DigiD", country: "NL" });
+		expect(presets?.at(-1)).toEqual({ value: "https://www.digid.nl/", label: "DigiD", country: "nld" });
+	});
+
+	it("builds the form of a package's sections alone", () => {
+		const form = sectionsFormSchema(nld, "0.7.0");
+		expect(form.groups).toEqual([
+			expect.objectContaining({ id: "section:nld", key: "nld", experimental: true }),
+		]);
+		expect(form.fields.map((f) => f.path)).toEqual([
+			"nld",
+			"nld.example",
+			"nld.countryExtensionVersion",
+		]);
 	});
 
 	it("merges the translations with an English fallback", () => {
-		const bundle = countryLocales("fr", [NL, ...countries]) as Record<string, any>;
-		expect(bundle.countries.NL.name).toBe("Netherlands");
-		expect(bundle.countries.IT.name).toBe("Italie");
+		const bundle = countryLocales("fr", [nld, ...countries]) as Record<string, any>;
+		expect(bundle.countries.nld.name).toBe("Netherlands");
+		expect(bundle.countries.ita.name).toBe("Italie");
 		expect(bundle.publiccodeyml.it.riuso.label).toBe("Réutilisation");
 	});
 });
@@ -280,8 +328,12 @@ describe("form schemas", () => {
 		expect(paths("0.5.0")).toContain("organisation.uri");
 		expect(paths("0.5.0")).not.toContain("supports");
 		expect(paths("0.7.0")).toContain("supports.id");
-		expect(form("0.2.0").groups.at(-1)).toMatchObject({ id: "country:IT", key: "it" });
-		expect(form("0.7.0").groups.at(-1)).toMatchObject({ id: "country:IT", key: "IT" });
+		expect(form("0.2.0").groups.at(-1)).toMatchObject({ id: "section:IT", key: "it" });
+		expect(form("0.7.0").groups.at(-1)).toMatchObject({
+			id: "section:IT",
+			country: "ita",
+			key: "IT",
+		});
 	});
 
 	it("marks what's deprecated in that version", () => {
