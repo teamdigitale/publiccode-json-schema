@@ -13,7 +13,8 @@ export default S.object()
 	.additionalProperties(
 		S.object()
 			.additionalProperties(false)
-			.required(["shortDescription", "longDescription"])
+			// features is `gt=0` without omitempty in the parser: required too.
+			.required(["shortDescription", "longDescription", "features"])
 			.prop(
 				"localisedName",
 				S.string().description(

@@ -13,19 +13,19 @@ export default S.object()
 	)
 	.prop(
 		"version",
-		S.oneOf([S.string(), S.number()]).description(
+		S.string().description(
 			"The only major version for which the software is compatible. It assumes compatibility with all patches and bugfixes later applied to this version.",
 		),
 	)
 	.prop(
 		"versionMax",
-		S.oneOf([S.string(), S.number()]).description(
+		S.string().description(
 			"The latest compatible version",
 		),
 	)
 	.prop(
 		"versionMin",
-		S.oneOf([S.string(), S.number()]).description(
+		S.string().description(
 			"The first compatible version",
 		),
 	)

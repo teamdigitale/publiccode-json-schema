@@ -45,7 +45,11 @@ error.
 | Unknown keys are rejected (`DisallowUnknownField`), at every level | the unknown key | error | ⚠️ `additionalProperties:false` everywhere except `description.<lang>` (broken, see §4) | JSON | |
 | Wrong YAML type for a field ("wrong type for this field") | first bad key | error | ⚠️ types present, some wrong | JSON `type` | |
 | Decoding stops at the **first** decode error; the struct validator then runs on the partially-decoded struct | — | — | n/a | Not reproducible: Ajv reports all errors. Expect extra "required" errors from the parser on such files | |
-| `isBasedOn` accepts a string **or** a list of strings | `isBasedOn` | — | ✅ (`oneOf`) | JSON `type: [string, array]` | |
+| Any YAML scalar decodes into a string field (`phone: +39…`, `genericName: 0123…` are strings) | — | — | ❌ numbers rejected | TS: numbers, and booleans outside boolean keys, become strings before validation | |
+| A key with no value (`name:`) is null and decodes to the zero value, so `required` fires (not a type error) | the key | error | ⚠️ type error | TS: drop nulls before validation | |
+| `isBasedOn` accepts a string **or** a list of strings; a single string is reported as `isBasedOn[0]` | `isBasedOn` | — | ✅ (`oneOf`) | JSON `type: [string, array]` | |
+| A missing struct section (`legal`, `maintenance`, `localisation`) is reported on its required keys (`legal.license`, …) | children | error | n/a | TS (error mapping) | |
+| Map keys are rendered `description.en` only for purely alphabetic tags, otherwise `description[en-US]` | — | — | n/a | TS (error mapping) | |
 | Both `IT` and `it` are accepted keys (same `ITSectionV0` struct) | `IT`, `it` | — | ❌ only `IT`; files with `it:` fail on the root `additionalProperties:false` | JSON (add `it`) | |
 
 ## 3. Struct `validate` tags — root
@@ -73,7 +77,7 @@ error.
 | `legal.license` | `required,is_spdx_expression` | error | ⚠️ required, any string | format `spdx_expression` | |
 | `maintenance.type` | `required,oneof=internal contract community none` | error | ✅ | JSON | |
 | `maintenance.contractors` | `required_if=Type contract` | error | ❌ | JSON `if`/`then` | |
-| `maintenance.contractors` | `excluded_unless=Type contract` | error | ❌ | JSON `if`/`else` with `contractors: false` | |
+| `maintenance.contractors` | `excluded_unless=Type contract` (validation of the items stops there) | error | ❌ | JSON `if`/`else` with `contractors: false`; items validated only in the `then` branch | |
 | `maintenance.contacts` | `required_if=Type community`, `required_if=Type internal` | error | ❌ | JSON `if`/`then` | |
 | `localisation.localisationReady` | `required` (non-nil bool) | error | ✅ | JSON | |
 | `localisation.availableLanguages` | `required,gt=0` | error | ⚠️ required, no `minItems` | JSON `minItems: 1` | |
@@ -90,7 +94,7 @@ error.
 | `description.<lang>.shortDescription` | `required,umax=150` | error | ⚠️ code points; empty allowed | JSON `minLength: 1` + keyword | |
 | `description.<lang>.longDescription` | `required,umin=150,umax=10000` (graphemes) | error | ⚠️ not required, code points | JSON required + keyword | |
 | `description.<lang>.documentation`, `apiDocumentation` | `url_http_url` | error | ⚠️ `format: uri` | format `url_http_url` | |
-| `description.<lang>.features` | `gt=0,dive` | error | ⚠️ no `minItems` | JSON `minItems: 1` | |
+| `description.<lang>.features` | `gt=0,dive` (no `omitempty`: a missing list fails too) | error | ⚠️ optional, no `minItems` | JSON required + `minItems: 1` | |
 | `description.<lang>.videos[*]` | `url_http_url` | error | ❌ | format `url_http_url` | |
 | `maintenance.contractors[*].name` | `required` | error | ⚠️ empty allowed | JSON `minLength: 1` | |
 | `maintenance.contractors[*].until` | `required,date` | error | ✅ | JSON + ajv-formats `date` | |
@@ -99,7 +103,7 @@ error.
 | `maintenance.contacts[*].name` | `required` | error | ⚠️ empty allowed | JSON `minLength: 1` | |
 | `maintenance.contacts[*].email` | `email` | error | ⚠️ ajv-formats email, different regex | format `email` (parser regex) | |
 | `dependsOn.*[*].name` | `required,gt=0` | error | ⚠️ empty allowed | JSON `minLength: 1` | |
-| `dependsOn.*[*].version*` | `*string` | error (decode) | ⚠️ accepts numbers | JSON `type: string` (verify via parity) | |
+| `dependsOn.*[*].version*` | `*string` (numbers decode as strings, lists/maps are wrong type) | error (decode) | ⚠️ `oneOf` string/number | JSON `type: string` + TS scalar normalisation | |
 | `organisation.uri`, `fundedBy[*].uri` | `required,organisation_uri` | error | ⚠️ optional, `format: uri` | JSON required + format `organisation_uri` | case-insensitive URN check since v5.3.1 |
 | `supports[*].id` | `required,supports_id` | error | ❌ | format `supports_id` | v5.4.0 |
 
@@ -162,8 +166,17 @@ These can't be done in the browser with JSON Schema anyway; a remote validator
 | `bcp47_strict_language_tag` | `bcp47_strict_language_tag` | RFC 5646 grammar + known language (x/text), extlang prefixes, script, region (ISO 3166 / M.49 subset), registered variants | `bcp47.json` (x/text v0.37.0, validator v10.30.3) |
 | `iso3166_1_alpha2_lower_or_upper` | same | all-lower or all-upper, assigned ISO 3166-1 alpha-2 code | `countries.json` |
 | `italian_ipa_code` | `is_italian_ipa_code` | case-insensitive membership | `ipa-codes.json` (parser v5.4.3) |
-| `organisation_uri` | `organisation_uri` | `ParseRequestURI`; URN → RFC 2141 and, for `urn:x-italian-pa:`, a known iPA code; otherwise scheme + host | `ipa-codes.json` |
-| `supports_id` | `supports_id` | `alias:<gdpr\|eidas\|nis2\|cra\|spid\|cie\|anpr\|pagopa\|io>`, or a URN (RFC 2141), or a URI with scheme + host | — |
+| `organisation_uri` | `organisation_uri` | `ParseRequestURI`; URN → `urn_rfc2141` and, for `urn:x-italian-pa:`, a known iPA code; otherwise scheme + host | `ipa-codes.json` |
+| `supports_id` | `supports_id` | `alias:<gdpr\|eidas\|nis2\|cra\|spid\|cie\|anpr\|pagopa\|io>`, or a URN (`urn_rfc2141`), or a URI with scheme + host | — |
+
+`urn_rfc2141` is go-urn's grammar, which is not exactly RFC 2141: `/`, `?` and
+`#` are rejected and `%` may be followed by any two alphanumerics (`%zz`).
+
+The editor's implementation is checked value by value against the parser's
+own validators by `scripts/vocab/oracle` (see the editor's
+`docs/parity-report.md`). That test found that go-spdx **panics** on
+`DocumentRef-x` and `(` (nil token dereference): in the editor this kills the
+WASM runtime until the page is reloaded.
 
 `maxLength`/`minLength` stay standard keywords in the schema (so other tools
 still get a sensible limit), but the editor's Ajv instance redefines them to

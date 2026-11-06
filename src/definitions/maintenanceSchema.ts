@@ -44,7 +44,13 @@ export default S.object()
 			properties: { type: { const: "contract" } },
 			required: ["type"],
 		},
-		then: { type: "object", required: ["contractors"] },
+		then: {
+			type: "object",
+			properties: {
+				contractors: { type: "array", items: { $ref: "#contractor" } },
+			},
+			required: ["contractors"],
+		},
 		else: {
 			type: "object",
 			properties: { contractors: false },
@@ -71,9 +77,9 @@ export default S.object()
 	)
 	.prop(
 		"contractors",
-		S.array()
-			.items(S.ref("#contractor"))
-			.description(
+		// Items are validated in the `then` branch only: like the parser, don't
+		// report contractor errors when contractors aren't allowed at all.
+		S.array().description(
 				"This key describes the entity or entities, if any, that are currently contracted for maintaining the software. They can be companies, organizations, or other collective names.",
 			),
 	)

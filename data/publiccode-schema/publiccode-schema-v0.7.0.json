@@ -99,36 +99,15 @@
           "description": "The name of the dependency (e.g. MySQL, NFC Reader)"
         },
         "version": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "number"
-            }
-          ],
+          "type": "string",
           "description": "The only major version for which the software is compatible. It assumes compatibility with all patches and bugfixes later applied to this version."
         },
         "versionMax": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "number"
-            }
-          ],
+          "type": "string",
           "description": "The latest compatible version"
         },
         "versionMin": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "number"
-            }
-          ],
+          "type": "string",
           "description": "The first compatible version"
         },
         "optional": {
@@ -247,7 +226,8 @@
         },
         "required": [
           "shortDescription",
-          "longDescription"
+          "longDescription",
+          "features"
         ]
       }
     },
@@ -383,9 +363,6 @@
         },
         "contractors": {
           "type": "array",
-          "items": {
-            "$ref": "#contractor"
-          },
           "description": "This key describes the entity or entities, if any, that are currently contracted for maintaining the software. They can be companies, organizations, or other collective names."
         },
         "contacts": {
@@ -412,6 +389,14 @@
       },
       "then": {
         "type": "object",
+        "properties": {
+          "contractors": {
+            "type": "array",
+            "items": {
+              "$ref": "#contractor"
+            }
+          }
+        },
         "required": [
           "contractors"
         ]
