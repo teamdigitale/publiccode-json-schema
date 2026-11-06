@@ -9,8 +9,12 @@ import {
 	buildSchema,
 	type CountryExtension,
 	countryLocales,
+	DEPRECATION_SINCE_KEY,
 	defineCountry,
+	deprecationKeys,
 	deprecations,
+	locales,
+	rules,
 	type FormField,
 	type FormSchema,
 	normalizeVersion,
@@ -367,5 +371,37 @@ describe("form schemas", () => {
 				.map((x) => `${x.i18n}.label`),
 		].filter((k) => !has(k));
 		expect(missing).toEqual([]);
+	});
+});
+
+describe("deprecation messages", () => {
+	const lookup = (bundle: object, key: string): unknown =>
+		key.split(".").reduce<any>((o, k) => o?.[k], bundle);
+	const placeholders = (s: string) => (s.match(/\{\{\w+\}\}/g) ?? []).sort();
+
+	it.each(["en", "it", "de", "fr", "nl"])("are translated in %s", (lang) => {
+		const bundle = locales(lang, countries);
+		const english = locales("en", countries);
+
+		for (const rule of rules(countries)) {
+			const key = deprecationKeys(rule).find((k) => lookup(bundle, k) !== undefined);
+			expect(key).toBeDefined();
+			const text = lookup(bundle, key as string) as string;
+			expect(placeholders(text)).toEqual(placeholders(lookup(english, key as string) as string));
+			// Only English falls back to English.
+			if (lang !== "en") expect(text).not.toBe(lookup(english, key as string));
+		}
+		expect(lookup(bundle, DEPRECATION_SINCE_KEY)).toMatch(/\{\{message\}\}.*\{\{since\}\}/);
+	});
+
+	it("prefer the country package's wording", () => {
+		const [ipa] = deprecations({ IT: { riuso: { codiceIPA: "pcm" } } }, { countries }).filter(
+			(f) => f.id === "codiceIPA",
+		);
+		expect(deprecationKeys(ipa)).toEqual([
+			"countries.ita.deprecations.codiceIPA",
+			"deprecations.messages.codiceIPA",
+		]);
+		expect(ipa.params).toEqual({ value: "pcm" });
 	});
 });

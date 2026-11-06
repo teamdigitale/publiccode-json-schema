@@ -61,6 +61,10 @@ deprecations(data, { countries });
 const { data: upgraded, applied, remaining } = upgrade(data, { countries });
 ```
 
+- Messages are in English with the parser's wording; translations come with the
+  library (`locales(lang)`, in en, it, de, fr, nl): `deprecationKeys(finding)` gives
+  the i18next keys to try, the country package's own first, and
+  `DEPRECATION_SINCE_KEY` the "(deprecated since …)" suffix.
 - `deprecations()` reports everything up to 0.8.0 (`upTo` to stop earlier);
   `since` tells the version, `parser` whether the parser warns about it too
   (to avoid showing it twice).

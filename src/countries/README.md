@@ -51,7 +51,8 @@ alias is a validation error): propose new ones to
    - `locales`: translations by language, at least `en`. Keys:
      `countries.<id>.name` for the section title,
      `publiccodeyml.<section key, lowercase>.<path>.label|description` for the
-     fields.
+     fields, `countries.<id>.deprecations.<rule id>` for the messages of its
+     deprecation rules (i18next interpolation: `{{value}}`).
 2. Add it to `countries` in `src/countries/index.ts`.
 3. Run `bun run gen` and `bun test`.
 

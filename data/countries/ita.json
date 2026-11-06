@@ -282,7 +282,13 @@
       "countries": {
         "ita": {
           "name": "Italy",
-          "deprecated": "The country-specific section is deprecated since publiccode.yml v0.7 and will be removed in v1. Where possible, declare compliance in the “Supported Standards” section above (e.g. SPID, CIE, pagoPA, GDPR)."
+          "deprecated": "The country-specific section is deprecated since publiccode.yml v0.7 and will be removed in v1. Where possible, declare compliance in the “Supported Standards” section above (e.g. SPID, CIE, pagoPA, GDPR).",
+          "deprecations": {
+            "countrySection": "This section is DEPRECATED and will be removed in the future. Use 'supports' for compliance with national regulations and integration with national platforms, and 'organisation' to reference the publishing administration",
+            "codiceIPA": "This key is DEPRECATED and will be removed in the future. Use 'organisation.uri' and set it to 'urn:x-italian-pa:{{value}}' instead",
+            "conforme": "This key is DEPRECATED and will be removed in the future. It's safe to drop it",
+            "piattaforme": "This key is DEPRECATED and will be removed in the future. Use 'supports' with 'alias:{{value}}' instead"
+          }
         }
       }
     },
@@ -347,7 +353,13 @@
       "countries": {
         "ita": {
           "name": "Italia",
-          "deprecated": "La sezione country-specific è deprecata a partire da publiccode.yml v0.7 e sarà rimossa in v1. Dove possibile, dichiara la conformità nella sezione “Standard supportati” qui sopra (es. SPID, CIE, pagoPA, GDPR)."
+          "deprecated": "La sezione country-specific è deprecata a partire da publiccode.yml v0.7 e sarà rimossa in v1. Dove possibile, dichiara la conformità nella sezione “Standard supportati” qui sopra (es. SPID, CIE, pagoPA, GDPR).",
+          "deprecations": {
+            "countrySection": "Questa sezione è DEPRECATA e verrà rimossa in futuro. Usa 'supports' per la conformità alle normative nazionali e l'integrazione con le piattaforme nazionali, e 'organisation' per indicare l'amministrazione che pubblica il software",
+            "codiceIPA": "Questa chiave è DEPRECATA e verrà rimossa in futuro. Usa 'organisation.uri' con il valore 'urn:x-italian-pa:{{value}}'",
+            "conforme": "Questa chiave è DEPRECATA e verrà rimossa in futuro. Può essere eliminata senza problemi",
+            "piattaforme": "Questa chiave è DEPRECATA e verrà rimossa in futuro. Usa 'supports' con 'alias:{{value}}'"
+          }
         }
       }
     },
@@ -412,7 +424,13 @@
       "countries": {
         "ita": {
           "name": "Italien",
-          "deprecated": "Der länderspezifische Abschnitt ist seit publiccode.yml v0.7 veraltet und wird in v1 entfernt. Deklarieren Sie die Konformität nach Möglichkeit im Abschnitt „Unterstützte Standards“ oben (z. B. SPID, CIE, pagoPA, GDPR)."
+          "deprecated": "Der länderspezifische Abschnitt ist seit publiccode.yml v0.7 veraltet und wird in v1 entfernt. Deklarieren Sie die Konformität nach Möglichkeit im Abschnitt „Unterstützte Standards“ oben (z. B. SPID, CIE, pagoPA, GDPR).",
+          "deprecations": {
+            "countrySection": "Dieser Abschnitt ist VERALTET und wird in Zukunft entfernt. Verwenden Sie 'supports' für die Einhaltung nationaler Vorschriften und die Anbindung an nationale Plattformen und 'organisation' für die Verwaltung, die die Software veröffentlicht",
+            "codiceIPA": "Dieser Schlüssel ist VERALTET und wird in Zukunft entfernt. Verwenden Sie stattdessen 'organisation.uri' mit dem Wert 'urn:x-italian-pa:{{value}}'",
+            "conforme": "Dieser Schlüssel ist VERALTET und wird in Zukunft entfernt. Er kann bedenkenlos gelöscht werden",
+            "piattaforme": "Dieser Schlüssel ist VERALTET und wird in Zukunft entfernt. Verwenden Sie stattdessen 'supports' mit 'alias:{{value}}'"
+          }
         }
       }
     },
@@ -477,7 +495,13 @@
       "countries": {
         "ita": {
           "name": "Italie",
-          "deprecated": "La section spécifique au pays est dépréciée depuis publiccode.yml v0.7 et sera supprimée en v1. Lorsque c'est possible, déclarez la conformité dans la section « Standards pris en charge » ci-dessus (par ex. SPID, CIE, pagoPA, GDPR)."
+          "deprecated": "La section spécifique au pays est dépréciée depuis publiccode.yml v0.7 et sera supprimée en v1. Lorsque c'est possible, déclarez la conformité dans la section « Standards pris en charge » ci-dessus (par ex. SPID, CIE, pagoPA, GDPR).",
+          "deprecations": {
+            "countrySection": "Cette section est DÉPRÉCIÉE et sera supprimée à l'avenir. Utilisez 'supports' pour la conformité aux réglementations nationales et l'intégration avec les plateformes nationales, et 'organisation' pour l'administration qui publie le logiciel",
+            "codiceIPA": "Cette clé est DÉPRÉCIÉE et sera supprimée à l'avenir. Utilisez plutôt 'organisation.uri' avec la valeur 'urn:x-italian-pa:{{value}}'",
+            "conforme": "Cette clé est DÉPRÉCIÉE et sera supprimée à l'avenir. Elle peut être retirée sans risque",
+            "piattaforme": "Cette clé est DÉPRÉCIÉE et sera supprimée à l'avenir. Utilisez plutôt 'supports' avec 'alias:{{value}}'"
+          }
         }
       }
     },
@@ -542,7 +566,13 @@
       "countries": {
         "ita": {
           "name": "Italië",
-          "deprecated": "De landspecifieke sectie is verouderd sinds publiccode.yml v0.7 en wordt verwijderd in v1. Verklaar waar mogelijk de naleving in de sectie “Ondersteunde standaarden” hierboven (bijv. SPID, CIE, pagoPA, GDPR)."
+          "deprecated": "De landspecifieke sectie is verouderd sinds publiccode.yml v0.7 en wordt verwijderd in v1. Verklaar waar mogelijk de naleving in de sectie “Ondersteunde standaarden” hierboven (bijv. SPID, CIE, pagoPA, GDPR).",
+          "deprecations": {
+            "countrySection": "Deze sectie is VEROUDERD en wordt in de toekomst verwijderd. Gebruik 'supports' voor naleving van nationale regelgeving en integratie met nationale platforms, en 'organisation' voor de overheidsorganisatie die de software publiceert",
+            "codiceIPA": "Deze sleutel is VEROUDERD en wordt in de toekomst verwijderd. Gebruik in plaats daarvan 'organisation.uri' met de waarde 'urn:x-italian-pa:{{value}}'",
+            "conforme": "Deze sleutel is VEROUDERD en wordt in de toekomst verwijderd. Hij kan zonder problemen worden weggelaten",
+            "piattaforme": "Deze sleutel is VEROUDERD en wordt in de toekomst verwijderd. Gebruik in plaats daarvan 'supports' met 'alias:{{value}}'"
+          }
         }
       }
     }
