@@ -5,7 +5,6 @@ import dependencySchema from "./dependencySchema";
 import dependsOnSchema from "./dependsOnSchema";
 import descriptionSchema from "./descriptionSchema";
 import intendedAudienceSchema from "./intendedAudienceSchema";
-import ITSchema from "./itSchema";
 import legalSchema from "./legalSchema";
 import localisationSchema from "./localisationSchema";
 import maintenanceSchema from "./maintenanceSchema";
@@ -19,7 +18,6 @@ export {
 	dependsOnSchema,
 	descriptionSchema,
 	intendedAudienceSchema,
-	ITSchema,
 	legalSchema,
 	localisationSchema,
 	maintenanceSchema,

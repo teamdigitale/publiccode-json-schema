@@ -1,0 +1,577 @@
+{
+  "code": "IT",
+  "status": "standard",
+  "section": {
+    "schema": {
+      "title": "Italy Extension",
+      "description": "Schema for the Italy country extension",
+      "additionalProperties": false,
+      "properties": {
+        "countryExtensionVersion": {
+          "type": "string",
+          "enum": [
+            "0.2",
+            "1.0"
+          ],
+          "description": "This key specifies the version to which the current extension schema adheres to, for forward compatibility.\n\nPlease note how the value of this key is independent from the top-level publiccodeYmlVersion one (see The Standard (core)). In such a way, the extensions schema versioning is independent both from the core version of the schema and from every other Country."
+        },
+        "conforme": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "This section contains the keys for auto-declaring the compliance with the current legislation, with respect to the following sections. Not including these keys implies that the compliance is not known or not declared.",
+          "properties": {
+            "lineeGuidaDesign": {
+              "type": "boolean",
+              "description": "If present and set to true, the software is compliant with the Italian accessibility laws (L. 4/2004), as further explained in the linee guida di design (Italian language)."
+            },
+            "modelloInteroperabilita": {
+              "type": "boolean",
+              "description": "If present and set to true, the software is compliant with the linee guida sull'interoperabilità.\n\nRegulatory reference: Art. 73 del CAD (Italian language)."
+            },
+            "misureMinimeSicurezza": {
+              "type": "boolean",
+              "description": "If present and set to true, the software is compliant with the Misure minime di sicurezza ICT per le Pubbliche amministrazioni (Italian language)."
+            },
+            "gdpr": {
+              "type": "boolean",
+              "description": "If present and set to true, the software respects the GDPR."
+            }
+          }
+        },
+        "piattaforme": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "spid": {
+              "type": "boolean",
+              "description": "If present and set to true, the software interfaces with SPID - il Sistema Pubblico di Identità Digitale."
+            },
+            "cie": {
+              "type": "boolean",
+              "description": "If present and set to true, the software interfaces with the Italian electronic ID card (Carta d'Identità Elettronica)."
+            },
+            "anpr": {
+              "type": "boolean",
+              "description": "If present and set to true, the software interfaces with ANPR."
+            },
+            "pagopa": {
+              "type": "boolean",
+              "description": "If present and set to true, the software interfaces with pagoPA."
+            },
+            "io": {
+              "type": "boolean",
+              "description": "If present and set to true, the software interfaces with IO app (https://io.italia.it) "
+            }
+          }
+        },
+        "riuso": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "codiceIPA": {
+              "type": "string",
+              "format": "italian_ipa_code",
+              "description": "This key represents the administration code inside the Public Administration index (codice IPA)."
+            }
+          }
+        }
+      }
+    },
+    "lowercaseKey": true,
+    "deprecated": {
+      "since": "0.7.0",
+      "hint": "Use 'supports' for compliance with national regulations and integration with national platforms, and 'organisation' to reference the publishing administration."
+    }
+  },
+  "fieldHistory": [
+    {
+      "path": "IT.piattaforme.io",
+      "since": "0.3.0"
+    },
+    {
+      "path": "IT.countryExtensionVersion",
+      "deprecated": {
+        "since": "0.7.0",
+        "hint": "Deprecated together with the rest of the Italian section."
+      }
+    },
+    {
+      "path": "IT.conforme",
+      "deprecated": {
+        "since": "0.5.0",
+        "hint": "It's safe to drop it."
+      }
+    },
+    {
+      "path": "IT.conforme.lineeGuidaDesign",
+      "deprecated": {
+        "since": "0.5.0",
+        "hint": "It's safe to drop it."
+      }
+    },
+    {
+      "path": "IT.conforme.modelloInteroperabilita",
+      "deprecated": {
+        "since": "0.5.0",
+        "hint": "It's safe to drop it."
+      }
+    },
+    {
+      "path": "IT.conforme.misureMinimeSicurezza",
+      "deprecated": {
+        "since": "0.5.0",
+        "hint": "It's safe to drop it."
+      }
+    },
+    {
+      "path": "IT.conforme.gdpr",
+      "deprecated": {
+        "since": "0.5.0",
+        "hint": "Use 'supports' with 'alias:gdpr' instead."
+      }
+    },
+    {
+      "path": "IT.piattaforme",
+      "deprecated": {
+        "since": "0.7.0",
+        "hint": "Use 'supports' instead."
+      }
+    },
+    {
+      "path": "IT.piattaforme.spid",
+      "deprecated": {
+        "since": "0.7.0",
+        "hint": "Use 'supports' with 'alias:spid' instead."
+      }
+    },
+    {
+      "path": "IT.piattaforme.cie",
+      "deprecated": {
+        "since": "0.7.0",
+        "hint": "Use 'supports' with 'alias:cie' instead."
+      }
+    },
+    {
+      "path": "IT.piattaforme.anpr",
+      "deprecated": {
+        "since": "0.7.0",
+        "hint": "Use 'supports' with 'alias:anpr' instead."
+      }
+    },
+    {
+      "path": "IT.piattaforme.pagopa",
+      "deprecated": {
+        "since": "0.7.0",
+        "hint": "Use 'supports' with 'alias:pagopa' instead."
+      }
+    },
+    {
+      "path": "IT.piattaforme.io",
+      "deprecated": {
+        "since": "0.7.0",
+        "hint": "Use 'supports' with 'alias:io' instead."
+      }
+    },
+    {
+      "path": "IT.riuso.codiceIPA",
+      "deprecated": {
+        "since": "0.5.0",
+        "hint": "Use 'organisation.uri' and set it to 'urn:x-italian-pa:<codiceIPA>' instead."
+      }
+    }
+  ],
+  "supports": [
+    {
+      "id": "alias:spid",
+      "label": "SPID"
+    },
+    {
+      "id": "alias:cie",
+      "label": "CIE"
+    },
+    {
+      "id": "alias:anpr",
+      "label": "ANPR"
+    },
+    {
+      "id": "alias:pagopa",
+      "label": "pagoPA"
+    },
+    {
+      "id": "alias:io",
+      "label": "IO"
+    }
+  ],
+  "ui": {
+    "IT.countryExtensionVersion": {
+      "order": 1,
+      "widget": "hidden"
+    },
+    "IT.conforme": {
+      "order": 2
+    },
+    "IT.piattaforme": {
+      "order": 3
+    },
+    "IT.riuso": {
+      "order": 4
+    }
+  },
+  "locales": {
+    "en": {
+      "publiccodeyml": {
+        "it": {
+          "countryExtensionVersion": {
+            "label": "Country Extension Version",
+            "description": "Country Extension version"
+          },
+          "riuso": {
+            "label": "Reuse",
+            "codiceIPA": {
+              "label": "iPA Code of the entity (mandatory for Public Administrations)",
+              "description": "Code of the entity within the Index of Public Administrations (iPA code, https://indicepa.gov.it/)."
+            }
+          },
+          "piattaforme": {
+            "label": "Platforms",
+            "spid": {
+              "label": "SPID",
+              "description": "If the software interfaces with SPID - the Public Digital Identity System."
+            },
+            "cie": {
+              "label": "CIE",
+              "description": "If the software interfaces with the Electronic Identity Card."
+            },
+            "anpr": {
+              "label": "ANPR",
+              "description": "If the software interfaces with ANPR, the National Registry."
+            },
+            "pagopa": {
+              "label": "pagoPA",
+              "description": "If the software interfaces with pagoPA."
+            },
+            "io": {
+              "label": "IO",
+              "description": "The software interfaces with IO - the public services app."
+            }
+          },
+          "conforme": {
+            "label": "Compliant",
+            "lineeGuidaDesign": {
+              "label": "Design guidelines",
+              "description": "If the software is compliant with design guidelines."
+            },
+            "modelloInteroperabilita": {
+              "label": "Interoperable",
+              "description": "If the software is compliant with interoperability guidelines. (Article 73 of CAD)."
+            },
+            "misureMinimeSicurezza": {
+              "label": "Minimum security measures",
+              "description": "If the software is compliant with Minimum ICT security measures for Public Administrations."
+            },
+            "gdpr": {
+              "label": "GDPR",
+              "description": "If the software respects GDPR."
+            }
+          }
+        }
+      },
+      "countries": {
+        "IT": {
+          "name": "Italy",
+          "deprecated": "The country-specific section is deprecated since publiccode.yml v0.7 and will be removed in v1. Where possible, declare compliance in the “Supported Standards” section above (e.g. SPID, CIE, pagoPA, GDPR)."
+        }
+      }
+    },
+    "it": {
+      "publiccodeyml": {
+        "it": {
+          "countryExtensionVersion": {
+            "label": "Versione Sezione Nazionale",
+            "description": "Versione Sezione Nazionale"
+          },
+          "riuso": {
+            "label": "Riuso",
+            "codiceIPA": {
+              "label": "Codice iPA dell'ente (obbligatorio per Pubbliche Amministrazioni)",
+              "description": "Codice dell'ente all'interno dell'Indice delle Pubbliche Amministrazioni (codice iPA, https://indicepa.gov.it/)."
+            }
+          },
+          "piattaforme": {
+            "label": "Piattaforme",
+            "spid": {
+              "label": "SPID",
+              "description": "Il software si interfaccia con SPID - il Sistema Pubblico di Identità Digitale."
+            },
+            "cie": {
+              "label": "CIE",
+              "description": "Il software si interfaccia con la Carta di Identità Elettronica."
+            },
+            "anpr": {
+              "label": "ANPR",
+              "description": "Il software si interfaccia con ANPR, l’Anagrafe Nazionale."
+            },
+            "pagopa": {
+              "label": "pagoPA",
+              "description": "Il software si interfaccia con pagoPA."
+            },
+            "io": {
+              "label": "IO",
+              "description": "Il software si interfaccia con IO - l’app dei servizi pubblici."
+            }
+          },
+          "conforme": {
+            "label": "Conforme",
+            "lineeGuidaDesign": {
+              "label": "Linee guida design",
+              "description": "Il software è conforme alle linee guida di design."
+            },
+            "modelloInteroperabilita": {
+              "label": "Interoperabile",
+              "description": "Il software è conforme alle linee guida sull’interoperabilità. Riferimento normativo: Art. 73 del CAD."
+            },
+            "misureMinimeSicurezza": {
+              "label": "Misure minime sicurezza",
+              "description": "Il software è conforme alle Misure minime di sicurezza ICT per le Pubbliche amministrazioni."
+            },
+            "gdpr": {
+              "label": "GDPR",
+              "description": "Il software rispetta il GDPR."
+            }
+          }
+        }
+      },
+      "countries": {
+        "IT": {
+          "name": "Italia",
+          "deprecated": "La sezione country-specific è deprecata a partire da publiccode.yml v0.7 e sarà rimossa in v1. Dove possibile, dichiara la conformità nella sezione “Standard supportati” qui sopra (es. SPID, CIE, pagoPA, GDPR)."
+        }
+      }
+    },
+    "de": {
+      "publiccodeyml": {
+        "it": {
+          "countryExtensionVersion": {
+            "label": "Landeserweiterungsversion",
+            "description": "Version der Landeserweiterung"
+          },
+          "riuso": {
+            "label": "Wiederverwendung",
+            "codiceIPA": {
+              "label": "iPA-Code der Behörde (obligatorisch für öffentliche Verwaltungen)",
+              "description": "Code der Behörde innerhalb des Index der öffentlichen Verwaltungen (iPA-Code, https://indicepa.gov.it/)."
+            }
+          },
+          "piattaforme": {
+            "label": "Plattformen",
+            "spid": {
+              "label": "SPID",
+              "description": "Falls SPID unterstützt wird - das öffentliche System für digitale Identität."
+            },
+            "cie": {
+              "label": "CIE",
+              "description": "Falls die elektronische Identitätskarte (Carta di Identità Elettronica) unterstützt wird."
+            },
+            "anpr": {
+              "label": "ANPR",
+              "description": "Falls ANPR, das nationale Melderegister, unterstützt wird."
+            },
+            "pagopa": {
+              "label": "pagoPA",
+              "description": "Falls pagoPA unterstützt wird."
+            },
+            "io": {
+              "label": "IO",
+              "description": "Die Software interagiert mit IO - der App für öffentliche Dienste."
+            }
+          },
+          "conforme": {
+            "label": "Konform",
+            "lineeGuidaDesign": {
+              "label": "Designrichtlinien",
+              "description": "Falls die Designrichtlinien eingehalten werden."
+            },
+            "modelloInteroperabilita": {
+              "label": "Interoperabel",
+              "description": "Falls die Richtlinien zur Interoperabilität eingehalten werden. (Artikel 73 des CAD)."
+            },
+            "misureMinimeSicurezza": {
+              "label": "Minimale Sicherheitsmaßnahmen",
+              "description": "Falls die Mindestsicherheitsmaßnahmen für IKT für öffentliche Verwaltungen eingehalten werden."
+            },
+            "gdpr": {
+              "label": "DSGVO",
+              "description": "Falls die Software die DSGVO einhält."
+            }
+          }
+        }
+      },
+      "countries": {
+        "IT": {
+          "name": "Italien",
+          "deprecated": "Der länderspezifische Abschnitt ist seit publiccode.yml v0.7 veraltet und wird in v1 entfernt. Deklarieren Sie die Konformität nach Möglichkeit im Abschnitt „Unterstützte Standards“ oben (z. B. SPID, CIE, pagoPA, GDPR)."
+        }
+      }
+    },
+    "fr": {
+      "publiccodeyml": {
+        "it": {
+          "countryExtensionVersion": {
+            "label": "Version Extension Pays",
+            "description": "Version de l'extension pays"
+          },
+          "riuso": {
+            "label": "Réutilisation",
+            "codiceIPA": {
+              "label": "Code iPA de l'entité (obligatoire pour les Administrations publiques)",
+              "description": "Code de l'entité dans l'Index des Administrations publiques (code iPA, https://indicepa.gov.it/)."
+            }
+          },
+          "piattaforme": {
+            "label": "Plateformes",
+            "spid": {
+              "label": "SPID",
+              "description": "Si le logiciel s'interface avec SPID - le Système Public d'Identité Numérique."
+            },
+            "cie": {
+              "label": "CIE",
+              "description": "Si le logiciel s'interface avec la Carte d'Identité Électronique."
+            },
+            "anpr": {
+              "label": "ANPR",
+              "description": "Si le logiciel s'interface avec ANPR, l'Anagrafe Nationale."
+            },
+            "pagopa": {
+              "label": "pagoPA",
+              "description": "Si le logiciel s'interface avec pagoPA."
+            },
+            "io": {
+              "label": "IO",
+              "description": "Le logiciel s'interface avec IO - l'application de services publics."
+            }
+          },
+          "conforme": {
+            "label": "Conforme",
+            "lineeGuidaDesign": {
+              "label": "Lignes directrices de conception",
+              "description": "Si le logiciel est conforme aux lignes directrices de conception."
+            },
+            "modelloInteroperabilita": {
+              "label": "Interopérable",
+              "description": "Si le logiciel est conforme aux lignes directrices sur l'interopérabilité. (Article 73 du CAD)."
+            },
+            "misureMinimeSicurezza": {
+              "label": "Mesures minimales de sécurité",
+              "description": "Si le logiciel est conforme aux Mesures minimales de sécurité ICT pour les Administrations publiques."
+            },
+            "gdpr": {
+              "label": "RGPD",
+              "description": "Si le logiciel respecte le RGPD."
+            }
+          }
+        }
+      },
+      "countries": {
+        "IT": {
+          "name": "Italie",
+          "deprecated": "La section spécifique au pays est dépréciée depuis publiccode.yml v0.7 et sera supprimée en v1. Lorsque c'est possible, déclarez la conformité dans la section « Standards pris en charge » ci-dessus (par ex. SPID, CIE, pagoPA, GDPR)."
+        }
+      }
+    },
+    "nl": {
+      "publiccodeyml": {
+        "it": {
+          "countryExtensionVersion": {
+            "label": "Landuitbreiding Versie",
+            "description": "Landuitbreiding versie"
+          },
+          "riuso": {
+            "label": "Hergebruik",
+            "codiceIPA": {
+              "label": "iPA-code van de instantie (verplicht voor overheidsinstanties)",
+              "description": "Code van de instantie binnen de Index van overheidsinstanties (iPA-code, https://indicepa.gov.it/)."
+            }
+          },
+          "piattaforme": {
+            "label": "Platforms",
+            "spid": {
+              "label": "SPID",
+              "description": "Of het SPID ondersteunt - het Openbare Digitale Identiteitssysteem."
+            },
+            "cie": {
+              "label": "CIE",
+              "description": "Of het de Elektronische Identiteitskaart ondersteunt."
+            },
+            "anpr": {
+              "label": "ANPR",
+              "description": "Of het ANPR ondersteunt, het Nationale Register."
+            },
+            "pagopa": {
+              "label": "pagoPA",
+              "description": "Of het pagoPA ondersteunt."
+            },
+            "io": {
+              "label": "IO",
+              "description": "De software communiceert met IO - de app voor openbare diensten."
+            }
+          },
+          "conforme": {
+            "label": "Conform",
+            "lineeGuidaDesign": {
+              "label": "Ontwerprichtlijnen",
+              "description": "Of het voldoet aan de ontwerprichtlijnen."
+            },
+            "modelloInteroperabilita": {
+              "label": "Interoperabel",
+              "description": "Of het voldoet aan de richtlijnen voor interoperabiliteit. (Artikel 73 van de CAD)."
+            },
+            "misureMinimeSicurezza": {
+              "label": "Minimale veiligheidsmaatregelen",
+              "description": "Of het voldoet aan de Minimale ICT-veiligheidsmaatregelen voor Overheidsinstanties."
+            },
+            "gdpr": {
+              "label": "AVG",
+              "description": "Of de software voldoet aan de AVG."
+            }
+          }
+        }
+      },
+      "countries": {
+        "IT": {
+          "name": "Italië",
+          "deprecated": "De landspecifieke sectie is verouderd sinds publiccode.yml v0.7 en wordt verwijderd in v1. Verklaar waar mogelijk de naleving in de sectie “Ondersteunde standaarden” hierboven (bijv. SPID, CIE, pagoPA, GDPR)."
+        }
+      }
+    }
+  },
+  "deprecations": [
+    {
+      "id": "lowercaseSection",
+      "since": "0.5.0",
+      "message": "Lowercase country codes are DEPRECATED and will be removed in the future. Use 'IT' instead",
+      "parser": true
+    },
+    {
+      "id": "codiceIPA",
+      "since": "0.5.0",
+      "message": "This key is DEPRECATED and will be removed in the future. Use 'organisation.uri' and set it to 'urn:x-italian-pa:{value}' instead",
+      "parser": true
+    },
+    {
+      "id": "conforme",
+      "since": "0.5.0",
+      "message": "This key is DEPRECATED and will be removed in the future. It's safe to drop it",
+      "parser": true
+    },
+    {
+      "id": "piattaforme",
+      "since": "0.7.0",
+      "message": "This key is DEPRECATED and will be removed in the future. Use 'supports' with 'alias:{value}' instead"
+    },
+    {
+      "id": "countrySection",
+      "since": "0.7.0",
+      "message": "This section is DEPRECATED and will be removed in the future. Use 'supports' for compliance with national regulations and integration with national platforms, and 'organisation' to reference the publishing administration."
+    }
+  ]
+}

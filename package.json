@@ -1,6 +1,6 @@
 {
   "name": "publicode-schema",
-  "module": "index.ts",
+  "module": "src/index.ts",
   "type": "module",
   "devDependencies": {
     "@types/bun": "latest"
@@ -17,6 +17,12 @@
   "scripts": {
     "validate": "bun run ./scripts/validate-file.ts",
     "gen": "bun run ./scripts/generateSchemaFiles.ts",
-    "vocab": "cd scripts/vocab && go run . ../../data/vocab"
+    "vocab": "cd scripts/vocab && go run . ../../data/vocab",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit -p ."
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./data/*": "./data/*"
   }
 }

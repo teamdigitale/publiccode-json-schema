@@ -1,1306 +1,1759 @@
 {
-  "title": "PublicCode.yml Generator",
-  "description": "Generate a valid publiccode.yml file for your open source software project",
+  "version": "0.7.0",
   "groups": [
     {
-      "title": "Basic Information",
-      "description": "Essential information about your software",
-      "id": "basic",
+      "id": "version",
+      "i18n": "publiccodeyml.publiccodeYmlVersion.label",
       "order": 1
     },
     {
-      "title": "Classification",
-      "description": "Categorize your software",
-      "id": "classification",
+      "id": "name",
+      "i18n": "editor.sections.name",
       "order": 2
     },
     {
-      "title": "Description",
-      "description": "Detailed description of your software",
-      "id": "description",
+      "id": "description-and-features",
+      "i18n": "editor.sections.description-and-features",
       "order": 3
     },
     {
-      "title": "Legal Information",
-      "description": "License and copyright information",
-      "id": "legal",
+      "id": "repository-and-documentation",
+      "i18n": "editor.sections.repository-and-documentation",
       "order": 4
     },
     {
-      "title": "Maintenance",
-      "description": "Maintenance and contact information",
-      "id": "maintenance",
+      "id": "software-details",
+      "i18n": "editor.sections.software-details",
       "order": 5
     },
     {
-      "title": "Localisation",
-      "description": "Language and localisation settings",
-      "id": "localisation",
+      "id": "logo-and-screenshots",
+      "i18n": "editor.sections.logo-and-screenshots",
       "order": 6
     },
     {
-      "title": "Audience",
-      "description": "Target audience and scope",
-      "id": "audience",
+      "id": "supports",
+      "i18n": "editor.sections.supports",
       "order": 7
     },
     {
-      "title": "Optional",
-      "description": "Sample group for optional and custom props",
-      "id": "optional",
+      "id": "organisation",
+      "i18n": "editor.sections.organisation",
       "order": 8
+    },
+    {
+      "id": "dependsOn",
+      "i18n": "publiccodeyml.dependsOn.label",
+      "order": 9
+    },
+    {
+      "id": "localisation",
+      "i18n": "editor.sections.localisation",
+      "order": 10
+    },
+    {
+      "id": "purpose-and-audience",
+      "i18n": "editor.sections.purpose-and-audience",
+      "order": 11
+    },
+    {
+      "id": "legal-and-reuse",
+      "i18n": "editor.sections.legal-and-reuse",
+      "order": 12
+    },
+    {
+      "id": "maintenance",
+      "i18n": "editor.sections.maintenance",
+      "order": 13
+    },
+    {
+      "id": "country:IT",
+      "i18n": "countries.IT.name",
+      "order": 14,
+      "country": "IT",
+      "key": "IT"
     }
   ],
   "fields": [
     {
-      "id": "publiccodeYmlVersion",
-      "type": "select",
-      "label": "PublicCode.yml Version",
-      "group": "basic",
+      "path": "publiccodeYmlVersion",
+      "i18n": "publiccodeyml.publiccodeYmlVersion",
+      "group": "version",
+      "order": 0,
+      "widget": "hidden",
+      "type": "string",
+      "required": true,
       "options": [
         {
-          "value": "0",
-          "label": "0",
-          "selected": true
+          "value": "0"
         },
         {
-          "value": "0.2",
-          "label": "0.2",
-          "selected": false
+          "value": "0.7"
         },
         {
-          "value": "0.2.0",
-          "label": "0.2.0",
-          "selected": false
-        },
-        {
-          "value": "0.2.1",
-          "label": "0.2.1",
-          "selected": false
-        },
-        {
-          "value": "0.2.2",
-          "label": "0.2.2",
-          "selected": false
-        },
-        {
-          "value": "0.3",
-          "label": "0.3",
-          "selected": false
-        },
-        {
-          "value": "0.3.0",
-          "label": "0.3.0",
-          "selected": false
-        },
-        {
-          "value": "0.4",
-          "label": "0.4",
-          "selected": false
-        },
-        {
-          "value": "0.4.0",
-          "label": "0.4.0",
-          "selected": false
-        },
-        {
-          "value": "0.5",
-          "label": "0.5",
-          "selected": false
-        },
-        {
-          "value": "0.5.0",
-          "label": "0.5.0",
-          "selected": false
-        },
-        {
-          "value": "0.7",
-          "label": "0.7",
-          "selected": false
-        },
-        {
-          "value": "0.7.0",
-          "label": "0.7.0",
-          "selected": false
+          "value": "0.7.0"
         }
-      ],
-      "validation": {
-        "required": true
-      },
-      "helpText": "Version of the publiccode.yml standard"
+      ]
     },
     {
-      "id": "name",
-      "type": "text",
-      "label": "Software Name",
-      "group": "basic",
-      "placeholder": "Enter the public name of your software",
-      "validation": {
-        "required": true,
-        "minLength": 2,
-        "maxLength": 100,
-        "customMessage": "Software name is required and must be between 2-100 characters"
-      },
-      "helpText": "The public name most people refer to your software"
+      "path": "name",
+      "i18n": "publiccodeyml.name",
+      "group": "name",
+      "order": 1,
+      "widget": "text",
+      "type": "string",
+      "required": true,
+      "constraints": {
+        "minLength": 1
+      }
     },
     {
-      "id": "applicationSuite",
-      "type": "text",
-      "label": "Application Suite",
-      "group": "basic",
-      "placeholder": "e.g., Office Suite, Developer Tools",
-      "validation": {
-        "maxLength": 100
-      },
-      "helpText": "Optional: The suite to which this software belongs"
+      "path": "applicationSuite",
+      "i18n": "publiccodeyml.applicationSuite",
+      "group": "name",
+      "order": 2,
+      "widget": "text",
+      "type": "string",
+      "required": false
     },
     {
-      "id": "url",
-      "type": "text",
-      "label": "Repository URL",
-      "group": "basic",
-      "placeholder": "https://github.com/organization/repository",
-      "validation": {
-        "required": true,
-        "url": true,
-        "customMessage": "Please enter a valid repository URL"
-      },
-      "helpText": "URL to the source code repository (git, svn, etc.)"
+      "path": "description",
+      "i18n": "publiccodeyml.description",
+      "group": "description-and-features",
+      "order": 3,
+      "widget": "localised",
+      "type": "object",
+      "required": true,
+      "constraints": {
+        "minProperties": 1
+      }
     },
     {
-      "id": "landingURL",
-      "type": "text",
-      "label": "Landing Page URL",
-      "group": "basic",
-      "placeholder": "https://example.com/software",
-      "validation": {
-        "url": true
+      "path": "description.*.genericName",
+      "parent": "description",
+      "i18n": "publiccodeyml.description.genericName",
+      "group": "description-and-features",
+      "order": 4,
+      "widget": "text",
+      "type": "string",
+      "required": false,
+      "constraints": {
+        "maxLength": 35
       },
-      "helpText": "Optional: User-friendly landing page for your software"
+      "deprecated": {
+        "since": "0.3.0",
+        "hint": "It's safe to drop it."
+      }
     },
     {
-      "id": "softwareVersion",
-      "type": "text",
-      "label": "Software Version",
-      "group": "basic",
-      "placeholder": "1.0.0",
-      "validation": {
-        "maxLength": 50
-      },
-      "helpText": "Latest stable version number"
+      "path": "description.*.localisedName",
+      "parent": "description",
+      "i18n": "publiccodeyml.description.localisedName",
+      "group": "description-and-features",
+      "order": 5,
+      "widget": "text",
+      "type": "string",
+      "required": false
     },
     {
-      "id": "releaseDate",
-      "type": "date",
-      "label": "Release Date",
-      "group": "basic",
-      "validation": {
-        "maxDate": "2026-11-06",
-        "customMessage": "Release date cannot be in the future"
-      },
-      "helpText": "Date of the latest release"
+      "path": "description.*.shortDescription",
+      "parent": "description",
+      "i18n": "publiccodeyml.description.shortDescription",
+      "group": "description-and-features",
+      "order": 6,
+      "widget": "text",
+      "type": "string",
+      "required": true,
+      "constraints": {
+        "minLength": 1,
+        "maxLength": 150
+      }
     },
     {
-      "id": "platforms",
-      "type": "multiselect",
-      "label": "Platforms",
-      "group": "classification",
-      "options": [
-        {
-          "value": "web",
-          "label": "web"
-        },
-        {
-          "value": "windows",
-          "label": "windows"
-        },
-        {
-          "value": "mac",
-          "label": "mac"
-        },
-        {
-          "value": "linux",
-          "label": "linux"
-        },
-        {
-          "value": "ios",
-          "label": "ios"
-        },
-        {
-          "value": "android",
-          "label": "android"
-        }
-      ],
-      "validation": {
-        "minSelection": 1,
-        "customMessage": "Select at least one platform"
-      },
-      "helpText": "Platforms where users can access your software"
+      "path": "description.*.documentation",
+      "parent": "description",
+      "i18n": "publiccodeyml.description.documentation",
+      "group": "description-and-features",
+      "order": 7,
+      "widget": "url",
+      "type": "string",
+      "required": false,
+      "constraints": {
+        "format": "url_http_url"
+      }
     },
     {
-      "id": "categories",
-      "type": "multiselect",
-      "label": "Categories",
-      "group": "classification",
-      "options": [
-        {
-          "value": "accounting",
-          "label": "accounting"
-        },
-        {
-          "value": "agile-project-management",
-          "label": "agile-project-management"
-        },
-        {
-          "value": "applicant-tracking",
-          "label": "applicant-tracking"
-        },
-        {
-          "value": "application-development",
-          "label": "application-development"
-        },
-        {
-          "value": "appointment-scheduling",
-          "label": "appointment-scheduling"
-        },
-        {
-          "value": "backup",
-          "label": "backup"
-        },
-        {
-          "value": "billing-and-invoicing",
-          "label": "billing-and-invoicing"
-        },
-        {
-          "value": "blog",
-          "label": "blog"
-        },
-        {
-          "value": "budgeting",
-          "label": "budgeting"
-        },
-        {
-          "value": "business-intelligence",
-          "label": "business-intelligence"
-        },
-        {
-          "value": "business-process-management",
-          "label": "business-process-management"
-        },
-        {
-          "value": "cad",
-          "label": "cad"
-        },
-        {
-          "value": "call-center-management",
-          "label": "call-center-management"
-        },
-        {
-          "value": "cloud-management",
-          "label": "cloud-management"
-        },
-        {
-          "value": "collaboration",
-          "label": "collaboration"
-        },
-        {
-          "value": "communications",
-          "label": "communications"
-        },
-        {
-          "value": "compliance-management",
-          "label": "compliance-management"
-        },
-        {
-          "value": "contact-management",
-          "label": "contact-management"
-        },
-        {
-          "value": "content-management",
-          "label": "content-management"
-        },
-        {
-          "value": "crm",
-          "label": "crm"
-        },
-        {
-          "value": "customer-service-and-support",
-          "label": "customer-service-and-support"
-        },
-        {
-          "value": "data-analytics",
-          "label": "data-analytics"
-        },
-        {
-          "value": "data-collection",
-          "label": "data-collection"
-        },
-        {
-          "value": "data-visualization",
-          "label": "data-visualization"
-        },
-        {
-          "value": "design",
-          "label": "design"
-        },
-        {
-          "value": "design-system",
-          "label": "design-system"
-        },
-        {
-          "value": "digital-asset-management",
-          "label": "digital-asset-management"
-        },
-        {
-          "value": "digital-citizenship",
-          "label": "digital-citizenship"
-        },
-        {
-          "value": "document-management",
-          "label": "document-management"
-        },
-        {
-          "value": "donor-management",
-          "label": "donor-management"
-        },
-        {
-          "value": "e-commerce",
-          "label": "e-commerce"
-        },
-        {
-          "value": "e-signature",
-          "label": "e-signature"
-        },
-        {
-          "value": "educational-content",
-          "label": "educational-content"
-        },
-        {
-          "value": "email-management",
-          "label": "email-management"
-        },
-        {
-          "value": "email-marketing",
-          "label": "email-marketing"
-        },
-        {
-          "value": "employee-management",
-          "label": "employee-management"
-        },
-        {
-          "value": "enterprise-project-management",
-          "label": "enterprise-project-management"
-        },
-        {
-          "value": "enterprise-social-networking",
-          "label": "enterprise-social-networking"
-        },
-        {
-          "value": "erp",
-          "label": "erp"
-        },
-        {
-          "value": "event-management",
-          "label": "event-management"
-        },
-        {
-          "value": "facility-management",
-          "label": "facility-management"
-        },
-        {
-          "value": "feedback-and-reviews-management",
-          "label": "feedback-and-reviews-management"
-        },
-        {
-          "value": "financial-reporting",
-          "label": "financial-reporting"
-        },
-        {
-          "value": "fleet-management",
-          "label": "fleet-management"
-        },
-        {
-          "value": "fundraising",
-          "label": "fundraising"
-        },
-        {
-          "value": "gamification",
-          "label": "gamification"
-        },
-        {
-          "value": "geographic-information-systems",
-          "label": "geographic-information-systems"
-        },
-        {
-          "value": "grant-management",
-          "label": "grant-management"
-        },
-        {
-          "value": "graphic-design",
-          "label": "graphic-design"
-        },
-        {
-          "value": "help-desk",
-          "label": "help-desk"
-        },
-        {
-          "value": "hr",
-          "label": "hr"
-        },
-        {
-          "value": "ide",
-          "label": "ide"
-        },
-        {
-          "value": "identity-management",
-          "label": "identity-management"
-        },
-        {
-          "value": "instant-messaging",
-          "label": "instant-messaging"
-        },
-        {
-          "value": "integrated-library-system",
-          "label": "integrated-library-system"
-        },
-        {
-          "value": "inventory-management",
-          "label": "inventory-management"
-        },
-        {
-          "value": "it-asset-management",
-          "label": "it-asset-management"
-        },
-        {
-          "value": "it-development",
-          "label": "it-development"
-        },
-        {
-          "value": "it-management",
-          "label": "it-management"
-        },
-        {
-          "value": "it-security",
-          "label": "it-security"
-        },
-        {
-          "value": "it-service-management",
-          "label": "it-service-management"
-        },
-        {
-          "value": "knowledge-management",
-          "label": "knowledge-management"
-        },
-        {
-          "value": "learning-management-system",
-          "label": "learning-management-system"
-        },
-        {
-          "value": "marketing",
-          "label": "marketing"
-        },
-        {
-          "value": "mind-mapping",
-          "label": "mind-mapping"
-        },
-        {
-          "value": "mobile-marketing",
-          "label": "mobile-marketing"
-        },
-        {
-          "value": "mobile-payment",
-          "label": "mobile-payment"
-        },
-        {
-          "value": "network-management",
-          "label": "network-management"
-        },
-        {
-          "value": "office",
-          "label": "office"
-        },
-        {
-          "value": "online-booking",
-          "label": "online-booking"
-        },
-        {
-          "value": "online-community",
-          "label": "online-community"
-        },
-        {
-          "value": "payment-gateway",
-          "label": "payment-gateway"
-        },
-        {
-          "value": "payroll",
-          "label": "payroll"
-        },
-        {
-          "value": "predictive-analysis",
-          "label": "predictive-analysis"
-        },
-        {
-          "value": "procurement",
-          "label": "procurement"
-        },
-        {
-          "value": "productivity-suite",
-          "label": "productivity-suite"
-        },
-        {
-          "value": "project-collaboration",
-          "label": "project-collaboration"
-        },
-        {
-          "value": "project-management",
-          "label": "project-management"
-        },
-        {
-          "value": "property-management",
-          "label": "property-management"
-        },
-        {
-          "value": "real-estate-management",
-          "label": "real-estate-management"
-        },
-        {
-          "value": "regulations-and-directives",
-          "label": "regulations-and-directives"
-        },
-        {
-          "value": "remote-support",
-          "label": "remote-support"
-        },
-        {
-          "value": "resource-management",
-          "label": "resource-management"
-        },
-        {
-          "value": "sales-management",
-          "label": "sales-management"
-        },
-        {
-          "value": "seo",
-          "label": "seo"
-        },
-        {
-          "value": "service-desk",
-          "label": "service-desk"
-        },
-        {
-          "value": "social-media-management",
-          "label": "social-media-management"
-        },
-        {
-          "value": "survey",
-          "label": "survey"
-        },
-        {
-          "value": "talent-management",
-          "label": "talent-management"
-        },
-        {
-          "value": "task-management",
-          "label": "task-management"
-        },
-        {
-          "value": "taxes-management",
-          "label": "taxes-management"
-        },
-        {
-          "value": "test-management",
-          "label": "test-management"
-        },
-        {
-          "value": "time-management",
-          "label": "time-management"
-        },
-        {
-          "value": "time-tracking",
-          "label": "time-tracking"
-        },
-        {
-          "value": "translation",
-          "label": "translation"
-        },
-        {
-          "value": "video-conferencing",
-          "label": "video-conferencing"
-        },
-        {
-          "value": "video-editing",
-          "label": "video-editing"
-        },
-        {
-          "value": "visitor-management",
-          "label": "visitor-management"
-        },
-        {
-          "value": "voip",
-          "label": "voip"
-        },
-        {
-          "value": "warehouse-management",
-          "label": "warehouse-management"
-        },
-        {
-          "value": "web-collaboration",
-          "label": "web-collaboration"
-        },
-        {
-          "value": "web-conferencing",
-          "label": "web-conferencing"
-        },
-        {
-          "value": "website-builder",
-          "label": "website-builder"
-        },
-        {
-          "value": "whistleblowing",
-          "label": "whistleblowing"
-        },
-        {
-          "value": "workflow-management",
-          "label": "workflow-management"
-        },
-        {
-          "value": "other",
-          "label": "other"
-        }
-      ],
-      "validation": {
-        "minSelection": 1,
-        "customMessage": "Select at least one category"
-      },
-      "helpText": "Categories that describe your software"
+      "path": "description.*.apiDocumentation",
+      "parent": "description",
+      "i18n": "publiccodeyml.description.apiDocumentation",
+      "group": "description-and-features",
+      "order": 8,
+      "widget": "url",
+      "type": "string",
+      "required": false,
+      "constraints": {
+        "format": "url_http_url"
+      }
     },
     {
-      "id": "developmentStatus",
-      "type": "select",
-      "label": "Development Status",
-      "group": "classification",
-      "options": [
-        {
-          "value": "concept",
-          "label": "concept"
-        },
-        {
-          "value": "development",
-          "label": "development"
-        },
-        {
-          "value": "beta",
-          "label": "beta"
-        },
-        {
-          "value": "stable",
-          "label": "stable"
-        },
-        {
-          "value": "obsolete",
-          "label": "obsolete"
-        }
-      ],
-      "validation": {
-        "required": true
-      },
-      "helpText": "Current development status of the software"
+      "path": "description.*.features",
+      "parent": "description",
+      "i18n": "publiccodeyml.description.features",
+      "group": "description-and-features",
+      "order": 9,
+      "widget": "tags",
+      "type": "array",
+      "required": true,
+      "constraints": {
+        "minItems": 1
+      }
     },
     {
-      "id": "softwareType",
-      "type": "select",
-      "label": "Software Type",
-      "group": "classification",
-      "options": [
-        {
-          "value": "standalone/mobile",
-          "label": "standalone/mobile"
-        },
-        {
-          "value": "standalone/iot",
-          "label": "standalone/iot"
-        },
-        {
-          "value": "standalone/desktop",
-          "label": "standalone/desktop"
-        },
-        {
-          "value": "standalone/web",
-          "label": "standalone/web"
-        },
-        {
-          "value": "standalone/backend",
-          "label": "standalone/backend"
-        },
-        {
-          "value": "standalone/other",
-          "label": "standalone/other"
-        },
-        {
-          "value": "addon",
-          "label": "addon"
-        },
-        {
-          "value": "library",
-          "label": "library"
-        },
-        {
-          "value": "configurationFiles",
-          "label": "configurationFiles"
-        }
-      ],
-      "validation": {
-        "required": true
-      },
-      "helpText": "Type of software"
+      "path": "description.*.screenshots",
+      "parent": "description",
+      "i18n": "publiccodeyml.description.screenshots",
+      "group": "description-and-features",
+      "order": 10,
+      "widget": "tags",
+      "type": "array",
+      "required": false
     },
     {
-      "id": "description_locale",
-      "type": "select",
-      "label": "Description Language",
-      "group": "description",
-      "options": [
-        {
-          "value": "en",
-          "label": "English"
-        },
-        {
-          "value": "it",
-          "label": "Italian"
-        },
-        {
-          "value": "de",
-          "label": "German"
-        },
-        {
-          "value": "fr",
-          "label": "French"
-        },
-        {
-          "value": "es",
-          "label": "Spanish"
-        },
-        {
-          "value": "pt",
-          "label": "Portuguese"
-        },
-        {
-          "value": "nl",
-          "label": "Dutch"
-        },
-        {
-          "value": "pl",
-          "label": "Polish"
-        }
-      ],
-      "validation": {
-        "required": true
-      },
-      "helpText": "Primary language for the description"
+      "path": "description.*.videos",
+      "parent": "description",
+      "i18n": "publiccodeyml.description.videos",
+      "group": "description-and-features",
+      "order": 11,
+      "widget": "tags",
+      "type": "array",
+      "required": false,
+      "constraints": {
+        "items.format": "url_http_url"
+      }
     },
     {
-      "id": "description_shortDescription",
-      "type": "text",
-      "label": "Short Description",
-      "group": "description",
-      "placeholder": "A concise one-line description",
-      "validation": {
-        "required": true,
-        "maxLength": 150,
-        "customMessage": "Short description is required (max 150 characters)"
-      },
-      "helpText": "Single sentence describing your software (max 150 chars)"
+      "path": "description.*.awards",
+      "parent": "description",
+      "i18n": "publiccodeyml.description.awards",
+      "group": "description-and-features",
+      "order": 12,
+      "widget": "tags",
+      "type": "array",
+      "required": false
     },
     {
-      "id": "description_longDescription",
-      "type": "textarea",
-      "label": "Long Description",
-      "group": "description",
-      "placeholder": "Detailed description of your software, its capabilities and features...",
-      "validation": {
-        "required": true,
+      "path": "description.*.longDescription",
+      "parent": "description",
+      "i18n": "publiccodeyml.description.longDescription",
+      "group": "description-and-features",
+      "order": 13,
+      "widget": "markdown",
+      "type": "string",
+      "required": true,
+      "constraints": {
         "minLength": 150,
-        "maxLength": 10000,
-        "customMessage": "Long description must be between 150-10000 characters"
-      },
-      "helpText": "Detailed overview of software capabilities (150-10000 chars)",
-      "attributes": {
-        "rows": 10
+        "maxLength": 10000
       }
     },
     {
-      "id": "description_features",
-      "type": "textarea",
-      "label": "Features",
-      "group": "description",
-      "placeholder": "Enter features, one per line\nFeature 1\nFeature 2\nFeature 3",
-      "validation": {
-        "maxLength": 2000
-      },
-      "helpText": "List key features (one per line, max 100 chars each)",
-      "attributes": {
-        "rows": 6
+      "path": "url",
+      "i18n": "publiccodeyml.url",
+      "group": "repository-and-documentation",
+      "order": 14,
+      "widget": "url",
+      "type": "string",
+      "required": true,
+      "constraints": {
+        "minLength": 1,
+        "format": "url_url"
       }
     },
     {
-      "id": "description_documentation",
-      "type": "text",
-      "label": "Documentation URL",
-      "group": "description",
-      "placeholder": "https://docs.example.com",
-      "validation": {
-        "url": true
-      },
-      "helpText": "URL to user-level documentation"
+      "path": "landingURL",
+      "i18n": "publiccodeyml.landingURL",
+      "group": "repository-and-documentation",
+      "order": 15,
+      "widget": "url",
+      "type": "string",
+      "required": false,
+      "constraints": {
+        "format": "url_http_url"
+      }
     },
     {
-      "id": "legal_license",
-      "type": "text",
-      "label": "License",
-      "group": "legal",
-      "placeholder": "MIT, GPL-3.0-or-later, Apache-2.0",
-      "validation": {
-        "required": true,
-        "minLength": 2,
-        "maxLength": 100,
-        "customMessage": "License is required (use SPDX expression)"
-      },
-      "helpText": "SPDX license expression (required)"
+      "path": "isBasedOn",
+      "i18n": "publiccodeyml.isBasedOn",
+      "group": "repository-and-documentation",
+      "order": 16,
+      "widget": "tags",
+      "type": [
+        "string",
+        "array"
+      ],
+      "required": false,
+      "constraints": {
+        "format": "url_url",
+        "items.format": "url_url"
+      }
     },
     {
-      "id": "legal_mainCopyrightOwner",
-      "type": "text",
-      "label": "Main Copyright Owner",
-      "group": "legal",
-      "placeholder": "Organization Name or Individual",
-      "validation": {
-        "maxLength": 200
-      },
-      "helpText": "Entity that owns copyright on most of the code"
+      "path": "fundedBy",
+      "i18n": "publiccodeyml.fundedBy",
+      "group": "repository-and-documentation",
+      "order": 17,
+      "widget": "objects",
+      "type": "array",
+      "required": false,
+      "since": "0.5.0"
     },
     {
-      "id": "legal_repoOwner",
-      "type": "text",
-      "label": "Repository Owner",
-      "group": "legal",
-      "placeholder": "Organization or Individual",
-      "validation": {
-        "maxLength": 200
-      },
-      "helpText": "Entity that owns this repository"
+      "path": "fundedBy.name",
+      "parent": "fundedBy",
+      "i18n": "publiccodeyml.fundedBy.name",
+      "group": "repository-and-documentation",
+      "order": 18,
+      "widget": "text",
+      "type": "string",
+      "required": false
     },
     {
-      "id": "maintenance_type",
-      "type": "select",
-      "label": "Maintenance Type",
-      "group": "maintenance",
+      "path": "fundedBy.uri",
+      "parent": "fundedBy",
+      "i18n": "publiccodeyml.fundedBy.uri",
+      "group": "repository-and-documentation",
+      "order": 19,
+      "widget": "text",
+      "type": "string",
+      "required": true,
+      "constraints": {
+        "minLength": 1,
+        "format": "organisation_uri"
+      }
+    },
+    {
+      "path": "roadmap",
+      "i18n": "publiccodeyml.roadmap",
+      "group": "repository-and-documentation",
+      "order": 20,
+      "widget": "url",
+      "type": "string",
+      "required": false,
+      "constraints": {
+        "format": "url_http_url"
+      }
+    },
+    {
+      "path": "softwareVersion",
+      "i18n": "publiccodeyml.softwareVersion",
+      "group": "software-details",
+      "order": 21,
+      "widget": "text",
+      "type": "string",
+      "required": false
+    },
+    {
+      "path": "releaseDate",
+      "i18n": "publiccodeyml.releaseDate",
+      "group": "software-details",
+      "order": 22,
+      "widget": "date",
+      "type": "string",
+      "required": false,
+      "constraints": {
+        "format": "date"
+      }
+    },
+    {
+      "path": "developmentStatus",
+      "i18n": "publiccodeyml.developmentStatus",
+      "group": "software-details",
+      "order": 23,
+      "widget": "radio",
+      "type": "string",
+      "required": true,
       "options": [
         {
-          "value": "internal",
-          "label": "Internal"
+          "value": "concept"
         },
         {
-          "value": "contract",
-          "label": "Contract"
+          "value": "development"
         },
         {
-          "value": "community",
-          "label": "Community",
-          "selected": true
+          "value": "beta"
         },
         {
-          "value": "none",
-          "label": "None"
+          "value": "stable"
+        },
+        {
+          "value": "obsolete"
         }
-      ],
-      "validation": {
-        "required": true
-      },
-      "helpText": "How the software is currently maintained"
+      ]
     },
     {
-      "id": "maintenance_contacts",
+      "path": "categories",
+      "i18n": "publiccodeyml.categories",
+      "group": "software-details",
+      "order": 24,
+      "widget": "multiselect",
       "type": "array",
-      "label": "Maintenance Contacts",
-      "group": "maintenance",
-      "arrayConfig": {
-        "itemFields": [
-          {
-            "id": "name",
-            "type": "text",
-            "label": "Contact Name",
-            "placeholder": "Full name of technical contact",
-            "validation": {
-              "required": true,
-              "minLength": 2,
-              "maxLength": 100,
-              "customMessage": "Contact name is required"
-            }
-          },
-          {
-            "id": "email",
-            "type": "text",
-            "label": "Email",
-            "placeholder": "contact@example.com",
-            "validation": {
-              "email": true
-            }
-          },
-          {
-            "id": "phone",
-            "type": "text",
-            "label": "Phone",
-            "placeholder": "+1 555-123-4567",
-            "attributes": {
-              "type": "tel"
-            }
-          },
-          {
-            "id": "affiliation",
-            "type": "text",
-            "label": "Affiliation",
-            "placeholder": "Company or Organization",
-            "validation": {
-              "maxLength": 100
-            }
-          }
-        ],
-        "minItems": 1,
-        "maxItems": 10,
-        "initialItems": 1,
-        "addButtonText": "Add Contact",
-        "removeButtonText": "Remove",
-        "itemTitle": "Contact {index}"
-      },
-      "helpText": "Technical contacts responsible for maintaining the software"
+      "required": false,
+      "options": [
+        {
+          "value": "accounting"
+        },
+        {
+          "value": "agile-project-management"
+        },
+        {
+          "value": "applicant-tracking"
+        },
+        {
+          "value": "application-development"
+        },
+        {
+          "value": "appointment-scheduling"
+        },
+        {
+          "value": "backup"
+        },
+        {
+          "value": "billing-and-invoicing"
+        },
+        {
+          "value": "blog"
+        },
+        {
+          "value": "budgeting"
+        },
+        {
+          "value": "business-intelligence"
+        },
+        {
+          "value": "business-process-management"
+        },
+        {
+          "value": "cad"
+        },
+        {
+          "value": "call-center-management"
+        },
+        {
+          "value": "cloud-management"
+        },
+        {
+          "value": "collaboration"
+        },
+        {
+          "value": "communications"
+        },
+        {
+          "value": "compliance-management"
+        },
+        {
+          "value": "contact-management"
+        },
+        {
+          "value": "content-management"
+        },
+        {
+          "value": "crm"
+        },
+        {
+          "value": "customer-service-and-support"
+        },
+        {
+          "value": "data-analytics"
+        },
+        {
+          "value": "data-collection"
+        },
+        {
+          "value": "data-visualization"
+        },
+        {
+          "value": "design"
+        },
+        {
+          "value": "design-system"
+        },
+        {
+          "value": "digital-asset-management"
+        },
+        {
+          "value": "digital-citizenship"
+        },
+        {
+          "value": "document-management"
+        },
+        {
+          "value": "donor-management"
+        },
+        {
+          "value": "e-commerce"
+        },
+        {
+          "value": "e-signature"
+        },
+        {
+          "value": "educational-content"
+        },
+        {
+          "value": "email-management"
+        },
+        {
+          "value": "email-marketing"
+        },
+        {
+          "value": "employee-management"
+        },
+        {
+          "value": "enterprise-project-management"
+        },
+        {
+          "value": "enterprise-social-networking"
+        },
+        {
+          "value": "erp"
+        },
+        {
+          "value": "event-management"
+        },
+        {
+          "value": "facility-management"
+        },
+        {
+          "value": "feedback-and-reviews-management"
+        },
+        {
+          "value": "financial-reporting"
+        },
+        {
+          "value": "fleet-management"
+        },
+        {
+          "value": "fundraising"
+        },
+        {
+          "value": "gamification"
+        },
+        {
+          "value": "geographic-information-systems"
+        },
+        {
+          "value": "grant-management"
+        },
+        {
+          "value": "graphic-design"
+        },
+        {
+          "value": "help-desk"
+        },
+        {
+          "value": "hr"
+        },
+        {
+          "value": "ide"
+        },
+        {
+          "value": "identity-management"
+        },
+        {
+          "value": "instant-messaging"
+        },
+        {
+          "value": "integrated-library-system"
+        },
+        {
+          "value": "inventory-management"
+        },
+        {
+          "value": "it-asset-management"
+        },
+        {
+          "value": "it-development"
+        },
+        {
+          "value": "it-management"
+        },
+        {
+          "value": "it-security"
+        },
+        {
+          "value": "it-service-management"
+        },
+        {
+          "value": "knowledge-management"
+        },
+        {
+          "value": "learning-management-system"
+        },
+        {
+          "value": "marketing"
+        },
+        {
+          "value": "mind-mapping"
+        },
+        {
+          "value": "mobile-marketing"
+        },
+        {
+          "value": "mobile-payment"
+        },
+        {
+          "value": "network-management"
+        },
+        {
+          "value": "office"
+        },
+        {
+          "value": "online-booking"
+        },
+        {
+          "value": "online-community"
+        },
+        {
+          "value": "payment-gateway"
+        },
+        {
+          "value": "payroll"
+        },
+        {
+          "value": "predictive-analysis"
+        },
+        {
+          "value": "procurement"
+        },
+        {
+          "value": "productivity-suite"
+        },
+        {
+          "value": "project-collaboration"
+        },
+        {
+          "value": "project-management"
+        },
+        {
+          "value": "property-management"
+        },
+        {
+          "value": "real-estate-management"
+        },
+        {
+          "value": "regulations-and-directives"
+        },
+        {
+          "value": "remote-support"
+        },
+        {
+          "value": "resource-management"
+        },
+        {
+          "value": "sales-management"
+        },
+        {
+          "value": "seo"
+        },
+        {
+          "value": "service-desk"
+        },
+        {
+          "value": "social-media-management"
+        },
+        {
+          "value": "survey"
+        },
+        {
+          "value": "talent-management"
+        },
+        {
+          "value": "task-management"
+        },
+        {
+          "value": "taxes-management"
+        },
+        {
+          "value": "test-management"
+        },
+        {
+          "value": "time-management"
+        },
+        {
+          "value": "time-tracking"
+        },
+        {
+          "value": "translation"
+        },
+        {
+          "value": "video-conferencing"
+        },
+        {
+          "value": "video-editing"
+        },
+        {
+          "value": "visitor-management"
+        },
+        {
+          "value": "voip"
+        },
+        {
+          "value": "warehouse-management"
+        },
+        {
+          "value": "web-collaboration"
+        },
+        {
+          "value": "web-conferencing"
+        },
+        {
+          "value": "website-builder"
+        },
+        {
+          "value": "whistleblowing"
+        },
+        {
+          "value": "workflow-management"
+        },
+        {
+          "value": "other"
+        }
+      ]
     },
     {
-      "id": "localisation_localisationReady",
-      "type": "checkbox",
-      "label": "Localisation Ready",
+      "path": "platforms",
+      "i18n": "publiccodeyml.platforms",
+      "group": "software-details",
+      "order": 25,
+      "widget": "tags",
+      "type": "array",
+      "required": true,
+      "constraints": {
+        "minItems": 1
+      },
+      "suggestions": [
+        {
+          "value": "web"
+        },
+        {
+          "value": "windows"
+        },
+        {
+          "value": "mac"
+        },
+        {
+          "value": "linux"
+        },
+        {
+          "value": "ios"
+        },
+        {
+          "value": "android"
+        }
+      ]
+    },
+    {
+      "path": "usedBy",
+      "i18n": "publiccodeyml.usedBy",
+      "group": "software-details",
+      "order": 26,
+      "widget": "tags",
+      "type": "array",
+      "required": false
+    },
+    {
+      "path": "softwareType",
+      "i18n": "publiccodeyml.softwareType",
+      "group": "software-details",
+      "order": 27,
+      "widget": "radio",
+      "type": "string",
+      "required": true,
+      "options": [
+        {
+          "value": "standalone/mobile"
+        },
+        {
+          "value": "standalone/iot"
+        },
+        {
+          "value": "standalone/desktop"
+        },
+        {
+          "value": "standalone/web"
+        },
+        {
+          "value": "standalone/backend"
+        },
+        {
+          "value": "standalone/other"
+        },
+        {
+          "value": "addon"
+        },
+        {
+          "value": "library"
+        },
+        {
+          "value": "configurationFiles"
+        }
+      ]
+    },
+    {
+      "path": "inputTypes",
+      "i18n": "publiccodeyml.inputTypes",
+      "group": "logo-and-screenshots",
+      "order": 28,
+      "widget": "tags",
+      "type": "array",
+      "required": false,
+      "constraints": {
+        "items.format": "mime_type"
+      },
+      "deprecated": {
+        "since": "0.3.0",
+        "hint": "It's safe to drop it."
+      }
+    },
+    {
+      "path": "outputTypes",
+      "i18n": "publiccodeyml.outputTypes",
+      "group": "logo-and-screenshots",
+      "order": 29,
+      "widget": "tags",
+      "type": "array",
+      "required": false,
+      "constraints": {
+        "items.format": "mime_type"
+      },
+      "deprecated": {
+        "since": "0.3.0",
+        "hint": "It's safe to drop it."
+      }
+    },
+    {
+      "path": "monochromeLogo",
+      "i18n": "publiccodeyml.monochromeLogo",
+      "group": "logo-and-screenshots",
+      "order": 30,
+      "widget": "text",
+      "type": "string",
+      "required": false,
+      "deprecated": {
+        "since": "0.3.0",
+        "hint": "Use 'logo' instead."
+      }
+    },
+    {
+      "path": "logo",
+      "i18n": "publiccodeyml.logo",
+      "group": "logo-and-screenshots",
+      "order": 31,
+      "widget": "text",
+      "type": "string",
+      "required": false
+    },
+    {
+      "path": "supports",
+      "i18n": "publiccodeyml.supports",
+      "group": "supports",
+      "order": 32,
+      "widget": "objects",
+      "type": "array",
+      "required": false,
+      "since": "0.7.0"
+    },
+    {
+      "path": "supports.id",
+      "parent": "supports",
+      "i18n": "publiccodeyml.supports.id",
+      "group": "supports",
+      "order": 33,
+      "widget": "supports",
+      "type": "string",
+      "required": true,
+      "constraints": {
+        "minLength": 1,
+        "format": "supports_id"
+      },
+      "suggestions": [
+        {
+          "value": "alias:gdpr",
+          "label": "GDPR"
+        },
+        {
+          "value": "alias:eidas",
+          "label": "eIDAS"
+        },
+        {
+          "value": "alias:nis2",
+          "label": "NIS2"
+        },
+        {
+          "value": "alias:cra",
+          "label": "CRA"
+        },
+        {
+          "value": "alias:spid",
+          "label": "SPID",
+          "country": "IT"
+        },
+        {
+          "value": "alias:cie",
+          "label": "CIE",
+          "country": "IT"
+        },
+        {
+          "value": "alias:anpr",
+          "label": "ANPR",
+          "country": "IT"
+        },
+        {
+          "value": "alias:pagopa",
+          "label": "pagoPA",
+          "country": "IT"
+        },
+        {
+          "value": "alias:io",
+          "label": "IO",
+          "country": "IT"
+        }
+      ]
+    },
+    {
+      "path": "organisation",
+      "i18n": "publiccodeyml.organisation",
+      "group": "organisation",
+      "order": 34,
+      "widget": "fieldset",
+      "type": "object",
+      "required": false,
+      "since": "0.5.0"
+    },
+    {
+      "path": "organisation.uri",
+      "parent": "organisation",
+      "i18n": "publiccodeyml.organisation.uri",
+      "group": "organisation",
+      "order": 35,
+      "widget": "text",
+      "type": "string",
+      "required": true,
+      "constraints": {
+        "minLength": 1,
+        "format": "organisation_uri"
+      }
+    },
+    {
+      "path": "organisation.name",
+      "parent": "organisation",
+      "i18n": "publiccodeyml.organisation.name",
+      "group": "organisation",
+      "order": 36,
+      "widget": "text",
+      "type": "string",
+      "required": false
+    },
+    {
+      "path": "dependsOn",
+      "i18n": "publiccodeyml.dependsOn",
+      "group": "dependsOn",
+      "order": 37,
+      "widget": "fieldset",
+      "type": "object",
+      "required": false
+    },
+    {
+      "path": "dependsOn.open",
+      "parent": "dependsOn",
+      "i18n": "publiccodeyml.dependsOn.open",
+      "group": "dependsOn",
+      "order": 38,
+      "widget": "objects",
+      "type": "array",
+      "required": false
+    },
+    {
+      "path": "dependsOn.open.name",
+      "parent": "dependsOn.open",
+      "i18n": "publiccodeyml.dependsOn.name",
+      "group": "dependsOn",
+      "order": 39,
+      "widget": "text",
+      "type": "string",
+      "required": true,
+      "constraints": {
+        "minLength": 1
+      }
+    },
+    {
+      "path": "dependsOn.open.version",
+      "parent": "dependsOn.open",
+      "i18n": "publiccodeyml.dependsOn.version",
+      "group": "dependsOn",
+      "order": 40,
+      "widget": "text",
+      "type": "string",
+      "required": false
+    },
+    {
+      "path": "dependsOn.open.versionMax",
+      "parent": "dependsOn.open",
+      "i18n": "publiccodeyml.dependsOn.versionMax",
+      "group": "dependsOn",
+      "order": 41,
+      "widget": "text",
+      "type": "string",
+      "required": false
+    },
+    {
+      "path": "dependsOn.open.versionMin",
+      "parent": "dependsOn.open",
+      "i18n": "publiccodeyml.dependsOn.versionMin",
+      "group": "dependsOn",
+      "order": 42,
+      "widget": "text",
+      "type": "string",
+      "required": false
+    },
+    {
+      "path": "dependsOn.open.optional",
+      "parent": "dependsOn.open",
+      "i18n": "publiccodeyml.dependsOn.optional",
+      "group": "dependsOn",
+      "order": 43,
+      "widget": "boolean",
+      "type": "boolean",
+      "required": false
+    },
+    {
+      "path": "dependsOn.proprietary",
+      "parent": "dependsOn",
+      "i18n": "publiccodeyml.dependsOn.proprietary",
+      "group": "dependsOn",
+      "order": 44,
+      "widget": "objects",
+      "type": "array",
+      "required": false
+    },
+    {
+      "path": "dependsOn.proprietary.name",
+      "parent": "dependsOn.proprietary",
+      "i18n": "publiccodeyml.dependsOn.name",
+      "group": "dependsOn",
+      "order": 45,
+      "widget": "text",
+      "type": "string",
+      "required": true,
+      "constraints": {
+        "minLength": 1
+      }
+    },
+    {
+      "path": "dependsOn.proprietary.version",
+      "parent": "dependsOn.proprietary",
+      "i18n": "publiccodeyml.dependsOn.version",
+      "group": "dependsOn",
+      "order": 46,
+      "widget": "text",
+      "type": "string",
+      "required": false
+    },
+    {
+      "path": "dependsOn.proprietary.versionMax",
+      "parent": "dependsOn.proprietary",
+      "i18n": "publiccodeyml.dependsOn.versionMax",
+      "group": "dependsOn",
+      "order": 47,
+      "widget": "text",
+      "type": "string",
+      "required": false
+    },
+    {
+      "path": "dependsOn.proprietary.versionMin",
+      "parent": "dependsOn.proprietary",
+      "i18n": "publiccodeyml.dependsOn.versionMin",
+      "group": "dependsOn",
+      "order": 48,
+      "widget": "text",
+      "type": "string",
+      "required": false
+    },
+    {
+      "path": "dependsOn.proprietary.optional",
+      "parent": "dependsOn.proprietary",
+      "i18n": "publiccodeyml.dependsOn.optional",
+      "group": "dependsOn",
+      "order": 49,
+      "widget": "boolean",
+      "type": "boolean",
+      "required": false
+    },
+    {
+      "path": "dependsOn.hardware",
+      "parent": "dependsOn",
+      "i18n": "publiccodeyml.dependsOn.hardware",
+      "group": "dependsOn",
+      "order": 50,
+      "widget": "objects",
+      "type": "array",
+      "required": false
+    },
+    {
+      "path": "dependsOn.hardware.name",
+      "parent": "dependsOn.hardware",
+      "i18n": "publiccodeyml.dependsOn.name",
+      "group": "dependsOn",
+      "order": 51,
+      "widget": "text",
+      "type": "string",
+      "required": true,
+      "constraints": {
+        "minLength": 1
+      }
+    },
+    {
+      "path": "dependsOn.hardware.version",
+      "parent": "dependsOn.hardware",
+      "i18n": "publiccodeyml.dependsOn.version",
+      "group": "dependsOn",
+      "order": 52,
+      "widget": "text",
+      "type": "string",
+      "required": false
+    },
+    {
+      "path": "dependsOn.hardware.versionMax",
+      "parent": "dependsOn.hardware",
+      "i18n": "publiccodeyml.dependsOn.versionMax",
+      "group": "dependsOn",
+      "order": 53,
+      "widget": "text",
+      "type": "string",
+      "required": false
+    },
+    {
+      "path": "dependsOn.hardware.versionMin",
+      "parent": "dependsOn.hardware",
+      "i18n": "publiccodeyml.dependsOn.versionMin",
+      "group": "dependsOn",
+      "order": 54,
+      "widget": "text",
+      "type": "string",
+      "required": false
+    },
+    {
+      "path": "dependsOn.hardware.optional",
+      "parent": "dependsOn.hardware",
+      "i18n": "publiccodeyml.dependsOn.optional",
+      "group": "dependsOn",
+      "order": 55,
+      "widget": "boolean",
+      "type": "boolean",
+      "required": false
+    },
+    {
+      "path": "localisation",
+      "i18n": "publiccodeyml.localisation",
       "group": "localisation",
-      "defaultValue": true,
-      "helpText": "Software has infrastructure for multilingual support"
+      "order": 56,
+      "widget": "fieldset",
+      "type": "object",
+      "required": true
     },
     {
-      "id": "localisation_availableLanguages",
-      "type": "multiselect",
-      "label": "Available Languages",
+      "path": "localisation.localisationReady",
+      "parent": "localisation",
+      "i18n": "publiccodeyml.localisation.localisationReady",
       "group": "localisation",
-      "options": [
-        {
-          "value": "en",
-          "label": "English"
-        },
-        {
-          "value": "it",
-          "label": "Italian"
-        },
-        {
-          "value": "de",
-          "label": "German"
-        },
-        {
-          "value": "fr",
-          "label": "French"
-        },
-        {
-          "value": "es",
-          "label": "Spanish"
-        },
-        {
-          "value": "pt",
-          "label": "Portuguese"
-        },
-        {
-          "value": "nl",
-          "label": "Dutch"
-        },
-        {
-          "value": "pl",
-          "label": "Polish"
-        }
-      ],
-      "validation": {
-        "minSelection": 1,
-        "customMessage": "Select at least one available language"
-      },
-      "helpText": "Languages in which the software is available"
+      "order": 57,
+      "widget": "boolean",
+      "type": "boolean",
+      "required": true
     },
     {
-      "id": "intendedAudience_countries",
+      "path": "localisation.availableLanguages",
+      "parent": "localisation",
+      "i18n": "publiccodeyml.localisation.availableLanguages",
+      "group": "localisation",
+      "order": 58,
+      "widget": "language",
       "type": "array",
-      "label": "Target Countries",
-      "group": "audience",
-      "arrayConfig": {
-        "itemFields": [
-          {
-            "id": "country",
-            "type": "text",
-            "label": "Country Code",
-            "placeholder": "US, IT, DE, FR, etc.",
-            "validation": {
-              "required": true,
-              "pattern": "^[A-Z]{2}$",
-              "minLength": 2,
-              "maxLength": 2,
-              "customMessage": "Enter a valid ISO 3166-1 alpha-2 country code (e.g., US, IT)"
-            }
-          }
-        ],
-        "minItems": 0,
-        "maxItems": 50,
-        "initialItems": 0,
-        "addButtonText": "Add Country",
-        "removeButtonText": "Remove",
-        "itemTitle": "Country {index}"
-      },
-      "helpText": "Countries for which the software claims specific compliance (ISO 3166-1 alpha-2)"
-    },
-    {
-      "id": "intendedAudience_scope",
-      "type": "multiselect",
-      "label": "Application Scope",
-      "group": "audience",
-      "options": [
-        {
-          "value": "agriculture",
-          "label": "agriculture"
-        },
-        {
-          "value": "culture",
-          "label": "culture"
-        },
-        {
-          "value": "defence",
-          "label": "defence"
-        },
-        {
-          "value": "education",
-          "label": "education"
-        },
-        {
-          "value": "emergency-services",
-          "label": "emergency-services"
-        },
-        {
-          "value": "employment",
-          "label": "employment"
-        },
-        {
-          "value": "energy",
-          "label": "energy"
-        },
-        {
-          "value": "environment",
-          "label": "environment"
-        },
-        {
-          "value": "finance-and-economic-development",
-          "label": "finance-and-economic-development"
-        },
-        {
-          "value": "foreign-affairs",
-          "label": "foreign-affairs"
-        },
-        {
-          "value": "government",
-          "label": "government"
-        },
-        {
-          "value": "healthcare",
-          "label": "healthcare"
-        },
-        {
-          "value": "infrastructures",
-          "label": "infrastructures"
-        },
-        {
-          "value": "justice",
-          "label": "justice"
-        },
-        {
-          "value": "local-authorities",
-          "label": "local-authorities"
-        },
-        {
-          "value": "manufacturing",
-          "label": "manufacturing"
-        },
-        {
-          "value": "research",
-          "label": "research"
-        },
-        {
-          "value": "science-and-technology",
-          "label": "science-and-technology"
-        },
-        {
-          "value": "security",
-          "label": "security"
-        },
-        {
-          "value": "society",
-          "label": "society"
-        },
-        {
-          "value": "sport",
-          "label": "sport"
-        },
-        {
-          "value": "tourism",
-          "label": "tourism"
-        },
-        {
-          "value": "transportation",
-          "label": "transportation"
-        },
-        {
-          "value": "welfare",
-          "label": "welfare"
-        }
-      ],
-      "validation": {
-        "minSelection": 0
-      },
-      "helpText": "Fields of application for the software"
-    },
-    {
-      "id": "automatedChecks_is-open",
-      "type": "checkbox",
-      "label": "Is Open Source?",
-      "group": "optional",
-      "defaultValue": true,
-      "helpText": "Software is open source"
-    },
-    {
-      "id": "automatedChecks_active-maintenance",
-      "type": "select",
-      "label": "Active Maintenance level",
-      "group": "optional",
-      "options": [
-        {
-          "value": "Level 1: Active maintenance",
-          "label": "Level 1: Active maintenance"
-        },
-        {
-          "value": "Level 2: Reliable maintenance",
-          "label": "Level 2: Reliable maintenance"
-        },
-        {
-          "value": "Level 3: Crisis-proof maintenance",
-          "label": "Level 3: Crisis-proof maintenance"
-        }
-      ],
-      "helpText": "Active Maintenance level"
-    },
-    {
-      "id": "automatedChecks_reuse",
-      "type": "select",
-      "label": "Reuse level",
-      "group": "optional",
-      "options": [
-        {
-          "value": "Level 1: Ready for use",
-          "label": "Level 1: Ready for use"
-        },
-        {
-          "value": "Level 2: Actively Reused",
-          "label": "Level 2: Actively Reused"
-        },
-        {
-          "value": "Level 3: Frequently Actively Reused",
-          "label": "Level 3: Frequently Actively Reused"
-        }
-      ],
-      "helpText": "Reuse level"
-    },
-    {
-      "id": "automatedChecks_security",
-      "type": "select",
-      "label": "Security level",
-      "group": "optional",
-      "options": [
-        {
-          "value": "Level 1: Basic Security Practices",
-          "label": "Level 1: Basic Security Practices"
-        },
-        {
-          "value": "Level 2: Advanced Security Practices",
-          "label": "Level 2: Advanced Security Practices"
-        },
-        {
-          "value": "Level 3: Comprehensive Security Practices",
-          "label": "Level 3: Comprehensive Security Practices"
-        }
-      ],
-      "helpText": "Security level"
-    },
-    {
-      "id": "automatedChecks_integrations",
-      "type": "array",
-      "label": "Detected Integrations",
-      "group": "optional",
-      "arrayConfig": {
-        "itemFields": [
-          {
-            "id": "name",
-            "type": "text",
-            "label": "Integration Name",
-            "placeholder": "Name of the detected integration",
-            "validation": {
-              "required": true,
-              "minLength": 2,
-              "maxLength": 100,
-              "customMessage": "Name is required"
-            }
-          }
-        ],
+      "required": true,
+      "constraints": {
         "minItems": 1,
-        "maxItems": 10,
-        "initialItems": 1,
-        "addButtonText": "Add Item",
-        "removeButtonText": "X",
-        "itemTitle": "Integration {index}"
-      },
-      "helpText": "Name of the integrations"
+        "items.format": "bcp47_strict_language_tag"
+      }
     },
     {
-      "id": "automatedChecks_compliance_accessibility-level",
-      "type": "multiselect",
-      "label": "Accessibility levels",
-      "group": "optional",
+      "path": "intendedAudience",
+      "i18n": "publiccodeyml.intendedAudience",
+      "group": "purpose-and-audience",
+      "order": 59,
+      "widget": "fieldset",
+      "type": "object",
+      "required": false
+    },
+    {
+      "path": "intendedAudience.scope",
+      "parent": "intendedAudience",
+      "i18n": "publiccodeyml.intendedAudience.scope",
+      "group": "purpose-and-audience",
+      "order": 60,
+      "widget": "multiselect",
+      "type": "array",
+      "required": false,
       "options": [
         {
-          "value": "WCAG 2.1 AA",
-          "label": "WCAG 2.1 AA"
+          "value": "agriculture"
         },
         {
-          "value": "WCAG 2.2 AA",
-          "label": "WCAG 2.2 AA"
+          "value": "culture"
+        },
+        {
+          "value": "defence"
+        },
+        {
+          "value": "education"
+        },
+        {
+          "value": "emergency-services"
+        },
+        {
+          "value": "employment"
+        },
+        {
+          "value": "energy"
+        },
+        {
+          "value": "environment"
+        },
+        {
+          "value": "finance-and-economic-development"
+        },
+        {
+          "value": "foreign-affairs"
+        },
+        {
+          "value": "government"
+        },
+        {
+          "value": "healthcare"
+        },
+        {
+          "value": "infrastructures"
+        },
+        {
+          "value": "justice"
+        },
+        {
+          "value": "local-authorities"
+        },
+        {
+          "value": "manufacturing"
+        },
+        {
+          "value": "research"
+        },
+        {
+          "value": "science-and-technology"
+        },
+        {
+          "value": "security"
+        },
+        {
+          "value": "society"
+        },
+        {
+          "value": "sport"
+        },
+        {
+          "value": "tourism"
+        },
+        {
+          "value": "transportation"
+        },
+        {
+          "value": "welfare"
+        }
+      ]
+    },
+    {
+      "path": "intendedAudience.countries",
+      "parent": "intendedAudience",
+      "i18n": "publiccodeyml.intendedAudience.countries",
+      "group": "purpose-and-audience",
+      "order": 61,
+      "widget": "country",
+      "type": "array",
+      "required": false,
+      "constraints": {
+        "items.format": "iso3166_1_alpha2_lower_or_upper"
+      }
+    },
+    {
+      "path": "intendedAudience.unsupportedCountries",
+      "parent": "intendedAudience",
+      "i18n": "publiccodeyml.intendedAudience.unsupportedCountries",
+      "group": "purpose-and-audience",
+      "order": 62,
+      "widget": "country",
+      "type": "array",
+      "required": false,
+      "constraints": {
+        "items.format": "iso3166_1_alpha2_lower_or_upper"
+      }
+    },
+    {
+      "path": "legal",
+      "i18n": "publiccodeyml.legal",
+      "group": "legal-and-reuse",
+      "order": 63,
+      "widget": "fieldset",
+      "type": "object",
+      "required": true
+    },
+    {
+      "path": "legal.license",
+      "parent": "legal",
+      "i18n": "publiccodeyml.legal.license",
+      "group": "legal-and-reuse",
+      "order": 64,
+      "widget": "license",
+      "type": "string",
+      "required": true,
+      "constraints": {
+        "format": "spdx_expression"
+      }
+    },
+    {
+      "path": "legal.mainCopyrightOwner",
+      "parent": "legal",
+      "i18n": "publiccodeyml.legal.mainCopyrightOwner",
+      "group": "legal-and-reuse",
+      "order": 65,
+      "widget": "text",
+      "type": "string",
+      "required": false
+    },
+    {
+      "path": "legal.repoOwner",
+      "parent": "legal",
+      "i18n": "publiccodeyml.legal.repoOwner",
+      "group": "legal-and-reuse",
+      "order": 66,
+      "widget": "text",
+      "type": "string",
+      "required": false,
+      "deprecated": {
+        "since": "0.5.0",
+        "hint": "Use 'organisation.name' instead."
+      }
+    },
+    {
+      "path": "legal.authorsFile",
+      "parent": "legal",
+      "i18n": "publiccodeyml.legal.authorsFile",
+      "group": "legal-and-reuse",
+      "order": 67,
+      "widget": "text",
+      "type": "string",
+      "required": false,
+      "deprecated": {
+        "since": "0.4.0",
+        "hint": "It's safe to drop it."
+      }
+    },
+    {
+      "path": "maintenance",
+      "i18n": "publiccodeyml.maintenance",
+      "group": "maintenance",
+      "order": 68,
+      "widget": "fieldset",
+      "type": "object",
+      "required": true
+    },
+    {
+      "path": "maintenance.type",
+      "parent": "maintenance",
+      "i18n": "publiccodeyml.maintenance.type",
+      "group": "maintenance",
+      "order": 69,
+      "widget": "radio",
+      "type": "string",
+      "required": true,
+      "options": [
+        {
+          "value": "internal"
+        },
+        {
+          "value": "contract"
+        },
+        {
+          "value": "community"
+        },
+        {
+          "value": "none"
+        }
+      ]
+    },
+    {
+      "path": "maintenance.contractors",
+      "parent": "maintenance",
+      "i18n": "publiccodeyml.maintenance.contractors",
+      "group": "maintenance",
+      "order": 70,
+      "widget": "objects",
+      "type": "array",
+      "required": false,
+      "requiredWhen": {
+        "maintenance.type": [
+          "contract"
+        ]
+      }
+    },
+    {
+      "path": "maintenance.contractors.name",
+      "parent": "maintenance.contractors",
+      "i18n": "publiccodeyml.maintenance.contractors.name",
+      "group": "maintenance",
+      "order": 71,
+      "widget": "text",
+      "type": "string",
+      "required": true,
+      "constraints": {
+        "minLength": 1
+      }
+    },
+    {
+      "path": "maintenance.contractors.until",
+      "parent": "maintenance.contractors",
+      "i18n": "publiccodeyml.maintenance.contractors.until",
+      "group": "maintenance",
+      "order": 72,
+      "widget": "date",
+      "type": "string",
+      "required": true,
+      "constraints": {
+        "format": "date"
+      }
+    },
+    {
+      "path": "maintenance.contractors.email",
+      "parent": "maintenance.contractors",
+      "i18n": "publiccodeyml.maintenance.contractors.email",
+      "group": "maintenance",
+      "order": 73,
+      "widget": "email",
+      "type": "string",
+      "required": false,
+      "constraints": {
+        "format": "email"
+      }
+    },
+    {
+      "path": "maintenance.contractors.website",
+      "parent": "maintenance.contractors",
+      "i18n": "publiccodeyml.maintenance.contractors.website",
+      "group": "maintenance",
+      "order": 74,
+      "widget": "url",
+      "type": "string",
+      "required": false,
+      "constraints": {
+        "format": "url_http_url"
+      }
+    },
+    {
+      "path": "maintenance.contacts",
+      "parent": "maintenance",
+      "i18n": "publiccodeyml.maintenance.contacts",
+      "group": "maintenance",
+      "order": 75,
+      "widget": "objects",
+      "type": "array",
+      "required": false,
+      "requiredWhen": {
+        "maintenance.type": [
+          "community",
+          "internal"
+        ]
+      }
+    },
+    {
+      "path": "maintenance.contacts.name",
+      "parent": "maintenance.contacts",
+      "i18n": "publiccodeyml.maintenance.contacts.name",
+      "group": "maintenance",
+      "order": 76,
+      "widget": "text",
+      "type": "string",
+      "required": true,
+      "constraints": {
+        "minLength": 1
+      }
+    },
+    {
+      "path": "maintenance.contacts.email",
+      "parent": "maintenance.contacts",
+      "i18n": "publiccodeyml.maintenance.contacts.email",
+      "group": "maintenance",
+      "order": 77,
+      "widget": "email",
+      "type": "string",
+      "required": false,
+      "constraints": {
+        "format": "email"
+      }
+    },
+    {
+      "path": "maintenance.contacts.phone",
+      "parent": "maintenance.contacts",
+      "i18n": "publiccodeyml.maintenance.contacts.phone",
+      "group": "maintenance",
+      "order": 78,
+      "widget": "text",
+      "type": "string",
+      "required": false
+    },
+    {
+      "path": "maintenance.contacts.affiliation",
+      "parent": "maintenance.contacts",
+      "i18n": "publiccodeyml.maintenance.contacts.affiliation",
+      "group": "maintenance",
+      "order": 79,
+      "widget": "text",
+      "type": "string",
+      "required": false
+    },
+    {
+      "path": "IT",
+      "i18n": "publiccodeyml.it",
+      "group": "country:IT",
+      "order": 80,
+      "widget": "fieldset",
+      "type": "object",
+      "required": false,
+      "deprecated": {
+        "since": "0.7.0",
+        "hint": "Use 'supports' for compliance with national regulations and integration with national platforms, and 'organisation' to reference the publishing administration."
+      },
+      "country": "IT"
+    },
+    {
+      "path": "IT.countryExtensionVersion",
+      "parent": "IT",
+      "i18n": "publiccodeyml.it.countryExtensionVersion",
+      "group": "country:IT",
+      "order": 81,
+      "widget": "hidden",
+      "type": "string",
+      "required": false,
+      "options": [
+        {
+          "value": "0.2"
+        },
+        {
+          "value": "1.0"
         }
       ],
-      "validation": {
-        "minSelection": 1,
-        "customMessage": "Select at least one"
+      "deprecated": {
+        "since": "0.7.0",
+        "hint": "Deprecated together with the rest of the Italian section."
       },
-      "helpText": "Accessibility levels"
+      "country": "IT"
     },
     {
-      "id": "automatedChecks_compliance_gdpr",
-      "type": "checkbox",
-      "label": "Has gdpr compliance?",
-      "group": "optional",
-      "defaultValue": true,
-      "helpText": ""
+      "path": "IT.conforme",
+      "parent": "IT",
+      "i18n": "publiccodeyml.it.conforme",
+      "group": "country:IT",
+      "order": 82,
+      "widget": "fieldset",
+      "type": "object",
+      "required": false,
+      "deprecated": {
+        "since": "0.5.0",
+        "hint": "It's safe to drop it."
+      },
+      "country": "IT"
     },
     {
-      "id": "automatedChecks_compliance_cookie-policy",
-      "type": "checkbox",
-      "label": "Has cookie-policy compliance?",
-      "group": "optional",
-      "defaultValue": true,
-      "helpText": ""
+      "path": "IT.conforme.lineeGuidaDesign",
+      "parent": "IT.conforme",
+      "i18n": "publiccodeyml.it.conforme.lineeGuidaDesign",
+      "group": "country:IT",
+      "order": 83,
+      "widget": "boolean",
+      "type": "boolean",
+      "required": false,
+      "deprecated": {
+        "since": "0.5.0",
+        "hint": "It's safe to drop it."
+      },
+      "country": "IT"
+    },
+    {
+      "path": "IT.conforme.modelloInteroperabilita",
+      "parent": "IT.conforme",
+      "i18n": "publiccodeyml.it.conforme.modelloInteroperabilita",
+      "group": "country:IT",
+      "order": 84,
+      "widget": "boolean",
+      "type": "boolean",
+      "required": false,
+      "deprecated": {
+        "since": "0.5.0",
+        "hint": "It's safe to drop it."
+      },
+      "country": "IT"
+    },
+    {
+      "path": "IT.conforme.misureMinimeSicurezza",
+      "parent": "IT.conforme",
+      "i18n": "publiccodeyml.it.conforme.misureMinimeSicurezza",
+      "group": "country:IT",
+      "order": 85,
+      "widget": "boolean",
+      "type": "boolean",
+      "required": false,
+      "deprecated": {
+        "since": "0.5.0",
+        "hint": "It's safe to drop it."
+      },
+      "country": "IT"
+    },
+    {
+      "path": "IT.conforme.gdpr",
+      "parent": "IT.conforme",
+      "i18n": "publiccodeyml.it.conforme.gdpr",
+      "group": "country:IT",
+      "order": 86,
+      "widget": "boolean",
+      "type": "boolean",
+      "required": false,
+      "deprecated": {
+        "since": "0.5.0",
+        "hint": "Use 'supports' with 'alias:gdpr' instead."
+      },
+      "country": "IT"
+    },
+    {
+      "path": "IT.piattaforme",
+      "parent": "IT",
+      "i18n": "publiccodeyml.it.piattaforme",
+      "group": "country:IT",
+      "order": 87,
+      "widget": "fieldset",
+      "type": "object",
+      "required": false,
+      "deprecated": {
+        "since": "0.7.0",
+        "hint": "Use 'supports' instead."
+      },
+      "country": "IT"
+    },
+    {
+      "path": "IT.piattaforme.spid",
+      "parent": "IT.piattaforme",
+      "i18n": "publiccodeyml.it.piattaforme.spid",
+      "group": "country:IT",
+      "order": 88,
+      "widget": "boolean",
+      "type": "boolean",
+      "required": false,
+      "deprecated": {
+        "since": "0.7.0",
+        "hint": "Use 'supports' with 'alias:spid' instead."
+      },
+      "country": "IT"
+    },
+    {
+      "path": "IT.piattaforme.cie",
+      "parent": "IT.piattaforme",
+      "i18n": "publiccodeyml.it.piattaforme.cie",
+      "group": "country:IT",
+      "order": 89,
+      "widget": "boolean",
+      "type": "boolean",
+      "required": false,
+      "deprecated": {
+        "since": "0.7.0",
+        "hint": "Use 'supports' with 'alias:cie' instead."
+      },
+      "country": "IT"
+    },
+    {
+      "path": "IT.piattaforme.anpr",
+      "parent": "IT.piattaforme",
+      "i18n": "publiccodeyml.it.piattaforme.anpr",
+      "group": "country:IT",
+      "order": 90,
+      "widget": "boolean",
+      "type": "boolean",
+      "required": false,
+      "deprecated": {
+        "since": "0.7.0",
+        "hint": "Use 'supports' with 'alias:anpr' instead."
+      },
+      "country": "IT"
+    },
+    {
+      "path": "IT.piattaforme.pagopa",
+      "parent": "IT.piattaforme",
+      "i18n": "publiccodeyml.it.piattaforme.pagopa",
+      "group": "country:IT",
+      "order": 91,
+      "widget": "boolean",
+      "type": "boolean",
+      "required": false,
+      "deprecated": {
+        "since": "0.7.0",
+        "hint": "Use 'supports' with 'alias:pagopa' instead."
+      },
+      "country": "IT"
+    },
+    {
+      "path": "IT.piattaforme.io",
+      "parent": "IT.piattaforme",
+      "i18n": "publiccodeyml.it.piattaforme.io",
+      "group": "country:IT",
+      "order": 92,
+      "widget": "boolean",
+      "type": "boolean",
+      "required": false,
+      "deprecated": {
+        "since": "0.7.0",
+        "hint": "Use 'supports' with 'alias:io' instead."
+      },
+      "country": "IT"
+    },
+    {
+      "path": "IT.riuso",
+      "parent": "IT",
+      "i18n": "publiccodeyml.it.riuso",
+      "group": "country:IT",
+      "order": 93,
+      "widget": "fieldset",
+      "type": "object",
+      "required": false,
+      "country": "IT"
+    },
+    {
+      "path": "IT.riuso.codiceIPA",
+      "parent": "IT.riuso",
+      "i18n": "publiccodeyml.it.riuso.codiceIPA",
+      "group": "country:IT",
+      "order": 94,
+      "widget": "text",
+      "type": "string",
+      "required": false,
+      "constraints": {
+        "format": "italian_ipa_code"
+      },
+      "deprecated": {
+        "since": "0.5.0",
+        "hint": "Use 'organisation.uri' and set it to 'urn:x-italian-pa:<codiceIPA>' instead."
+      },
+      "country": "IT"
     }
   ]
 }

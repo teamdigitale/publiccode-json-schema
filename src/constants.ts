@@ -17,39 +17,12 @@ export const languages = [
 
 export const licenses = Object.keys(allLicenseObj)
 	.map((key) => {
-		const item = allLicenseObj[key] as T;
+		const item = (allLicenseObj as Record<string, T>)[key];
 		return `${key} - ${item.title}`;
 	})
 	.sort((a, b) => a.localeCompare(b));
 
-export const versions = [
-	"0",
-	"0.2",
-	"0.2.0",
-	"0.2.1",
-	"0.2.2",
-	"0.3",
-	"0.3.0",
-	"0.4",
-	"0.4.0",
-	"0.5",
-	"0.5.0",
-	"0.7",
-	"0.7.0",
-];
-
-// Aliases accepted by `supports[].id` (publiccode-parser-go supports_id).
-export const supportsAliases = [
-	"gdpr",
-	"eidas",
-	"nis2",
-	"cra",
-	"spid",
-	"cie",
-	"anpr",
-	"pagopa",
-	"io",
-];
+export { supportsAliases, versions } from "./lib/vocab";
 
 export const platforms = ["web", "windows", "mac", "linux", "ios", "android"];
 

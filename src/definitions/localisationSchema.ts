@@ -47,26 +47,3 @@ export default S.object()
 			),
 	)
 	.required(["localisationReady", "availableLanguages"]);
-
-export const formFields = [
-	{
-		id: "localisation_localisationReady",
-		type: "checkbox",
-		label: "Localisation Ready",
-		group: "localisation",
-		defaultValue: true,
-		helpText: "Software has infrastructure for multilingual support",
-	},
-	{
-		id: "localisation_availableLanguages",
-		type: "multiselect",
-		label: "Available Languages",
-		group: "localisation",
-		options: languages,
-		validation: {
-			minSelection: 1,
-			customMessage: "Select at least one available language",
-		},
-		helpText: "Languages in which the software is available",
-	},
-];

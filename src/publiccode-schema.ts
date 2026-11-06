@@ -1,4 +1,3 @@
-import fs from "fs/promises";
 import S from "fluent-json-schema";
 import {
 	contactSchema,
@@ -7,7 +6,6 @@ import {
 	dependsOnSchema,
 	descriptionSchema,
 	intendedAudienceSchema,
-	ITSchema,
 	legalSchema,
 	localisationSchema,
 	maintenanceSchema,
@@ -35,12 +33,10 @@ import softwareVersion from "./definitions/softwareVersion";
 import url from "./definitions/url";
 import usedBy from "./definitions/usedBy";
 
-// The parser validates every 0.x version with the same rules, so this schema
-// covers all of them; it's named after the latest one.
-export const currentVersion = "0.7.0";
-
+// The parser validates every 0.x version with the same rules: this is that v0
+// schema, without country sections. src/lib/schema.ts derives the rest.
 const schema = S.object()
-	.id(`publicode/root/v${currentVersion}`)
+	.id("publicode/root/v0")
 	.title("PublicCode JSON Schema")
 	.additionalProperties(false)
 	.description(
@@ -56,7 +52,6 @@ const schema = S.object()
 	.definition("legal", legalSchema)
 	.definition("localisation", localisationSchema)
 	.definition("maintenance", maintenanceSchema)
-	.definition("IT", ITSchema)
 	.definition("support", supportsSchema)
 	.prop("publiccodeYmlVersion", publiccodeYmlVersion)
 	.prop("name", name)
@@ -85,10 +80,7 @@ const schema = S.object()
 	.prop("dependsOn", S.ref("#dependsOn"))
 	.prop("organisation", S.ref("#organisation"))
 	.prop("fundedBy", fundedBy)
-	.prop("IT", S.ref("#IT"))
-	// Lowercase country section: deprecated, but still accepted by the parser
-	// (with a warning) and used by v0.5 files.
-	.prop("it", S.raw({ $ref: "#IT", deprecated: true }))
+	// Country sections (IT) are added from src/countries by buildSchema().
 	.required([
 		"publiccodeYmlVersion",
 		"name",
@@ -102,6 +94,5 @@ const schema = S.object()
 		"localisation",
 	]);
 
-const str = JSON.stringify(schema.valueOf(), undefined, 2);
-export default str;
+export const baseSchema = schema.valueOf() as Record<string, unknown>;
 
