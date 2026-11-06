@@ -1,0 +1,71 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+## 2026-11-06
+
+### Added
+
+* `docs/validation-checklist.md`: every publiccode-parser-go v0 rule, with its level
+  (error or warning), whether the schema covers it, how JSON Schema can express it, and
+  what changed after parser v5.2.1
+* vocabularies generated from the Go modules the editor's WASM uses
+  (`bun run vocab`): BCP 47 subtags, ISO 3166-1 alpha-2 and alpha-3 country codes, SPDX
+  licenses and exceptions, iPA codes, oEmbed schemes, the parser's email regex
+* a Go oracle (`scripts/vocab/oracle`) that runs the parser's own validators, to test the
+  custom formats against them
+* one schema per version of the standard (0.2.0, 0.3.0, 0.4.0, 0.5.0, 0.7.0, 0.8.0),
+  built from its changelog: when keys appeared, until when they were mandatory, when
+  they were deprecated and what replaces them; next to `publiccode-schema-v0.json`, which
+  validates every 0.x version like the parser and is the one validators should use
+* form schemas, one per version, derived from the schema plus a small UI overlay
+  (`src/form/ui.ts`): they only carry translation keys, following publiccode-editor's
+  `publiccodeyml.<path>` convention, and replace the hand-written form fields
+* a TypeScript library with no fluent-json-schema dependency (`src/index.ts`):
+  * versions: `schemaVersionFor()`, `LATEST_SUPPORTED` (0.7.0), `LATEST_KNOWN` (0.8.0)
+  * `deprecations(data)`: what's deprecated in a file, with the version that deprecated
+    it and whether the parser reports it too
+  * `upgrade(data, { to })`: migrates a file as the standard says (`it` → `IT`,
+    lowercase country codes, `IT.riuso.codiceIPA` → `organisation.uri`,
+    `legal.repoOwner` → `organisation.name`, `IT.piattaforme.*` and `IT.conforme.gdpr`
+    → `supports` aliases, `monochromeLogo` → `logo`...), without changing its input;
+    fixes that drop information need `lossy: true`
+  * `buildSchema()`, `buildFormSchema()`, `withCountries()`, `sectionsFormSchema()`,
+    `countryLocales()`
+* country packages (`src/countries/`), identified by ISO 3166-1 alpha-3 ids (`ita`):
+  `supports` presets, translations, version history, deprecation rules and sections.
+  The `ita` package holds the standard's `IT` section, with its translations in five
+  languages. Experimental sections (a package's own, keyed by its id, e.g. `nld:`) are
+  left out of the generated schemas, since the parser rejects them, and enabled by
+  consumers. See `src/countries/README.md`.
+* translations of the deprecation messages in en, it, de, fr and nl (`src/locales`, and
+  `countries.<id>.deprecations` in the country packages): `locales(lang)` and
+  `deprecationKeys(finding)`
+* `docs/versions-and-countries.md`, and tests (`bun test`)
+
+### Fixed
+
+* the schema now matches publiccode-parser-go v0:
+  * `description` validated nothing: its language keys are BCP 47 tags and their values
+    are checked
+  * `contractor.email` was validated as a date
+  * `platforms` no longer has a closed list of values
+  * lowercase `countries` are accepted (the parser only warns)
+  * `organisation.uri` is mandatory
+  * `supports`, version 0.7, the lowercase `it` section and `features` as mandatory were
+    missing
+  * custom formats for URLs, emails, MIME types, SPDX expressions, BCP 47 tags, country
+    codes, iPA codes, organisation URIs and `supports` ids
+  * the `maintenance` conditions on `contractors` and `contacts`
+  * dependency versions are strings, as the Go decoder reads any scalar as one
+* the description of `IT.conforme.gdpr` (copied from `misureMinimeSicurezza`)
+* `tsc` errors in `isBasedOn` and the license list; the library compiles for ES2020
+
+### Changed
+
+* **breaking**: country packages have an `id` and `sections` instead of `code` and
+  `section`; `countries` and `countryById()` replace `standardCountries()` and
+  `countryByCode()`
+* `bun run gen` writes `publiccode-schema-v0.json`, the versioned schemas and form
+  schemas, and `data/countries/<id>.json`; `src/form-schema.ts` and the `formFields`
+  of the definitions are gone
