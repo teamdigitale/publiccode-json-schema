@@ -52,7 +52,7 @@ warning); country packages ship their own translations (`countryLocales()`).
 ## Deprecations and upgrades
 
 ```ts
-import { countries, deprecations, upgrade } from "publicode-schema";
+import { countries, deprecations, upgrade } from "publiccode-schema";
 
 deprecations(data, { countries });
 // [{ id: "codiceIPA", key: "IT.riuso.codiceIPA", since: "0.5.0", parser: true,

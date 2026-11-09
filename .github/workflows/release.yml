@@ -1,0 +1,43 @@
+# Publishes the package to npm when a version tag is pushed:
+#
+#   1. update "version" in package.json and CHANGELOG.md, commit
+#   2. git tag v0.1.0 && git push origin v0.1.0
+#
+# Authentication: npm trusted publishing (OIDC, configured on npmjs.com for this
+# repository and workflow) or, as a fallback, an NPM_TOKEN repository secret.
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+  id-token: write # npm provenance and trusted publishing
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+
+      - name: Tag and package.json version must match
+        run: |
+          version="$(node -p 'require("./package.json").version')"
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "Tag $GITHUB_REF_NAME does not match package.json version $version" >&2
+            exit 1
+          fi
+
+      - run: bun install --frozen-lockfile
+      # prepublishOnly runs typecheck, tests and build.
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

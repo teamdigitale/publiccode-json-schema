@@ -169,7 +169,7 @@ export function buildSchema(base: JSONSchema, options: BuildOptions = {}): JSONS
 	}
 
 	if (props.publiccodeYmlVersion) {
-		schema.$id = `publicode/root/v${version}`;
+		schema.$id = `publiccode/root/v${version}`;
 		schema.title = `${schema.title} v${version}`;
 		props.publiccodeYmlVersion = {
 			...props.publiccodeYmlVersion,

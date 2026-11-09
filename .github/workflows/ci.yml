@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.4
+      - run: bun install --frozen-lockfile
+      - run: bun run typecheck
+      - run: bun test
+      - run: bun run build
+
+      # The package as users get it: packed, installed with npm, imported with Node.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Smoke test of the packed package
+        run: |
+          npm pack --pack-destination "$RUNNER_TEMP"
+          cd "$RUNNER_TEMP"
+          npm init -y >/dev/null
+          npm pkg set type=module
+          npm install --no-audit --no-fund ./publiccode-schema-*.tgz
+          node -e '
+            const { validate } = await import("publiccode-schema/validator");
+            const { LATEST_SUPPORTED } = await import("publiccode-schema");
+            const r = validate({ publiccodeYmlVersion: "0" });
+            if (!r.errors.length || !LATEST_SUPPORTED) process.exit(1);
+            console.log("ok:", r.errors.length, "errors on an empty file, latest", LATEST_SUPPORTED);
+          '

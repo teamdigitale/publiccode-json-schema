@@ -1,0 +1,15 @@
+{
+  // Type declarations of the public entrypoints only (the schema generator in
+  // src/definitions and src/publiccode-schema.ts is not part of the package API).
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "resolveJsonModule": true,
+    "allowJs": false,
+    "outDir": "dist/types",
+    "rootDir": "."
+  },
+  "files": ["src/index.ts", "src/validator/index.ts"]
+}

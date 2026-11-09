@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.1.0 (unreleased)
+
+First release as an npm package.
+
+### Added
+
+* `publiccode-schema/validator`: `validate()`, the custom Ajv formats and the parser's
+  extra checks, moved here from publiccode-editor (`src/app/validator/ajv`) so that the
+  editor and other tools share one copy
+* npm packaging: ESM bundles and type declarations in `dist/` (`bun run build`), works
+  with `moduleResolution` `bundler`, `node16` and `nodenext`; `exports` for `.`,
+  `./validator` and `./data/*`
+* CI (typecheck, tests, build, smoke test of the packed package with Node) and a release
+  workflow that publishes to npm from a `v*` tag
+
+### Changed
+
+* **Breaking**: the package is named `publiccode-schema` (double c) and the schema `$id`s
+  are `publiccode/root/v…` instead of `publicode/root/v…`
+* License: AGPL-3.0-or-later, like publiccode-editor
+* `fluent-json-schema` and `yaml` are development dependencies: the published library
+  only needs `ajv` and `ajv-formats`
+
 ## 2026-11-06
 
 ### Added

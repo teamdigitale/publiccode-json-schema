@@ -36,7 +36,7 @@ import usedBy from "./definitions/usedBy";
 // The parser validates every 0.x version with the same rules: this is that v0
 // schema, without country sections. src/lib/schema.ts derives the rest.
 const schema = S.object()
-	.id("publicode/root/v0")
+	.id("publiccode/root/v0")
 	.title("PublicCode JSON Schema")
 	.additionalProperties(false)
 	.description(

@@ -1,28 +1,76 @@
 {
-  "name": "publicode-schema",
-  "module": "src/index.ts",
+  "name": "publiccode-schema",
+  "version": "0.1.0",
+  "description": "JSON Schema, validator and tools for publiccode.yml files, with the same rules as publiccode-parser-go",
+  "license": "AGPL-3.0-or-later",
   "type": "module",
-  "devDependencies": {
-    "@types/bun": "latest"
+  "keywords": [
+    "publiccode",
+    "publiccode.yml",
+    "json-schema",
+    "ajv",
+    "validator",
+    "open-source",
+    "public-sector",
+    "developers-italia"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teamdigitale/publiccode-json-schema.git"
   },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
+  "homepage": "https://github.com/teamdigitale/publiccode-json-schema#readme",
+  "bugs": {
+    "url": "https://github.com/teamdigitale/publiccode-json-schema/issues"
   },
-  "dependencies": {
-    "ajv": "^8.17.1",
-    "ajv-formats": "^3.0.1",
-    "fluent-json-schema": "^6.0.0",
-    "yaml": "^2.8.0"
+  "engines": {
+    "node": ">=18"
   },
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/types/src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/src/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./validator": {
+      "types": "./dist/types/src/validator/index.d.ts",
+      "import": "./dist/validator/index.js"
+    },
+    "./data/*": "./data/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "data/publiccode-schema",
+    "data/form-schema",
+    "data/countries",
+    "data/vocab",
+    "docs"
+  ],
   "scripts": {
     "validate": "bun run ./scripts/validate-file.ts",
     "gen": "bun run ./scripts/generateSchemaFiles.ts",
     "vocab": "cd scripts/vocab && go run . ../../data/vocab",
     "test": "bun test",
-    "typecheck": "tsc --noEmit -p ."
+    "typecheck": "tsc --noEmit -p .",
+    "build": "bun run ./scripts/build.ts",
+    "pack:check": "npm pack --dry-run",
+    "prepublishOnly": "bun run typecheck && bun test && bun run build"
   },
-  "exports": {
-    ".": "./src/index.ts",
-    "./data/*": "./data/*"
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "fluent-json-schema": "^6.0.0",
+    "typescript": "^5.9.3",
+    "yaml": "^2.8.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }
