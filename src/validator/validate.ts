@@ -9,9 +9,11 @@ import { countries as standardCountries } from "../countries";
 import { deprecations, type Finding } from "../lib/upgrade";
 import {
   ACCEPTED_VERSIONS,
+  isAtLeast,
   isVersion,
   LATEST_SUPPORTED,
   normalizeVersion,
+  PARSER_LATEST,
   SCHEMA_VERSIONS,
   type SchemaVersion,
   schemaVersionFor,
@@ -21,7 +23,9 @@ import { formats } from "./formats";
 
 // publiccode-parser-go SupportedVersions, plus 0.8 (ACCEPTED_VERSIONS).
 export const SUPPORTED_VERSIONS: readonly string[] = ACCEPTED_VERSIONS;
-const LATEST = LATEST_SUPPORTED.replace(/\.0$/, "");
+// The "not the latest version" warning is the parser's, word for word: 0.7 and
+// newer get none (0.7 is what the editor writes and most files declare).
+const PARSER_LATEST_SHORT = PARSER_LATEST.replace(/\.0$/, "");
 
 export interface Err {
   key: string;
@@ -384,13 +388,13 @@ function checkVersion(data: unknown): { errors: Issue[]; warnings: Issue[] } {
       warnings: [],
     };
   }
-  if (version !== "0" && schemaVersionFor(version) !== LATEST_SUPPORTED) {
+  if (version !== "0" && !isAtLeast(version, PARSER_LATEST)) {
     return {
       errors: [],
       warnings: [
         {
           key: "publiccodeYmlVersion",
-          description: `v${version} is not the latest version, use '0'. Parsing this file as v${LATEST}.`,
+          description: `v${version} is not the latest version, use '0'. Parsing this file as v${PARSER_LATEST_SHORT}.`,
         },
       ],
     };

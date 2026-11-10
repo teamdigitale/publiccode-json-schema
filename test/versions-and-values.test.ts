@@ -128,3 +128,12 @@ describe("publiccode.yml 0.8", () => {
     expect(isSupportedByParser("0.7")).toBe(true);
   });
 });
+
+test("no 'not the latest version' warning for 0.7 and 0.8, the parser's one before", async () => {
+  const { validate } = await import("../src/validator");
+  const base = { ...parse(old), IT: undefined, organisation: undefined };
+  const warn = (v: string) => validate({ ...base, publiccodeYmlVersion: v }).warnings.filter((w) => w.key === "publiccodeYmlVersion");
+  expect(warn("0.7.0")).toEqual([]);
+  expect(warn("0.8")).toEqual([]);
+  expect(warn("0.4")[0]?.description).toBe("v0.4 is not the latest version, use '0'. Parsing this file as v0.7.");
+});
