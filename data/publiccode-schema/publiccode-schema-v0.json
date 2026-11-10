@@ -131,7 +131,8 @@
           "items": {
             "$ref": "#dependency"
           },
-          "description": "This key contains a list of runtime dependencies that are distributed under an open-source license."
+          "description": "This key contains a list of runtime dependencies that are distributed under an open-source license.\n\nDeprecated since 0.8.0: Open source runtime dependencies are already declared in the SBOM or in the package manager manifests.",
+          "deprecated": true
         },
         "proprietary": {
           "type": "array",
@@ -214,7 +215,8 @@
               "type": "string",
               "format": "url_http_url"
             },
-            "description": "This key contains one or multiple URLs of videos showing how the software works. Like screenshots, videos should be used to give a quick overview on how the software looks like and how it works. Videos must be hosted on a video sharing website that supports the oEmbed standard; popular options are YouTube and Vimeo.\n\nSince videos are an integral part of the documentation, it is recommended to publish them with an open license."
+            "description": "This key contains one or multiple URLs of videos showing how the software works. Like screenshots, videos should be used to give a quick overview on how the software looks like and how it works. Videos must be hosted on a video sharing website that supports the oEmbed standard; popular options are YouTube and Vimeo.\n\nSince videos are an integral part of the documentation, it is recommended to publish them with an open license.\n\nDeprecated since 0.8.0: Link videos from the documentation or the website of the software instead.",
+            "deprecated": true
           },
           "awards": {
             "type": "array",
@@ -252,7 +254,8 @@
             "type": "string",
             "format": "iso3166_1_alpha2_lower_or_upper"
           },
-          "description": "This key explicitly marks countries as NOT supported. This might be the case if there is a conflict between how software is working and a specific law, process or technology. All countries are specified using ISO 3166-1 alpha-2 two-letter country codes."
+          "description": "This key explicitly marks countries as NOT supported. This might be the case if there is a conflict between how software is working and a specific law, process or technology. All countries are specified using ISO 3166-1 alpha-2 two-letter country codes.\n\nDeprecated since 0.8.0: Use 'intendedAudience.countries' to list the countries the software explicitly targets instead.",
+          "deprecated": true
         },
         "scope": {
           "type": "array",
@@ -561,7 +564,9 @@
         "0.5",
         "0.5.0",
         "0.7",
-        "0.7.0"
+        "0.7.0",
+        "0.8",
+        "0.8.0"
       ]
     },
     "name": {
@@ -768,7 +773,8 @@
       "items": {
         "type": "string"
       },
-      "description": "A list of the names of prominent public administrations (that will serve as \"testimonials\") that are currently known to the software maintainer to be using this software.\n\nParsers are encouraged to enhance this list also with other information that can obtain independently; for instance, a fork of a software, owned by an administration, could be used as a signal of usage of the software."
+      "description": "A list of the names of prominent public administrations (that will serve as \"testimonials\") that are currently known to the software maintainer to be using this software.\n\nParsers are encouraged to enhance this list also with other information that can obtain independently; for instance, a fork of a software, owned by an administration, could be used as a signal of usage of the software.\n\nDeprecated since 0.8.0: It will be removed.",
+      "deprecated": true
     },
     "roadmap": {
       "type": "string",

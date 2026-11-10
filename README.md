@@ -38,6 +38,23 @@ for (const w of result.warnings) console.log(`warning ${w.key}: ${w.description}
 
 Country sections that are not in the v0 schema (e.g. experimental ones) can be added with `validate(data, { countries, booleanKeys })`.
 
+### Against one version of the standard
+
+```ts
+import { validateVersion } from "publiccode-schema/validator";
+
+const r = await validateVersion(parse(fileContents), { version: "0.4.0", strict: true });
+// { valid, errors, warnings, deprecations, declaredVersion, checkedVersion, schema, strict, … }
+```
+
+| Option | |
+|---|---|
+| `version` | the version to check against (`"0.4"` or `"0.4.0"`: the schema of the closest older version is used). Default: the version the file declares, or the latest the parser supports |
+| `strict: false` (default) | the parser's rules, the ones that decide whether a file is valid (same result as `validate()`), plus the deprecations up to `version` |
+| `strict: true` | the schema of that version only: keys the version doesn't have (`organisation` in a 0.2 file) and the keys it requires (`genericName` before 0.3.0) are errors. A warning says when the file declares another version |
+
+`deprecations` lists what is deprecated up to the checked version (`upgrade()` fixes most of it). The per-version schemas are loaded on demand, so `validateVersion()` returns a promise and `validate()` alone doesn't ship them.
+
 ## Use the JSON Schema directly
 
 ```ts
@@ -55,6 +72,18 @@ Files under `data/`:
 | `data/vocab/*.json` | Vocabularies used by the formats (SPDX, BCP 47, countries, iPA codes, oEmbed schemes…) |
 
 The custom formats are needed to use the schema with your own Ajv instance: `import { formats } from "publiccode-schema/validator"` and register each one with `ajv.addFormat(name, { type: "string", validate })`.
+
+## Labels of the vocabularies
+
+```ts
+import { vocabulary, valueLabel } from "publiccode-schema";
+
+vocabulary("categories", { lang: "it" }); // [{ value: "accounting", label: "Contabilità" }, …]
+vocabulary("categories", { version: "0.2.0" }); // only the values that exist in 0.2.0
+valueLabel("intendedAudience.scope", "local-authorities", "it"); // "Enti locali"
+```
+
+Values and labels of the closed vocabularies (`categories`, `intendedAudience.scope`, `developmentStatus`, `softwareType`, `platforms`), with `since` and `deprecated` from the standard's changelog. Labels are in English and Italian; other languages fall back to English (`values` in `src/locales/<lang>.json`).
 
 ## Versions, deprecations and upgrades
 

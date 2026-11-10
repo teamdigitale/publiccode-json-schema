@@ -14,7 +14,7 @@ import { isObject } from "./paths";
 import {
 	isAtLeast,
 	LATEST_SUPPORTED,
-	PARSER_VERSIONS,
+	ACCEPTED_VERSIONS,
 	type SchemaVersion,
 	schemaVersionFor,
 } from "./versions";
@@ -127,10 +127,10 @@ function applyFieldHistory(schema: JSONSchema, entry: FieldHistory, version: str
 
 // Version values a strict schema accepts: the ones that map to it.
 function declaredVersions(version: SchemaVersion) {
-	const accepted = PARSER_VERSIONS.filter((v) => schemaVersionFor(v) === version);
+	const accepted = ACCEPTED_VERSIONS.filter((v) => schemaVersionFor(v) === version);
 	if (accepted.length > 0) return accepted;
 
-	// Not accepted by the parser yet, e.g. 0.8.0.
+	// A version no 0.x value maps to (e.g. a future major).
 	return [version.replace(/\.0$/, ""), version];
 }
 

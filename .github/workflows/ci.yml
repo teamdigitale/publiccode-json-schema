@@ -35,4 +35,11 @@ jobs:
             const r = validate({ publiccodeYmlVersion: "0" });
             if (!r.errors.length || !LATEST_SUPPORTED) process.exit(1);
             console.log("ok:", r.errors.length, "errors on an empty file, latest", LATEST_SUPPORTED);
+            // validateVersion loads the per-version schema from its own chunk
+            const { validateVersion } = await import("publiccode-schema/validator");
+            const s = await validateVersion({ publiccodeYmlVersion: "0.2" }, { strict: true });
+            if (s.valid || s.schema !== "0.2.0") process.exit(1);
+            const { vocabulary } = await import("publiccode-schema");
+            if (vocabulary("categories", { lang: "it" })[0].label !== "Contabilità") process.exit(1);
+            console.log("ok: strict", s.schema, s.errors.length, "errors; labels");
           '

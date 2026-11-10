@@ -11,10 +11,16 @@
 
 0.6.0 changed nothing in the standard, so it has no schema; a declared version
 maps to the schema of the closest older version (`schemaVersionFor()`:
-"0.2.1" → 0.2.0, "0" → 0.7.0).
+"0.2.1" → 0.2.0, "0" → 0.8.0).
 
-0.8.0 exists in the standard but the parser stops at 0.7: the editor keeps
-validating with v0, and the 0.8.0 changes are reported as deprecations.
+## 0.8 and the Go parser
+
+The library accepts 0.8 (`LATEST_SUPPORTED` is 0.8.0), with the same v0 rules
+plus what 0.8 allows: WebP and AVIF for the logo and the screenshots, only in
+files that declare 0.8 or "0". publiccode-parser-go, and so the editor's WASM
+validator, still stops at 0.7 (`PARSER_LATEST`, `isSupportedByParser()`): a
+0.8 file is valid here and rejected there. Upgrade to `PARSER_LATEST` when the
+file must also pass the parser.
 
 ## Where the version rules come from
 
@@ -68,7 +74,7 @@ const { data: upgraded, applied, remaining } = upgrade(data, { countries });
 - `deprecations()` reports everything up to 0.8.0 (`upTo` to stop earlier);
   `since` tells the version, `parser` whether the parser warns about it too
   (to avoid showing it twice).
-- `upgrade()` applies the fixes up to `to` (default 0.7.0, the latest the
+- `upgrade()` applies the fixes up to `to` (default 0.8.0, `LATEST_SUPPORTED`; it was 0.7.0, the latest the
   parser accepts) and sets `publiccodeYmlVersion`. It never changes its input.
   Fixes that drop information the standard doesn't call safe to drop
   (`usedBy`, `videos`, the `government` scope, `unsupportedCountries`,

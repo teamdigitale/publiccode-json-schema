@@ -5,26 +5,23 @@ import addFormats from "ajv-formats";
 import { withCountries } from "../lib/schema";
 import type { CountryExtension } from "../countries/types";
 import schema from "../../data/publiccode-schema/publiccode-schema-v0.json";
+import { countries as standardCountries } from "../countries";
+import { deprecations, type Finding } from "../lib/upgrade";
+import {
+  ACCEPTED_VERSIONS,
+  isVersion,
+  LATEST_SUPPORTED,
+  normalizeVersion,
+  SCHEMA_VERSIONS,
+  type SchemaVersion,
+  schemaVersionFor,
+} from "../lib/versions";
 import { checks, type Issue } from "./checks";
 import { formats } from "./formats";
 
-// publiccode-parser-go SupportedVersions.
-export const SUPPORTED_VERSIONS = [
-  "0",
-  "0.2",
-  "0.2.0",
-  "0.2.1",
-  "0.2.2",
-  "0.3",
-  "0.3.0",
-  "0.4",
-  "0.4.0",
-  "0.5.0",
-  "0.5",
-  "0.7.0",
-  "0.7",
-];
-const LATEST = SUPPORTED_VERSIONS[SUPPORTED_VERSIONS.length - 1];
+// publiccode-parser-go SupportedVersions, plus 0.8 (ACCEPTED_VERSIONS).
+export const SUPPORTED_VERSIONS: readonly string[] = ACCEPTED_VERSIONS;
+const LATEST = LATEST_SUPPORTED.replace(/\.0$/, "");
 
 export interface Err {
   key: string;
@@ -387,7 +384,7 @@ function checkVersion(data: unknown): { errors: Issue[]; warnings: Issue[] } {
       warnings: [],
     };
   }
-  if (version !== "0" && !version.startsWith("0.7")) {
+  if (version !== "0" && schemaVersionFor(version) !== LATEST_SUPPORTED) {
     return {
       errors: [],
       warnings: [
@@ -444,3 +441,145 @@ export function validate(input: unknown, options: ValidateOptions = {}): Result 
     version: 0,
   };
 }
+
+// ---------------------------------------------------------------------------
+// Validation against one version of the standard
+// ---------------------------------------------------------------------------
+
+// Loaded on demand (one chunk each), so that validate() alone doesn't ship them.
+const VERSION_SCHEMAS: Record<SchemaVersion, () => Promise<{ default: object }>> = {
+  "0.2.0": () => import("../../data/publiccode-schema/publiccode-schema-v0.2.0.json"),
+  "0.3.0": () => import("../../data/publiccode-schema/publiccode-schema-v0.3.0.json"),
+  "0.4.0": () => import("../../data/publiccode-schema/publiccode-schema-v0.4.0.json"),
+  "0.5.0": () => import("../../data/publiccode-schema/publiccode-schema-v0.5.0.json"),
+  "0.7.0": () => import("../../data/publiccode-schema/publiccode-schema-v0.7.0.json"),
+  "0.8.0": () => import("../../data/publiccode-schema/publiccode-schema-v0.8.0.json"),
+};
+
+// One Ajv for the per-version schemas, apart from the v0 one (which is
+// recompiled when the country sections change).
+let strictAjv: Ajv | undefined;
+const strictFns = new Map<SchemaVersion, ReturnType<Ajv["compile"]>>();
+async function versionSchema(version: SchemaVersion) {
+  let fn = strictFns.get(version);
+  if (!fn) {
+    const schema = (await VERSION_SCHEMAS[version]()).default;
+    // Another call may have compiled it while this one was loading
+    fn = strictFns.get(version);
+    if (!fn) {
+      strictAjv ??= createAjv();
+      fn = strictAjv.compile(schema);
+      strictFns.set(version, fn);
+    }
+  }
+  return fn;
+}
+
+export interface VersionValidateOptions extends ValidateOptions {
+  /**
+   * Version of the standard to check against (e.g. "0.4.0", or "0.4": the
+   * schema of the closest older version is used). Default: the version the
+   * file declares, or the latest the parser supports if it declares none.
+   */
+  version?: string;
+  /**
+   * false (default): the parser's rules, the ones that decide whether a file
+   * is valid, plus the deprecations up to `version`.
+   * true: the schema of that version only, stricter than the parser: keys the
+   * version doesn't have are errors, and so are the keys it requires.
+   */
+  strict?: boolean;
+}
+
+export interface VersionResult extends Result {
+  /** No errors */
+  valid: boolean;
+  /** publiccodeYmlVersion as written in the file, null if missing or invalid */
+  declaredVersion: string | null;
+  /** The version of the standard the file was checked against */
+  checkedVersion: SchemaVersion;
+  /** "v0": the parser's schema, the same for every 0.x; otherwise the version's own */
+  schema: "v0" | SchemaVersion;
+  strict: boolean;
+  /** What's deprecated in the file up to checkedVersion (fixable by upgrade()) */
+  deprecations: Finding[];
+}
+
+/**
+ * Validates a publiccode.yml (already parsed from YAML) against a version of
+ * the standard, returning errors, warnings and deprecations: the "which version
+ * does this file match, and how strictly" check of editors and dashboards.
+ */
+export async function validateVersion(
+  input: unknown,
+  options: VersionValidateOptions = {},
+): Promise<VersionResult> {
+  const raw = isObject(input) ? input.publiccodeYmlVersion : undefined;
+  const declaredVersion = isVersion(raw) ? raw : null;
+  const requested = options.version ?? declaredVersion ?? LATEST_SUPPORTED;
+  if (!isVersion(requested)) throw new Error(`invalid version "${requested}"`);
+  const checkedVersion = schemaVersionFor(requested);
+  const strict = options.strict ?? false;
+  const countries = [...standardCountries, ...(options.countries ?? [])];
+  const found = deprecations(input, { countries, upTo: checkedVersion });
+
+  if (!strict) {
+    const r = validate(input, options);
+    return {
+      ...r,
+      valid: r.errors.length === 0,
+      declaredVersion,
+      checkedVersion,
+      schema: "v0",
+      strict,
+      deprecations: found,
+    };
+  }
+
+  extraBooleanKeys = new Set(options.booleanKeys ?? []);
+  const version = checkVersion(input);
+  const data = normalize(input);
+  if (version.errors.length > 0 || !isObject(data)) {
+    const errors = version.errors.map(toErr);
+    return {
+      publicCode: null,
+      errors,
+      warnings: [],
+      version: null,
+      valid: false,
+      declaredVersion,
+      checkedVersion,
+      schema: checkedVersion,
+      strict,
+      deprecations: found,
+    };
+  }
+
+  const fn = await versionSchema(checkedVersion);
+  fn(data);
+  const schemaErrors = (fn.errors ?? []).flatMap((e) => toIssues(e, data));
+  const extra = checks(data);
+  const warnings = [...version.warnings, ...extra.warnings];
+  if (declaredVersion && schemaVersionFor(declaredVersion) !== checkedVersion) {
+    warnings.unshift({
+      key: "publiccodeYmlVersion",
+      description: `the file declares version ${declaredVersion} (${normalizeVersion(declaredVersion)}) but was checked against ${checkedVersion}`,
+    });
+  }
+  const errors = [...schemaErrors, ...extra.errors].map(toErr);
+
+  return {
+    publicCode: data,
+    errors,
+    warnings: warnings.map(toErr),
+    version: 0,
+    valid: errors.length === 0,
+    declaredVersion,
+    checkedVersion,
+    schema: checkedVersion,
+    strict,
+    deprecations: found,
+  };
+}
+
+export { SCHEMA_VERSIONS };

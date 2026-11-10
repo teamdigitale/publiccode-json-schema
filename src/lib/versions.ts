@@ -1,12 +1,15 @@
-import { versions } from "./vocab";
+import { parserVersions, versions } from "./vocab";
 
-// Values the parser accepts for publiccodeYmlVersion. It validates all of them
-// with the same (v0) rules; "0" means "the latest 0.x".
-export const PARSER_VERSIONS: readonly string[] = versions;
+// Values publiccode-parser-go accepts for publiccodeYmlVersion. It validates all
+// of them with the same (v0) rules; "0" means "the latest 0.x".
+export const PARSER_VERSIONS: readonly string[] = parserVersions;
+
+// Values this library accepts: the parser's plus 0.8, which the parser doesn't
+// support yet. Same v0 rules, plus what 0.8 allows (WebP and AVIF images).
+export const ACCEPTED_VERSIONS: readonly string[] = versions;
 
 // Versions of the standard whose rules differ, one generated schema each
-// (0.6.0 changed nothing in the standard). 0.8.0 is known but the parser
-// stops at 0.7: its changes are reported as deprecation warnings only.
+// (0.6.0 changed nothing in the standard).
 export const SCHEMA_VERSIONS = [
 	"0.2.0",
 	"0.3.0",
@@ -18,8 +21,11 @@ export const SCHEMA_VERSIONS = [
 
 export type SchemaVersion = (typeof SCHEMA_VERSIONS)[number];
 
-// The latest version the parser (and so the editor's validators) accepts.
-export const LATEST_SUPPORTED: SchemaVersion = "0.7.0";
+// The latest version this library validates and upgrades to.
+export const LATEST_SUPPORTED: SchemaVersion = "0.8.0";
+// The latest version publiccode-parser-go (and the editor's WASM validator)
+// accepts: a file upgraded past it is valid here, rejected there.
+export const PARSER_LATEST: SchemaVersion = "0.7.0";
 // The latest version of the standard.
 export const LATEST_KNOWN: SchemaVersion = "0.8.0";
 

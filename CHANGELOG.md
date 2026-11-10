@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.2.0 (2026-11-10)
+
+### Changed
+
+* **publiccode.yml 0.8 is supported**: `publiccodeYmlVersion` "0.8" and "0.8.0" are valid,
+  WebP and AVIF images are accepted for the logo and the screenshots of 0.8 (and "0")
+  files, and `LATEST_SUPPORTED` is 0.8.0, so "0" maps to 0.8.0 and `upgrade()` goes to
+  0.8.0 by default. publiccode-parser-go still stops at 0.7: `PARSER_LATEST` (0.7.0) and
+  `isSupportedByParser()` say what it accepts, and `ACCEPTED_VERSIONS` lists what this
+  library accepts. The v0 schema also annotates the 0.8.0 deprecations
+
+### Added
+
+* `validateVersion()` in `publiccode-schema/validator`: validates a file against a version
+  of the standard, with the parser's rules or (`strict: true`) with that version's schema
+  only, and returns errors, warnings and the deprecations up to that version. The
+  per-version schemas are loaded on demand, one chunk each, so `validate()` alone is no
+  bigger
+* `vocabulary()`, `valueLabel()` and `VOCABULARY_FIELDS`: values and labels (English and
+  Italian) of `categories`, `intendedAudience.scope`, `developmentStatus`, `softwareType`
+  and `platforms`, with the version that added or deprecated a value. The Italian labels
+  come from the Developers Italia catalogue, plus the five categories it was missing
+  (`design`, `design-system`, `integrated-library-system`, `regulations-and-directives`,
+  `other`); `local-authorities` is "Enti locali"
+* The CI smoke test also runs `validateVersion()` and `vocabulary()` from the packed
+  package
+
 ## 0.1.0 (2026-11-09)
 
 First release as an npm package.

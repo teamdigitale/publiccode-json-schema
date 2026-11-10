@@ -31,6 +31,13 @@ export { deprecations, type Finding, rules, upgrade, type UpgradeResult } from "
 export type { Deprecation, Occurrence, UpgradeContext } from "./lib/deprecations";
 export { fieldHistory, valueHistory, type FieldHistory, type ValueHistory } from "./lib/history";
 export {
+	VOCABULARY_FIELDS,
+	valueLabel,
+	vocabulary,
+	type VocabularyField,
+	type VocabularyValue,
+} from "./lib/values";
+export {
 	countries,
 	countryById,
 	defineCountry,

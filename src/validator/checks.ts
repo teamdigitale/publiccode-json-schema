@@ -4,6 +4,7 @@
 // DisableNetwork: true.
 import oembedSchemes from "../../data/vocab/oembed-schemes.json";
 import { goParseRequestURI } from "./goUrl";
+import { isAtLeast, isVersion } from "../lib/versions";
 import { isItalianIpaCode, isIso3166Alpha2LowerOrUpper } from "./formats";
 
 export interface Issue {
@@ -65,6 +66,10 @@ function extensionError(
   return allowed.includes(ext) ? null : { key, description: message(value) };
 }
 
+// publiccode.yml 0.8.0 allows WebP and AVIF for the logo and the screenshots.
+const MODERN_IMAGES = [".webp", ".avif"];
+let modernImages = false;
+
 function checkLogo(value: unknown, key: string, errors: Issue[]) {
   if (typeof value !== "string" || value === "") return;
 
@@ -73,7 +78,7 @@ function checkLogo(value: unknown, key: string, errors: Issue[]) {
     extensionError(
       value,
       key,
-      [".svg", ".svgz", ".png"],
+      [".svg", ".svgz", ".png", ...(modernImages ? MODERN_IMAGES : [])],
       (v) => `invalid file extension for: ${v}`,
     );
   if (err) errors.push(err);
@@ -91,6 +96,9 @@ function lowercaseCountries(list: unknown, key: string, warnings: Issue[]) {
 }
 
 export function checks(data: Data): { errors: Issue[]; warnings: Issue[] } {
+  // "0" is the latest 0.x, so 0.8 too
+  const v = data.publiccodeYmlVersion;
+  modernImages = v === "0" || (typeof v === "string" && isVersion(v) && isAtLeast(v, "0.8.0"));
   const errors: Issue[] = [];
   const warnings: Issue[] = [];
 
@@ -156,7 +164,7 @@ export function checks(data: Data): { errors: Issue[]; warnings: Issue[] } {
         extensionError(
           s,
           key,
-          [".jpg", ".png"],
+          [".jpg", ".png", ...(modernImages ? MODERN_IMAGES : [])],
           (v) => `'${v}' is not an image: invalid file extension for: ${v}`,
         );
       if (err) errors.push(err);

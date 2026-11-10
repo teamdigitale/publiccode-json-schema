@@ -81,7 +81,8 @@ describe("versions", () => {
 		expect(normalizeVersion("0.5")).toBe("0.5.0");
 		expect(schemaVersionFor("0.2.1")).toBe("0.2.0");
 		expect(schemaVersionFor("0.6.0")).toBe("0.5.0");
-		expect(schemaVersionFor("0")).toBe("0.7.0");
+		// "0" is the latest 0.x: 0.8.0 since the library accepts 0.8
+		expect(schemaVersionFor("0")).toBe("0.8.0");
 		expect(schemaVersionFor("0.8")).toBe("0.8.0");
 	});
 });
@@ -170,8 +171,8 @@ describe("deprecations", () => {
 		);
 	});
 
-	it("upgrades a file to the latest supported version", () => {
-		const { data, applied, remaining } = upgrade(old, { countries });
+	it("upgrades a file to the parser's latest version (0.7.0)", () => {
+		const { data, applied, remaining } = upgrade(old, { countries, to: "0.7.0" });
 
 		expect(data).toEqual({
 			...minimal("0.7.0"),
