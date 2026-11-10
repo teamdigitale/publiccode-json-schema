@@ -16,7 +16,8 @@
       "governmentScope": "L'ambito 'government' è DEPRECATO e verrà rimosso in futuro",
       "dependsOnOpen": "Questa chiave è DEPRECATA e verrà rimossa in futuro. Le dipendenze open source necessarie all'esecuzione sono già dichiarate nello SBOM o nei manifest del package manager",
       "lowercaseSection": "I codici paese in minuscolo sono DEPRECATI e verranno rimossi in futuro. Usa '{{value}}' al loro posto",
-      "countrySection": "Questa sezione è DEPRECATA e verrà rimossa in futuro"
+      "countrySection": "Questa sezione è DEPRECATA e verrà rimossa in futuro",
+      "phoneE164": "Da publiccode.yml 1.0 il numero di telefono DEVE essere nel formato E.164, ad esempio +390612345678 ('{{value}}')"
     }
   },
   "values": {

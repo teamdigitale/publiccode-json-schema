@@ -9,6 +9,7 @@ import { countries as standardCountries } from "../countries";
 import { deprecations, type Finding } from "../lib/upgrade";
 import {
   ACCEPTED_VERSIONS,
+  isAtLeast,
   isVersion,
   LATEST_SUPPORTED,
   normalizeVersion,
@@ -348,6 +349,17 @@ const toErr = ({ key, description }: Issue): Err => ({
 
 // Same early exits as the parser: without a valid version nothing else is
 // validated.
+// Only that publiccodeYmlVersion is there and is a string (for 1.x).
+function checkVersionType(data: unknown): { errors: Issue[]; warnings: Issue[] } {
+  if (!isObject(data) || !("publiccodeYmlVersion" in data)) {
+    return { errors: [{ key: "publiccodeYmlVersion", description: "publiccodeYmlVersion is a required field" }], warnings: [] };
+  }
+  if (typeof data.publiccodeYmlVersion !== "string") {
+    return { errors: [{ key: "publiccodeYmlVersion", description: "wrong type for this field" }], warnings: [] };
+  }
+  return { errors: [], warnings: [] };
+}
+
 function checkVersion(data: unknown): { errors: Issue[]; warnings: Issue[] } {
   const required = {
     errors: [
@@ -454,6 +466,7 @@ const VERSION_SCHEMAS: Record<SchemaVersion, () => Promise<{ default: object }>>
   "0.5.0": () => import("../../data/publiccode-schema/publiccode-schema-v0.5.0.json"),
   "0.7.0": () => import("../../data/publiccode-schema/publiccode-schema-v0.7.0.json"),
   "0.8.0": () => import("../../data/publiccode-schema/publiccode-schema-v0.8.0.json"),
+  "1.0.0": () => import("../../data/publiccode-schema/publiccode-schema-v1.0.0.json"),
 };
 
 // One Ajv for the per-version schemas, apart from the v0 one (which is
@@ -487,6 +500,7 @@ export interface VersionValidateOptions extends ValidateOptions {
    * is valid, plus the deprecations up to `version`.
    * true: the schema of that version only, stricter than the parser: keys the
    * version doesn't have are errors, and so are the keys it requires.
+   * 1.x has no lenient rules: it's always strict.
    */
   strict?: boolean;
 }
@@ -519,7 +533,9 @@ export async function validateVersion(
   const requested = options.version ?? declaredVersion ?? LATEST_SUPPORTED;
   if (!isVersion(requested)) throw new Error(`invalid version "${requested}"`);
   const checkedVersion = schemaVersionFor(requested);
-  const strict = options.strict ?? false;
+  // 1.x (release candidate) has only its own schema: there's no lenient v1.
+  const major1 = isAtLeast(checkedVersion, "1.0.0");
+  const strict = major1 || (options.strict ?? false);
   const countries = [...standardCountries, ...(options.countries ?? [])];
   const found = deprecations(input, { countries, upTo: checkedVersion });
 
@@ -537,7 +553,8 @@ export async function validateVersion(
   }
 
   extraBooleanKeys = new Set(options.booleanKeys ?? []);
-  const version = checkVersion(input);
+  // The 0.x version check rejects "1": against 1.x the schema's enum decides.
+  const version = major1 ? checkVersionType(input) : checkVersion(input);
   const data = normalize(input);
   if (version.errors.length > 0 || !isObject(data)) {
     const errors = version.errors.map(toErr);
@@ -559,7 +576,10 @@ export async function validateVersion(
   fn(data);
   const schemaErrors = (fn.errors ?? []).flatMap((e) => toIssues(e, data));
   const extra = checks(data);
-  const warnings = [...version.warnings, ...extra.warnings];
+  // Against 1.x the keys 0.x deprecated are gone: they're already errors
+  // ("unknown field"), not deprecation warnings too.
+  const errorKeys = new Set(schemaErrors.map((e) => e.key));
+  const warnings = [...version.warnings, ...extra.warnings].filter((w) => !(major1 && errorKeys.has(w.key)));
   if (declaredVersion && schemaVersionFor(declaredVersion) !== checkedVersion) {
     warnings.unshift({
       key: "publiccodeYmlVersion",

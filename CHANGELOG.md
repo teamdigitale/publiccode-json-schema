@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unreleased (branch `standard-1.0-rc`)
+
+### Added
+
+* A schema for publiccode.yml **1.0.0 (release candidate)**, following the standard's
+  `1.0-rc` branch: the keys, values and sections 0.x deprecated are removed, country codes
+  are uppercase only and contact phones must be E.164. See
+  [docs/v1.0-rc.md](docs/v1.0-rc.md)
+* `removed` in the field, value and country section histories
+* `validateVersion()` validates 1.x files, always strictly
+* `phoneE164` upgrade rule (since 1.0.0), translated in the five languages
+* `RELEASE_CANDIDATES`, `isReleaseCandidate()`
+
 ## 0.2.0 (2026-11-10)
 
 ### Changed

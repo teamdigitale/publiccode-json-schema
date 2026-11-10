@@ -7,7 +7,10 @@ import {
 import {
 	type FieldHistory,
 	fieldHistory,
+	E164,
+	E164_SINCE,
 	UPPERCASE_COUNTRIES_SINCE,
+	UPPERCASE_ONLY_SINCE,
 	valueHistory,
 } from "./history";
 import { isObject } from "./paths";
@@ -106,7 +109,8 @@ function applyFieldHistory(schema: JSONSchema, entry: FieldHistory, version: str
 	const { owner, prop } = loc;
 	const required = (owner.required ?? []) as string[];
 
-	if (entry.since && !isAtLeast(version, entry.since)) {
+	const gone = (entry.since && !isAtLeast(version, entry.since)) || (entry.removed && isAtLeast(version, entry.removed));
+	if (gone) {
 		delete (owner.properties as Record<string, unknown>)[prop];
 		if (required.includes(prop)) owner.required = required.filter((r) => r !== prop);
 		return;
@@ -130,8 +134,9 @@ function declaredVersions(version: SchemaVersion) {
 	const accepted = ACCEPTED_VERSIONS.filter((v) => schemaVersionFor(v) === version);
 	if (accepted.length > 0) return accepted;
 
-	// A version no 0.x value maps to (e.g. a future major).
-	return [version.replace(/\.0$/, ""), version];
+	// A version no 0.x value maps to (1.0.0): "1", "1.0" and "1.0.0".
+	const [major, minor] = version.split(".");
+	return [...new Set([major, `${major}.${minor}`, version])];
 }
 
 export function buildSchema(base: JSONSchema, options: BuildOptions = {}): JSONSchema {
@@ -183,12 +188,13 @@ export function buildSchema(base: JSONSchema, options: BuildOptions = {}): JSONS
 	);
 	for (const entry of sorted) applyFieldHistory(schema, entry, version);
 
-	for (const { path, value, since, deprecated } of valueHistory) {
+	for (const { path, value, since, deprecated, removed } of valueHistory) {
 		const loc = locate(schema, path);
 		if (!loc) continue;
 
 		const node = unwrapArray(schema, loc.node);
-		if (since && !isAtLeast(version, since) && Array.isArray(node.enum)) {
+		const gone = (since && !isAtLeast(version, since)) || (removed && isAtLeast(version, removed));
+		if (gone && Array.isArray(node.enum)) {
 			node.enum = node.enum.filter((v) => v !== value);
 		}
 		if (deprecated && isAtLeast(version, deprecated.since)) {
@@ -198,9 +204,9 @@ export function buildSchema(base: JSONSchema, options: BuildOptions = {}): JSONS
 	}
 
 	const uppercase = isAtLeast(version, UPPERCASE_COUNTRIES_SINCE);
-	for (const { key, since, lowercaseKey, deprecated } of sections) {
+	for (const { key, since, lowercaseKey, deprecated, removed } of sections) {
 		const lower = key.toLowerCase();
-		if (since && !isAtLeast(version, since)) {
+		if ((since && !isAtLeast(version, since)) || (removed && isAtLeast(version, removed))) {
 			delete props[key];
 			delete props[lower];
 			continue;
@@ -216,10 +222,18 @@ export function buildSchema(base: JSONSchema, options: BuildOptions = {}): JSONS
 		}
 	}
 
-	if (!uppercase) {
+	if (!uppercase || isAtLeast(version, UPPERCASE_ONLY_SINCE)) {
 		for (const path of ["intendedAudience.countries", "intendedAudience.unsupportedCountries"]) {
 			const loc = locate(schema, path);
-			if (loc) unwrapArray(schema, loc.node).pattern = "^[a-z]{2}$";
+			if (loc) unwrapArray(schema, loc.node).pattern = uppercase ? "^[A-Z]{2}$" : "^[a-z]{2}$";
+		}
+	}
+
+	if (isAtLeast(version, E164_SINCE)) {
+		const loc = locate(schema, "maintenance.contacts.phone");
+		if (loc) {
+			loc.node.pattern = E164;
+			loc.node.description = `${loc.node.description ?? ""}\n\nSince ${E164_SINCE} it MUST be in the E.164 format (e.g. +390612345678).`.trim();
 		}
 	}
 

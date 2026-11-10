@@ -13,6 +13,8 @@ export interface FieldHistory {
 	// The key is mandatory in versions older than this one.
 	requiredBefore?: string;
 	deprecated?: { since: string; hint: string };
+	// First version without the key (1.0.0 removes what 0.x deprecated).
+	removed?: string;
 }
 
 export interface ValueHistory {
@@ -21,7 +23,12 @@ export interface ValueHistory {
 	value: string;
 	since?: string;
 	deprecated?: { since: string; hint: string };
+	// First version without the value.
+	removed?: string;
 }
+
+// The standard's 1.0-rc branch removes the keys and values deprecated up to 0.7.
+export const V1 = "1.0.0";
 
 export const fieldHistory: FieldHistory[] = [
 	{ path: "supports", since: "0.7.0" },
@@ -33,26 +40,32 @@ export const fieldHistory: FieldHistory[] = [
 		path: "description.*.genericName",
 		requiredBefore: "0.3.0",
 		deprecated: { since: "0.3.0", hint: "It's safe to drop it." },
+		removed: V1,
 	},
 	{
 		path: "monochromeLogo",
 		deprecated: { since: "0.3.0", hint: "Use 'logo' instead." },
+		removed: V1,
 	},
 	{
 		path: "inputTypes",
 		deprecated: { since: "0.3.0", hint: "It's safe to drop it." },
+		removed: V1,
 	},
 	{
 		path: "outputTypes",
 		deprecated: { since: "0.3.0", hint: "It's safe to drop it." },
+		removed: V1,
 	},
 	{
 		path: "legal.authorsFile",
 		deprecated: { since: "0.4.0", hint: "It's safe to drop it." },
+		removed: V1,
 	},
 	{
 		path: "legal.repoOwner",
 		deprecated: { since: "0.5.0", hint: "Use 'organisation.name' instead." },
+		removed: V1,
 	},
 	{
 		path: "usedBy",
@@ -93,9 +106,15 @@ export const valueHistory: ValueHistory[] = [
 		path: "intendedAudience.scope",
 		value: "government",
 		deprecated: { since: "0.8.0", hint: "It will be removed." },
+		removed: V1,
 	},
 ];
 
 // Before 0.5.0 country codes (sections and ISO 3166-1 alpha-2 values) were
 // lowercase; since then they're uppercase and lowercase is deprecated.
 export const UPPERCASE_COUNTRIES_SINCE = "0.5.0";
+// Since 1.0.0 lowercase country codes are no longer accepted, and
+// maintenance.contacts[].phone MUST be E.164 (+ and up to 15 digits).
+export const UPPERCASE_ONLY_SINCE = V1;
+export const E164_SINCE = V1;
+export const E164 = "^\\+[1-9][0-9]{1,14}$";

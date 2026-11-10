@@ -16,7 +16,8 @@
       "governmentScope": "Het bereik 'government' is VEROUDERD en wordt in de toekomst verwijderd",
       "dependsOnOpen": "Deze sleutel is VEROUDERD en wordt in de toekomst verwijderd. Opensource-afhankelijkheden voor de uitvoering staan al in de SBOM of in de manifesten van de pakketbeheerder",
       "lowercaseSection": "Landcodes in kleine letters zijn VEROUDERD en worden in de toekomst verwijderd. Gebruik in plaats daarvan '{{value}}'",
-      "countrySection": "Deze sectie is VEROUDERD en wordt in de toekomst verwijderd"
+      "countrySection": "Deze sectie is VEROUDERD en wordt in de toekomst verwijderd",
+      "phoneE164": "Sinds publiccode.yml 1.0 MOET het telefoonnummer in het E.164-formaat staan, bijvoorbeeld +390612345678 ('{{value}}')"
     }
   }
 }

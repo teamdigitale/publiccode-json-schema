@@ -27,6 +27,8 @@ export const ita: CountryExtension = {
 			schema,
 			lowercaseKey: true,
 			deprecated: { since: "0.7.0", hint: SECTION_HINT },
+			// The standard's 1.0-rc removes the country-specific sections.
+			removed: "1.0.0",
 		},
 	],
 	fieldHistory: [

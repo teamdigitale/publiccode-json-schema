@@ -83,7 +83,8 @@
       "deprecated": {
         "since": "0.7.0",
         "hint": "Use 'supports' for compliance with national regulations and integration with national platforms, and 'organisation' to reference the publishing administration."
-      }
+      },
+      "removed": "1.0.0"
     }
   ],
   "fieldHistory": [

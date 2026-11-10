@@ -16,7 +16,8 @@
       "governmentScope": "Der Bereich 'government' ist VERALTET und wird in Zukunft entfernt",
       "dependsOnOpen": "Dieser Schlüssel ist VERALTET und wird in Zukunft entfernt. Open-Source-Laufzeitabhängigkeiten sind bereits in der SBOM oder in den Manifesten des Paketmanagers angegeben",
       "lowercaseSection": "Ländercodes in Kleinbuchstaben sind VERALTET und werden in Zukunft entfernt. Verwenden Sie stattdessen '{{value}}'",
-      "countrySection": "Dieser Abschnitt ist VERALTET und wird in Zukunft entfernt"
+      "countrySection": "Dieser Abschnitt ist VERALTET und wird in Zukunft entfernt",
+      "phoneE164": "Seit publiccode.yml 1.0 MUSS die Telefonnummer im E.164-Format angegeben werden, z. B. +390612345678 ('{{value}}')"
     }
   }
 }

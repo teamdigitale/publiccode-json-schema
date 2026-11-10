@@ -31,6 +31,8 @@ export interface CountrySection {
 	// only form). Only for standard sections.
 	lowercaseKey?: boolean;
 	deprecated?: { since: string; hint: string };
+	// First version without the section.
+	removed?: string;
 }
 
 export interface CountryExtension {

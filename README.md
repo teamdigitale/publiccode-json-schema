@@ -97,6 +97,11 @@ const { data: upgraded, applied, remaining } = upgrade(data, { to: LATEST_SUPPOR
 
 `upgrade()` migrates a file as the standard says: `it` → `IT`, lowercase country codes, `IT.riuso.codiceIPA` → `organisation.uri`, `legal.repoOwner` → `organisation.name`, and more. See [docs/versions-and-countries.md](docs/versions-and-countries.md).
 
+## publiccode.yml 1.0
+
+On the `standard-1.0-rc` branch: a 1.0.0 schema that follows the standard's release
+candidate (what 0.x deprecated is removed). See [docs/v1.0-rc.md](docs/v1.0-rc.md).
+
 ## How close is it to the parser?
 
 [docs/validation-checklist.md](docs/validation-checklist.md) lists every rule of publiccode-parser-go v0, its level (error or warning), whether the schema or the validator covers it, and what is left to the caller (network and file checks).

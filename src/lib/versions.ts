@@ -17,6 +17,7 @@ export const SCHEMA_VERSIONS = [
 	"0.5.0",
 	"0.7.0",
 	"0.8.0",
+	"1.0.0",
 ] as const;
 
 export type SchemaVersion = (typeof SCHEMA_VERSIONS)[number];
@@ -26,8 +27,15 @@ export const LATEST_SUPPORTED: SchemaVersion = "0.8.0";
 // The latest version publiccode-parser-go (and the editor's WASM validator)
 // accepts: a file upgraded past it is valid here, rejected there.
 export const PARSER_LATEST: SchemaVersion = "0.7.0";
-// The latest version of the standard.
+// The latest released version of the standard.
 export const LATEST_KNOWN: SchemaVersion = "0.8.0";
+
+// Versions that aren't released yet: 1.0.0 follows the standard's 1.0-rc
+// branch (https://github.com/publiccodeyml/publiccode.yml/tree/1.0-rc), which
+// removes what 0.x deprecated. Its rules can still change.
+export const RELEASE_CANDIDATES: readonly SchemaVersion[] = ["1.0.0"];
+export const isReleaseCandidate = (version: string) =>
+	(RELEASE_CANDIDATES as readonly string[]).includes(normalizeVersion(version));
 
 const parts = (v: string) => v.split(".").map((n) => Number.parseInt(n, 10));
 

@@ -203,7 +203,36 @@ export const coreDeprecations: Deprecation[] = [
 		find: keysAt("dependsOn.open"),
 		fix: dropAll("dependsOn.open"),
 	},
+	{
+		// Not a deprecation: 1.0 (release candidate) requires E.164 phone numbers.
+		id: "phoneE164",
+		since: "1.0.0",
+		message: "Since publiccode.yml 1.0 the phone number MUST be in the E.164 format, e.g. +390612345678 ('{value}')",
+		find: (data) =>
+			contacts(data)
+				.map((c, i) => ({ c, i }))
+				.filter(({ c }) => typeof c.phone === "string" && !E164_RE.test(c.phone))
+				.map(({ c, i }) => ({ key: `maintenance.contacts[${i}].phone`, params: { value: String(c.phone) } })),
+		// Only separators are dropped: without the international prefix the
+		// country isn't known, and the number is left for a manual fix.
+		fix: (data) => {
+			let all = true;
+			for (const c of contacts(data)) {
+				if (typeof c.phone !== "string" || E164_RE.test(c.phone)) continue;
+				const compact = c.phone.replace(/[\s.\-()/]/g, "").replace(/^00/, "+");
+				if (E164_RE.test(compact)) c.phone = compact;
+				else all = false;
+			}
+			return all;
+		},
+	},
 ];
+
+const E164_RE = /^\+[1-9][0-9]{1,14}$/;
+const contacts = (data: Data): Data[] => {
+	const list = isObject(data.maintenance) ? data.maintenance.contacts : undefined;
+	return Array.isArray(list) ? list.filter(isObject) : [];
+};
 
 export const formatMessage = (message: string, params?: Record<string, string>) =>
 	message.replace(/\{(\w+)\}/g, (m, name) => params?.[name] ?? m);

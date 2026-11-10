@@ -16,7 +16,8 @@
       "governmentScope": "The 'government' scope is DEPRECATED and will be removed in the future",
       "dependsOnOpen": "This key is DEPRECATED and will be removed in the future. Open source runtime dependencies are already declared in the SBOM or in the package manager manifests",
       "lowercaseSection": "Lowercase country codes are DEPRECATED and will be removed in the future. Use '{{value}}' instead",
-      "countrySection": "This section is DEPRECATED and will be removed in the future"
+      "countrySection": "This section is DEPRECATED and will be removed in the future",
+      "phoneE164": "Since publiccode.yml 1.0 the phone number MUST be in the E.164 format, e.g. +390612345678 ('{{value}}')"
     }
   },
   "values": {
